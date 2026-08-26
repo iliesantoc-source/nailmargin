@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NailMargin — Calculator profit manichiură</title>
+<meta name="description" content="Calculează costul real, profitul și marja serviciilor tale de manichiură.">
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#fff8fb;
+color:#251c22
+}
+.container{max-width:1000px;margin:auto;padding:24px}
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 0
+}
+.logo{font-size:24px;font-weight:900}
+.tag{
+background:#251c22;
+color:white;
+padding:9px 14px;
+border-radius:30px;
+font-size:13px
+}
+.hero{
+text-align:center;
+padding:70px 0 35px
+}
+.hero h1{
+font-size:clamp(38px,7vw,68px);
+line-height:1.05;
+max-width:850px;
+margin:0 auto 22px
+}
+.hero p{
+font-size:19px;
+line-height:1.6;
+color:#6d6068;
+max-width:680px;
+margin:auto
+}
+.button{
+display:inline-block;
+margin-top:28px;
+padding:15px 24px;
+background:#251c22;
+color:white;
+text-decoration:none;
+font-weight:800;
+border-radius:13px
+}
+.card{
+max-width:720px;
+margin:35px auto;
+background:white;
+padding:28px;
+border-radius:24px;
+border:1px solid #eadde5;
+box-shadow:0 18px 55px rgba(80,40,60,.08)
+}
+.card h2{margin-top:0}
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px
+}
+label{font-size:14px;font-weight:700}
+input{
+width:100%;
+margin-top:8px;
+padding:14px;
+border:1px solid #d8cbd3;
+border-radius:12px;
+font-size:17px
+}
+.results{
+margin-top:24px;
+background:#fff0f6;
+padding:22px;
+border-radius:18px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+text-align:center;
+gap:10px
+}
+.results span{
+font-size:12px;
+color:#786b73;
+font-weight:700
+}
+.results strong{
+display:block;
+font-size:25px;
+margin-top:6px
+}
+.section{text-align:center;padding:55px 0}
+.section h2{font-size:34px}
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px
+}
+.feature{
+background:white;
+padding:24px;
+border:1px solid #eadde5;
+border-radius:18px;
+text-align:left
+}
+.feature h3{margin-top:0}
+footer{
+text-align:center;
+padding:50px 0;
+color:#887a83
+}
+@media(max-width:650px){
+.grid,.features,.results{grid-template-columns:1fr}
+.hero{padding-top:50px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<nav>
+<div class="logo">NailMargin</div>
+<div class="tag">România · RON</div>
+</nav>
+
+<section class="hero">
+<h1>Știi cât câștigi cu adevărat din fiecare clientă?</h1>
+
+<p>
+NailMargin te ajută să calculezi costul real al serviciului,
+profitul și marja ta — simplu, în lei.
+</p>
+
+<a class="button" href="#calculator">
+Calculează gratuit
+</a>
+</section>
+
+<section class="card" id="calculator">
+
+<h2>Calculator de profit</h2>
+
+<div class="grid">
+
+<label>
+Preț serviciu (lei)
+<input id="price" type="number" value="150">
+</label>
+
+<label>
+Cost materiale (lei)
+<input id="materials" type="number" value="25">
+</label>
+
+<label>
+Durată serviciu (minute)
+<input id="minutes" type="number" value="120">
+</label>
+
+<label>
+Costuri fixe / clientă (lei)
+<input id="fixed" type="number" value="15">
+</label>
+
+</div>
+
+<div class="results">
+
+<div>
+<span>PROFIT</span>
+<strong id="profit">110 lei</strong>
+</div>
+
+<div>
+<span>MARJĂ</span>
+<strong id="margin">73.3%</strong>
+</div>
+
+<div>
+<span>PROFIT / ORĂ</span>
+<strong id="hourly">55 lei</strong>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Fă prețurile pe cifre, nu pe presupuneri.</h2>
+
+<div class="features">
+
+<div class="feature">
+<h3>Cost real</h3>
+<p>
+Vezi cât te costă efectiv fiecare serviciu după materiale și cheltuieli.
+</p>
+</div>
+
+<div class="feature">
+<h3>Profit clar</h3>
+<p>
+Descoperă imediat ce servicii îți aduc bani și unde pierzi profit.
+</p>
+</div>
+
+<div class="feature">
+<h3>Prețuri mai bune</h3>
+<p>
+Stabilește prețuri sustenabile pentru tine și afacerea ta.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 NailMargin · Creat pentru profesioniștii din industria nails
+</footer>
+
+</div>
+
+<script>
+function calculate(){
+
+const price=Number(document.getElementById("price").value)||0;
+const materials=Number(document.getElementById("materials").value)||0;
+const fixed=Number(document.getElementById("fixed").value)||0;
+const minutes=Number(document.getElementById("minutes").value)||1;
+
+const profit=price-materials-fixed;
+const margin=price ? (profit/price)*100 : 0;
+const hourly=profit/(minutes/60);
+
+document.getElementById("profit").textContent=
+profit.toFixed(0)+" lei";
+
+document.getElementById("margin").textContent=
+margin.toFixed(1)+"%";
+
+document.getElementById("hourly").textContent=
+hourly.toFixed(0)+" lei";
+}
+
+document.querySelectorAll("input").forEach(
+input=>input.addEventListener("input",calculate)
+);
+
+calculate();
+</script>
+
+</body>
+</html>
