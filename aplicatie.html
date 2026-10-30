@@ -4,655 +4,501 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>NailMargin App — Your Studio, Beautifully Organized</title>
+
 <meta name="theme-color" content="#f7f1e9">
-<meta name="description" content="NailMargin App — programări, cliente și organizarea salonului.">
-<title>NailMargin App — Your Business, Beautifully Organized</title>
+<meta name="description" content="NailMargin App — calendar, cliente, servicii și statistici pentru nail artiști.">
 
 <link rel="icon" type="image/png" href="nailmargin-academy-icon.png">
 <link rel="apple-touch-icon" href="nailmargin-academy-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-:root{
+:root {
   --cream:#f7f1e9;
   --paper:#fffdfa;
-  --ivory:#fdf8f0;
-  --champagne:#d8b899;
-  --gold:#b58b67;
-  --mocha:#765543;
   --espresso:#30221d;
+  --mocha:#765543;
+  --gold:#b58b67;
+  --champagne:#d8b899;
   --muted:#87766a;
   --line:#e2d5c7;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
   margin:0;
   background:var(--cream);
   color:var(--espresso);
   font-family:Manrope,Arial,sans-serif;
   overflow-x:hidden;
 }
-a{text-decoration:none;color:inherit}
-button{font:inherit;cursor:pointer}
-h1,h2,h3,p{margin-top:0}
-h1,h2,h3{
+
+body.modal-open {
+  overflow:hidden;
+}
+
+a {
+  text-decoration:none;
+  color:inherit;
+}
+
+button {
+  font:inherit;
+  cursor:pointer;
+}
+
+h1,h2,h3,p {
+  margin-top:0;
+}
+
+h1,h2,h3 {
   font-family:"Cormorant Garamond",Georgia,serif;
   font-weight:500;
 }
-p{line-height:1.8}
-.container{width:min(1160px,calc(100% - 40px));margin:auto}
-:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-.eyebrow{
+
+.container {
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+}
+
+.eyebrow {
   font-size:10px;
+  letter-spacing:.29em;
   font-weight:800;
-  letter-spacing:.3em;
-  text-transform:uppercase;
   color:var(--mocha);
-}
-
-/* AMBIENT */
-
-.ambient-light{
-  position:fixed;
-  width:460px;
-  height:460px;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:20;
-  background:radial-gradient(circle,#d8b89935,transparent 70%);
-  transform:translate(-50%,-50%);
-  opacity:0;
-  transition:opacity .3s;
-}
-.grain{
-  position:fixed;
-  inset:0;
-  z-index:30;
-  pointer-events:none;
-  opacity:.12;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
-}
-.particles{
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-  z-index:0;
-}
-.particle{
-  position:absolute;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:var(--gold);
-  animation:particleFloat linear infinite;
-}
-@keyframes particleFloat{
-  0%{transform:translateY(110vh);opacity:0}
-  20%{opacity:.5}
-  80%{opacity:.3}
-  100%{transform:translateY(-15vh);opacity:0}
+  text-transform:uppercase;
 }
 
 /* HEADER */
 
-.header{
+.header {
   position:sticky;
   top:0;
-  z-index:100;
-  background:#f7f1e9ed;
-  backdrop-filter:blur(22px);
-  border-bottom:1px solid #e2d5c7a8;
+  z-index:90;
+  background:#f7f1e9ee;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
   transition:box-shadow .3s;
 }
-.header.scrolled{box-shadow:0 12px 35px #30221d10}
-.nav{
-  min-height:85px;
+
+.header.scrolled {
+  box-shadow:0 10px 35px #30221d12;
+}
+
+.nav {
+  min-height:82px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:15px;
 }
-.brand{
+
+.brand {
   display:flex;
   align-items:center;
-  gap:13px;
-  flex-shrink:0;
-}
-.brand img{
-  width:53px;
-  height:53px;
-  object-fit:contain;
-  border-radius:13px;
-  transition:transform .5s var(--ease),filter .5s;
-}
-.brand:hover img{
-  transform:rotate(-7deg) scale(1.12);
-  filter:drop-shadow(0 7px 15px #b58b6780);
-}
-.brand-name{
+  gap:12px;
   font-size:12px;
   font-weight:800;
-  letter-spacing:.16em;
+  letter-spacing:.15em;
 }
-.navlinks{display:flex;gap:30px;align-items:center}
-.navlinks a{
-  position:relative;
+
+.brand img {
+  width:51px;
+  height:51px;
+  border-radius:12px;
+  object-fit:contain;
+  transition:transform .4s,filter .4s;
+}
+
+.brand:hover img {
+  transform:rotate(-8deg) scale(1.08);
+  filter:drop-shadow(0 8px 14px #b58b6770);
+}
+
+.navlinks {
+  display:flex;
+  gap:26px;
+}
+
+.navlinks a {
   font-size:12px;
   font-weight:700;
-  padding:12px 0;
-  transition:color .3s;
+  padding:8px 0;
+  border-bottom:1px solid transparent;
+  transition:color .3s,border-color .3s;
 }
-.navlinks a:hover{color:var(--gold)}
-.navlinks a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:5px;
-  width:0;
-  height:1px;
-  background:var(--gold);
-  transition:width .4s var(--ease);
-}
-.navlinks a:hover::after,
-.navlinks a.active::after{width:100%}
 
-/* BUTTONS */
-
-.btn{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  min-height:53px;
-  padding:16px 27px;
-  border:1px solid var(--espresso);
-  background:transparent;
-  color:var(--espresso);
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.11em;
-  text-transform:uppercase;
-  overflow:hidden;
-  isolation:isolate;
-  transition:transform .4s var(--ease),background .4s,color .4s,box-shadow .4s;
+.navlinks a:hover,
+.navlinks a.active {
+  color:var(--mocha);
+  border-color:var(--gold);
 }
-.btn::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  background:linear-gradient(110deg,transparent 25%,#ffffff55 50%,transparent 75%);
-  transform:translateX(-150%);
-  transition:transform .75s;
-}
-.btn:hover::before{transform:translateX(150%)}
-.btn:hover{
-  transform:translateY(-4px);
-  box-shadow:0 15px 30px #30221d20;
-}
-.btn:active{transform:scale(.96)}
-.btn-dark{background:var(--espresso);color:white}
-.btn-dark:hover{background:var(--mocha)}
-.btn-outline:hover{background:var(--espresso);color:white}
-.ripple{
-  position:absolute;
-  border-radius:50%;
-  background:#ffffff55;
-  transform:scale(0);
-  animation:ripple .65s linear;
-  pointer-events:none;
-}
-@keyframes ripple{to{transform:scale(4);opacity:0}}
 
 /* HERO */
 
-.hero{
+.hero {
   position:relative;
   overflow:hidden;
-  min-height:730px;
-  display:flex;
-  align-items:center;
   background:
-    radial-gradient(ellipse at 12% 20%,#dfc5aa77,transparent 43%),
-    radial-gradient(ellipse at 85% 80%,#bca18b55,transparent 45%),
+    radial-gradient(ellipse at 20% 0%,#e8d5c5,transparent 55%),
+    radial-gradient(ellipse at 90% 100%,#e4d1be,transparent 50%),
     var(--cream);
+  padding:65px 0 85px;
 }
-.hero::before,.hero::after{
+
+.hero::before {
   content:"";
   position:absolute;
   width:700px;
   height:700px;
-  right:-220px;
-  top:-170px;
+  border:1px solid #b58b6736;
   border-radius:50%;
-  border:1px solid #b58b6740;
+  right:-320px;
+  top:-340px;
   animation:orbit 25s linear infinite;
 }
-.hero::after{
-  width:550px;
-  height:550px;
-  right:-120px;
-  top:-80px;
-  animation-direction:reverse;
+
+.hero::after {
+  content:"";
+  position:absolute;
+  width:470px;
+  height:470px;
+  border:1px solid #b58b6730;
+  border-radius:50%;
+  left:-300px;
+  bottom:-200px;
+  animation:orbit 30s linear infinite reverse;
 }
-@keyframes orbit{to{transform:rotate(360deg) scale(1.06)}}
-.hero-inner{
+
+.hero-inner {
   position:relative;
-  z-index:2;
-  width:100%;
-  padding:100px 0;
+  z-index:1;
   text-align:center;
 }
-.hero-logo{
-  width:135px;
-  height:135px;
+
+.hero-logo {
+  width:90px;
+  height:90px;
   object-fit:contain;
-  border-radius:30px;
-  box-shadow:0 20px 60px #76554335;
-  animation:logoFloat 7s ease-in-out infinite,logoEntrance 1.2s both;
+  border-radius:20px;
+  box-shadow:0 15px 35px #76554328;
+  animation:float 6s ease-in-out infinite;
 }
-@keyframes logoFloat{
-  50%{transform:translateY(-13px) rotate(3deg)}
-}
-@keyframes logoEntrance{
-  from{opacity:0;filter:blur(10px)}
-  to{opacity:1;filter:blur(0)}
-}
-.hero h1{
-  font-size:clamp(55px,8vw,110px);
-  line-height:.95;
+
+.hero h1 {
+  font-size:clamp(52px,7.4vw,103px);
+  line-height:.94;
   letter-spacing:-.045em;
-  margin:35px auto 25px;
-  max-width:1050px;
-  animation:fadeUp 1.3s .15s both;
+  margin:22px 0;
+  animation:appear 1s both;
 }
-.hero h1 em{color:var(--mocha);font-weight:400}
-.hero-description{
-  max-width:670px;
-  margin:0 auto;
+
+.hero h1 em {
+  color:var(--mocha);
+  font-weight:400;
+}
+
+.hero-sub {
   color:var(--muted);
-  font-size:14px;
-  animation:fadeUp 1.3s .3s both;
+  font-size:13px;
+  line-height:1.8;
+  margin:18px auto 0;
+  max-width:550px;
+  animation:appear 1.2s .15s both;
 }
-.hero-actions{
+
+/* GALLERY */
+
+.gallery-title {
+  margin:55px 0 28px;
   display:flex;
+  align-items:center;
   justify-content:center;
-  flex-wrap:wrap;
-  gap:13px;
-  margin-top:35px;
-  animation:fadeUp 1.3s .45s both;
+  gap:15px;
 }
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(35px)}
-  to{opacity:1;transform:translateY(0)}
+
+.gallery-title::before,
+.gallery-title::after {
+  content:"";
+  height:1px;
+  width:55px;
+  background:var(--champagne);
 }
-.hero-scroll{
+
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:26px;
+  align-items:start;
+  max-width:1050px;
+  margin:auto;
+}
+
+.screen {
   display:block;
-  margin-top:60px;
-  font-size:10px;
-  letter-spacing:.2em;
-  color:var(--muted);
-  animation:scrollBounce 2s infinite;
+  width:100%;
+  border:1px solid #ffffffbd;
+  background:#fffdfb;
+  border-radius:30px;
+  padding:9px;
+  box-shadow:0 18px 35px #60452e1c;
+  overflow:hidden;
+  transition:transform .55s var(--ease),box-shadow .55s;
+  cursor:zoom-in;
+  position:relative;
+  color:var(--espresso);
+  text-align:left;
+  animation:appear 1s both;
 }
-@keyframes scrollBounce{50%{transform:translateY(10px)}}
+
+.screen:nth-child(2) {
+  animation-delay:.12s;
+}
+
+.screen:nth-child(3) {
+  animation-delay:.24s;
+}
+
+.screen:hover {
+  transform:translateY(-14px) rotate(-1deg);
+  box-shadow:0 28px 60px #60452e30;
+}
+
+.screen img {
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:22px;
+}
+
+.screen-label {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 5px 4px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.09em;
+}
+
+.screen-label span:last-child {
+  color:var(--gold);
+  font-size:15px;
+}
+
+.gallery-note {
+  margin:25px 0 0;
+  color:var(--muted);
+  font-size:11px;
+}
 
 /* MARQUEE */
 
-.marquee{
+.marquee {
   background:var(--espresso);
   color:#e6d3bf;
   overflow:hidden;
   padding:19px 0;
 }
-.marquee-track{
+
+.track {
   display:flex;
   width:max-content;
-  animation:marquee 38s linear infinite;
+  animation:marquee 35s linear infinite;
 }
-.marquee-track span{
+
+.track span {
   white-space:nowrap;
   font-size:10px;
-  letter-spacing:.28em;
-  margin-right:55px;
+  letter-spacing:.26em;
+  margin-right:60px;
 }
-.marquee-track b{margin-left:55px;color:var(--champagne)}
-@keyframes marquee{to{transform:translateX(-50%)}}
 
-/* SECTION HEADINGS */
-
-.intro{padding:110px 0 90px;text-align:center}
-.intro h2{
-  font-size:clamp(52px,6vw,85px);
-  line-height:1.02;
-  max-width:850px;
-  margin:22px auto;
-}
-.intro h2 em{color:var(--mocha);font-weight:400}
-.intro p{
-  max-width:650px;
-  margin:auto;
-  color:var(--muted);
-  font-size:14px;
-}
-.section-heading{
-  text-align:center;
-  max-width:770px;
-  margin:0 auto 45px;
-}
-.section-heading h2{
-  font-size:clamp(52px,6vw,83px);
-  line-height:1.05;
-  margin:20px 0;
-}
-.section-heading h2 em{color:var(--mocha)}
-.section-heading p{color:var(--muted);font-size:14px}
-
-/* FEATURES */
-
-.features{padding:35px 0 125px}
-.feature-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:18px;
-}
-.feature-card{
-  position:relative;
-  background:var(--paper);
-  border:1px solid var(--line);
-  padding:38px 30px;
-  min-height:265px;
-  overflow:hidden;
-  transform-style:preserve-3d;
-  transition:transform .25s,box-shadow .5s,border-color .4s;
-}
-.feature-card:hover{
-  box-shadow:0 25px 55px #30221d20;
-  border-color:var(--champagne);
-}
-.feature-card::before{
-  content:"";
-  position:absolute;
-  width:200px;
-  height:200px;
-  right:-100px;
-  top:-100px;
-  border-radius:50%;
-  background:radial-gradient(circle,#d8b89970,transparent 70%);
-  transition:transform .6s;
-}
-.feature-card:hover::before{transform:scale(1.8)}
-.feature-number{
-  position:relative;
-  font-family:"Cormorant Garamond",serif;
-  font-size:49px;
+.track b {
   color:var(--champagne);
-}
-.feature-card h3{
-  position:relative;
-  font-size:35px;
-  margin:14px 0;
-}
-.feature-card p{
-  position:relative;
-  color:var(--muted);
-  font-size:12px;
-  margin:0;
-}
-
-/* APP DEMO */
-
-.app-demo{
-  position:relative;
-  padding:110px 0;
-  background:linear-gradient(135deg,#eee0d0,#f8f1e9);
-  overflow:hidden;
-}
-.app-demo::before{
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  border-radius:50%;
-  background:radial-gradient(circle,#d8b89980,transparent 70%);
-  left:-200px;
-  bottom:-200px;
-  animation:demoGlow 9s ease-in-out infinite;
-}
-@keyframes demoGlow{
-  50%{transform:translate(120px,-100px) scale(1.2)}
-}
-.demo-grid{
-  position:relative;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-.demo-copy h2{
-  font-size:clamp(52px,6vw,85px);
-  line-height:1.02;
-}
-.demo-copy h2 em{color:var(--mocha)}
-.demo-copy p{font-size:14px;color:var(--muted)}
-
-.app-window{
-  max-width:480px;
-  width:100%;
-  background:#fffdfa;
-  border:1px solid white;
-  box-shadow:25px 30px 70px #60452e2a;
-  animation:windowFloat 8s ease-in-out infinite;
-  transition:box-shadow .5s;
-}
-.app-window:hover{box-shadow:25px 40px 85px #60452e40}
-@keyframes windowFloat{
-  50%{transform:translateY(-12px)}
-}
-.app-top{
-  background:#f4ece2;
-  padding:18px 25px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--line);
-}
-.app-top img{
-  width:43px;
-  height:43px;
-  border-radius:10px;
-  object-fit:contain;
-}
-.app-top span{
-  font-size:9px;
-  letter-spacing:.13em;
-  color:var(--muted);
-}
-.app-content{padding:25px}
-.app-month{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-.app-month h3{font-size:31px;margin:0}
-.app-month small{font-size:10px;color:var(--muted)}
-.weekdays,.days{
-  display:grid;
-  grid-template-columns:repeat(7,minmax(0,1fr));
-  text-align:center;
-  gap:8px;
-}
-.weekdays{
-  font-size:9px;
-  font-weight:800;
-  color:var(--muted);
-  margin-bottom:10px;
-}
-.day{
-  min-height:34px;
-  display:grid;
-  place-items:center;
-  font-size:11px;
-  border-radius:4px;
-  transition:background .3s,transform .3s,color .3s;
-  animation:dayEnter .5s both;
-}
-@keyframes dayEnter{
-  from{opacity:0;transform:scale(.7)}
-  to{opacity:1;transform:scale(1)}
-}
-.day.other{color:#c9b8a9}
-.day.busy{background:#ead9c8;color:#624636}
-.day.selected{background:var(--espresso);color:white}
-.day:not(.other):hover{
-  background:var(--champagne);
-  color:var(--espresso);
-  transform:scale(1.12);
-}
-.app-appointments{
-  border-top:1px solid var(--line);
-  margin-top:23px;
-  padding-top:19px;
-}
-.app-appointments h4{
-  font-size:10px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  margin:0 0 13px;
-}
-.app-appointment{
-  display:flex;
-  gap:13px;
-  align-items:center;
-  padding:11px;
-  background:#f7f1e9;
-  margin-bottom:8px;
-  border-left:2px solid var(--gold);
-  transition:transform .35s,background .35s;
-}
-.app-appointment:hover{
-  transform:translateX(7px);
-  background:#ead9c8;
-}
-.app-appointment time{font-size:11px;font-weight:800}
-.app-appointment div{font-size:11px}
-.app-appointment small{
-  display:block;
-  color:var(--muted);
-  margin-top:3px;
-  font-size:9px;
+  margin-left:60px;
 }
 
 /* PRICING */
 
-.pricing{padding:120px 0}
-.pricing-grid{
+.pricing {
+  padding:105px 0;
+}
+
+.heading {
+  text-align:center;
+  margin-bottom:38px;
+}
+
+.heading h2 {
+  font-size:clamp(51px,6vw,82px);
+  line-height:1;
+  margin:15px 0;
+}
+
+.heading h2 em {
+  color:var(--mocha);
+}
+
+.heading p {
+  font-size:13px;
+  color:var(--muted);
+}
+
+.plans {
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:22px;
-  max-width:950px;
+  max-width:930px;
   margin:auto;
 }
-.plan{
+
+.plan {
   position:relative;
   overflow:hidden;
-  padding:48px 42px;
   background:var(--paper);
+  padding:42px;
   border:1px solid var(--line);
-  transition:transform .5s var(--ease),box-shadow .5s;
+  transition:transform .4s,box-shadow .4s;
 }
-.plan:hover{
-  transform:translateY(-10px);
-  box-shadow:0 30px 65px #30221d20;
-}
-.plan.pro{
-  background:var(--espresso);
-  color:var(--ivory);
-  border-color:var(--espresso);
-}
-.plan::before{
+
+.plan::before {
   content:"";
   position:absolute;
-  width:350px;
-  height:350px;
-  right:-170px;
-  top:-170px;
+  width:280px;
+  height:280px;
   border-radius:50%;
-  background:radial-gradient(circle,#d8b89940,transparent 70%);
-  animation:planGlow 8s ease-in-out infinite;
+  background:radial-gradient(circle,#d8b89945,transparent 70%);
+  top:-140px;
+  right:-140px;
+  pointer-events:none;
+  animation:glowMove 8s ease-in-out infinite;
 }
-@keyframes planGlow{
-  50%{transform:translate(-90px,80px) scale(1.2)}
+
+.plan:hover {
+  transform:translateY(-9px);
+  box-shadow:0 22px 50px #30221d18;
 }
-.plan > *{position:relative}
-.plan-label{
+
+.plan.pro {
+  background:var(--espresso);
+  color:white;
+  border-color:var(--espresso);
+}
+
+.plan > * {
+  position:relative;
+}
+
+.plan-label {
   font-size:10px;
-  letter-spacing:.28em;
   font-weight:800;
+  letter-spacing:.25em;
 }
-.plan h3{font-size:55px;margin:22px 0 10px}
-.plan-price{
+
+.plan h3 {
+  font-size:52px;
+  margin:18px 0 4px;
+}
+
+.price {
   font-family:"Cormorant Garamond",serif;
-  font-size:68px;
-  line-height:1;
-  margin-bottom:15px;
+  font-size:64px;
 }
-.plan-price small{
-  font-family:Manrope,sans-serif;
-  font-size:11px;
-  font-weight:600;
+
+.price small {
+  font:600 11px Manrope,sans-serif;
 }
-.plan-description{
-  color:var(--muted);
+
+.plan ul {
+  list-style:none;
+  padding:0;
+  margin:22px 0 28px;
+}
+
+.plan li {
+  padding:12px 0;
+  border-bottom:1px solid #b58b6730;
   font-size:12px;
-  min-height:70px;
 }
-.plan.pro .plan-description{color:#d7c5b7}
-.plan-list{margin:28px 0 35px;padding:0;list-style:none}
-.plan-list li{
-  font-size:12px;
-  padding:13px 0;
-  border-bottom:1px solid var(--line);
-}
-.plan-list li::before{
+
+.plan li::before {
   content:"✧";
   color:var(--gold);
-  margin-right:10px;
+  margin-right:12px;
 }
-.plan.pro .plan-list li{border-color:#ffffff24}
-.plan.pro .plan-list li::before{color:var(--champagne)}
-.plan .btn{width:100%}
-.plan.pro .btn{
-  background:var(--champagne);
-  color:var(--espresso);
-  border-color:var(--champagne);
+
+.plan.pro li::before {
+  color:var(--champagne);
 }
-.plan-note{
-  text-align:center;
+
+.btn {
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  padding:14px 25px;
+  border:1px solid var(--espresso);
+  background:var(--espresso);
+  color:white;
   font-size:11px;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  overflow:hidden;
+  transition:transform .3s,background .3s;
+}
+
+.btn:hover {
+  transform:translateY(-4px);
+  background:var(--mocha);
+}
+
+.plan .btn {
+  width:100%;
+}
+
+.plan.pro .btn {
+  background:var(--champagne);
+  border-color:var(--champagne);
+  color:var(--espresso);
+}
+
+.disclaimer {
+  text-align:center;
   color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+  max-width:760px;
   margin:25px auto 0;
-  max-width:900px;
 }
 
 /* CLOSING */
 
-.closing{
-  background:var(--espresso);
-  color:var(--ivory);
-  text-align:center;
-  padding:110px 20px;
+.closing {
   position:relative;
   overflow:hidden;
+  background:var(--espresso);
+  color:white;
+  padding:85px 20px;
+  text-align:center;
 }
-.closing::before{
+
+.closing::before {
   content:"";
   position:absolute;
   width:500px;
@@ -664,124 +510,321 @@ p{line-height:1.8}
   transform:translate(-50%,-50%);
   animation:closingPulse 8s ease-in-out infinite;
 }
-@keyframes closingPulse{
-  50%{transform:translate(-50%,-50%) scale(1.35)}
+
+.closing-content {
+  position:relative;
 }
-.closing-content{position:relative}
-.closing .eyebrow{color:var(--champagne)}
-.closing h2{
-  font-size:clamp(55px,7vw,100px);
+
+.closing h2 {
+  font-size:clamp(55px,7vw,90px);
   line-height:1;
-  margin:25px 0;
+  margin:18px 0;
 }
-.closing h2 em{color:var(--champagne);font-weight:400}
-.closing p{
+
+.closing h2 em {
+  color:var(--champagne);
+}
+
+.closing p {
   font-size:13px;
   color:#d7c5b7;
-  max-width:580px;
-  margin:0 auto 30px;
+  line-height:1.8;
 }
-.closing .btn{
-  border-color:var(--champagne);
-  color:var(--espresso);
+
+.closing .btn {
   background:var(--champagne);
+  color:var(--espresso);
+  border-color:var(--champagne);
+  margin-top:15px;
 }
 
 /* FOOTER */
 
-footer{
-  padding:65px 0 30px;
+footer {
   background:#211915;
   color:#d9c5b3;
+  padding:50px 0 25px;
 }
-.footer-grid{
+
+.footer-row {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:30px;
+  gap:25px;
   flex-wrap:wrap;
 }
-.footer-logo{
-  width:82px;
-  height:82px;
-  border-radius:19px;
-  object-fit:contain;
-  transition:transform .5s,filter .5s;
+
+.footer-logo {
+  width:75px;
+  height:75px;
+  border-radius:17px;
+  transition:transform .4s;
 }
-.footer-logo:hover{
-  transform:scale(1.12) rotate(5deg);
-  filter:drop-shadow(0 8px 15px #d8b89955);
+
+.footer-logo:hover {
+  transform:rotate(5deg) scale(1.1);
 }
-footer p,footer a{font-size:11px;color:#c9b6a6}
-footer a:hover{color:white}
-.footer-links{display:flex;gap:25px;flex-wrap:wrap}
-.footer-bottom{
+
+.footer-links {
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+  font-size:11px;
+}
+
+.footer-links a:hover {
+  color:white;
+}
+
+.footer-bottom {
+  margin-top:35px;
   border-top:1px solid #ffffff25;
-  padding-top:23px;
-  margin-top:42px;
-  font-size:10px;
+  padding-top:20px;
   color:#b3a093;
+  font-size:10px;
 }
 
-/* SCROLL REVEAL */
+/* LIGHTBOX */
 
-.reveal{
+.lightbox {
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:#211915ed;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:40px 18px 20px;
+  backdrop-filter:blur(15px);
+}
+
+.lightbox.open {
+  display:flex;
+}
+
+.lightbox img {
+  display:block;
+  max-height:88vh;
+  max-width:90vw;
+  object-fit:contain;
+  border-radius:16px;
+  box-shadow:0 20px 90px #0007;
+}
+
+.lightbox-close {
+  position:absolute;
+  right:18px;
+  top:15px;
+  background:white;
+  border:0;
+  border-radius:50%;
+  width:43px;
+  height:43px;
+  font-size:23px;
+  z-index:1;
+}
+
+.lightbox-arrow {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#ffffffd9;
+  border:0;
+  border-radius:50%;
+  width:43px;
+  height:43px;
+  font-size:23px;
+}
+
+.lightbox-prev {
+  left:12px;
+}
+
+.lightbox-next {
+  right:12px;
+}
+
+/* REVEAL */
+
+.reveal {
   opacity:0;
-  transform:translateY(45px);
-  transition:opacity 1s var(--ease),transform 1s var(--ease);
+  transform:translateY(35px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
 }
-.reveal.visible{opacity:1;transform:none}
 
-/* RESPONSIVE */
+.reveal.visible {
+  opacity:1;
+  transform:none;
+}
 
-@media(max-width:850px){
-  .demo-grid{grid-template-columns:1fr}
-  .feature-grid{grid-template-columns:1fr 1fr}
-  .hero{min-height:620px}
-  .app-window{margin:auto}
+/* KEYFRAMES */
+
+@keyframes float {
+  50% {
+    transform:translateY(-10px);
+  }
 }
-@media(max-width:650px){
-  .container{width:calc(100% - 30px)}
-  .nav{min-height:74px}
-  .brand img{width:42px;height:42px;border-radius:10px}
-  .brand-name{font-size:10px}
-  .navlinks{gap:12px}
-  .navlinks a{font-size:10px}
-  .hero-inner{padding:75px 0 90px}
-  .hero h1{font-size:clamp(48px,10vw,70px)}
-  .hero-logo{width:100px;height:100px;border-radius:23px}
-  .hero{min-height:540px}
-  .intro{padding:75px 0}
-  .feature-grid,.pricing-grid{grid-template-columns:1fr}
-  .features{padding:30px 0 80px}
-  .pricing{padding:80px 0}
-  .plan{padding:35px 25px}
-  .closing{padding:85px 18px}
-  .app-content{padding:16px}
+
+@keyframes orbit {
+  to {
+    transform:rotate(360deg) scale(1.07);
+  }
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
+
+@keyframes appear {
+  from {
+    opacity:0;
+    transform:translateY(35px);
+  }
+  to {
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform:translateX(-50%);
+  }
+}
+
+@keyframes glowMove {
+  50% {
+    transform:translate(-80px,80px) scale(1.2);
+  }
+}
+
+@keyframes closingPulse {
+  50% {
+    transform:translate(-50%,-50%) scale(1.3);
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:800px) {
+  .gallery {
+    gap:13px;
+  }
+
+  .hero {
+    padding:55px 0 65px;
+  }
+
+  .screen {
+    border-radius:23px;
+  }
+
+  .screen img {
+    border-radius:16px;
+  }
+}
+
+@media(max-width:560px) {
+  .container {
+    width:calc(100% - 26px);
+  }
+
+  .nav {
+    min-height:70px;
+  }
+
+  .brand img {
+    width:40px;
+    height:40px;
+  }
+
+  .brand span {
+    display:none;
+  }
+
+  .navlinks {
+    gap:13px;
+  }
+
+  .navlinks a {
+    font-size:10px;
+  }
+
+  .hero h1 {
+    font-size:clamp(49px,12vw,70px);
+  }
+
+  .hero-logo {
+    width:70px;
+    height:70px;
+  }
+
+  .gallery {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px;
+  }
+
+  .screen {
+    padding:4px;
+    border-radius:12px;
+  }
+
+  .screen img {
+    border-radius:8px;
+  }
+
+  .screen-label {
+    padding:8px 1px 2px;
+    font-size:7px;
+    letter-spacing:0;
+  }
+
+  .screen-label span:last-child {
+    font-size:11px;
+  }
+
+  .gallery-title {
+    margin-top:38px;
+  }
+
+  .plans {
+    grid-template-columns:1fr;
+  }
+
+  .plan {
+    padding:30px;
+  }
+
+  .pricing {
+    padding:70px 0;
+  }
+
+  .lightbox-arrow {
+    top:auto;
+    bottom:15px;
+    transform:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
     animation:none!important;
     transition:none!important;
     scroll-behavior:auto!important;
   }
-  .reveal{opacity:1;transform:none}
+
+  .reveal {
+    opacity:1;
+    transform:none;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="ambient-light" id="ambientLight" aria-hidden="true"></div>
-<div class="grain" aria-hidden="true"></div>
-<div class="particles" id="particles" aria-hidden="true"></div>
-
 <header class="header" id="header">
   <div class="container nav">
 
-    <a href="index.html" class="brand" aria-label="NailMargin — pagina principală">
+    <a class="brand" href="index.html">
       <img src="nailmargin-academy-icon.png" alt="NailMargin">
-      <span class="brand-name">NAILMARGIN</span>
+      <span>NAILMARGIN</span>
     </a>
 
     <nav class="navlinks" aria-label="Meniu principal">
@@ -801,38 +844,90 @@ footer a:hover{color:white}
   <div class="container hero-inner">
 
     <img
-      src="nailmargin-academy-icon.png"
-      alt="NailMargin"
       class="hero-logo"
+      src="nailmargin-academy-icon.png"
+      alt="NailMargin App"
     >
 
-    <div style="margin-top:30px">
-      <span class="eyebrow">NAILMARGIN APP · THE NEXT CHAPTER</span>
+    <div style="margin-top:22px" class="eyebrow">
+      NAILMARGIN APP · FOR NAIL ARTISTS
     </div>
 
     <h1>
-      Your business,<br>
+      Your studio,<br>
       <em>beautifully organized.</em>
     </h1>
 
-    <p class="hero-description">
-      Programările, clientele și organizarea salonului tău,
-      într-un singur loc. O aplicație gândită pentru profesioniștii
-      care vor mai multă claritate și mai puțin stres.
+    <p class="hero-sub">
+      Calendar. Cliente. Servicii. Statistici.<br>
+      Totul într-o singură aplicație, creată pentru tine.
     </p>
 
-    <div class="hero-actions">
-      <a href="#functionalitati" class="btn btn-dark">
-        Descoperă aplicația ↗
-      </a>
-      <a href="#abonamente" class="btn btn-outline">
-        Vezi abonamentele ↗
-      </a>
+    <!-- GALERIE CU 3 IMAGINI -->
+
+    <div class="gallery-title eyebrow">
+      DESCOPERĂ APLICAȚIA
     </div>
 
-    <a href="#functionalitati" class="hero-scroll">
-      SCROLL TO EXPLORE ↓
-    </a>
+    <div class="gallery" id="gallery">
+
+      <button
+        class="screen"
+        type="button"
+        data-index="0"
+        aria-label="Mărește captura Calendar"
+      >
+        <img
+          src="nailmargin-screen-1.webp"
+          alt="Calendarul NailMargin pe iPhone"
+          loading="eager"
+        >
+        <div class="screen-label">
+          <span>01 · CALENDAR</span>
+          <span>↗</span>
+        </div>
+      </button>
+
+      <button
+        class="screen"
+        type="button"
+        data-index="1"
+        aria-label="Mărește captura Servicii"
+      >
+        <img
+          src="nailmargin-screen-2.webp"
+          alt="Serviciile și tarifele din NailMargin"
+          loading="eager"
+        >
+        <div class="screen-label">
+          <span>02 · SERVICII</span>
+          <span>↗</span>
+        </div>
+      </button>
+
+      <button
+        class="screen"
+        type="button"
+        data-index="2"
+        aria-label="Mărește captura Statistici"
+      >
+        <img
+          src="nailmargin-screen-3.webp"
+          alt="Statistici NailMargin"
+          loading="eager"
+        >
+        <div class="screen-label">
+          <span>03 · STATISTICI</span>
+          <span>↗</span>
+        </div>
+      </button>
+
+    </div>
+
+    <p class="gallery-note">
+      Capturi reale din versiunea iPhone testată prin TestFlight.
+      Apasă pe o imagine pentru a o mări.
+    </p>
 
   </div>
 </section>
@@ -840,309 +935,119 @@ footer a:hover{color:white}
 <!-- MARQUEE -->
 
 <div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>YOUR BUSINESS, BEAUTIFULLY ORGANIZED <b>✧</b></span>
-    <span>MORE BEAUTY, LESS CHAOS <b>✧</b></span>
-    <span>MADE FOR NAIL ARTISTS <b>✧</b></span>
-    <span>YOUR TIME IS YOUR LUXURY <b>✧</b></span>
-    <span>YOUR BUSINESS, BEAUTIFULLY ORGANIZED <b>✧</b></span>
-    <span>MORE BEAUTY, LESS CHAOS <b>✧</b></span>
-    <span>MADE FOR NAIL ARTISTS <b>✧</b></span>
-    <span>YOUR TIME IS YOUR LUXURY <b>✧</b></span>
+  <div class="track">
+    <span>YOUR STUDIO · YOUR RULES <b>✧</b></span>
+    <span>CALENDAR · CLIENTS · SERVICES <b>✧</b></span>
+    <span>BEAUTY MEETS BUSINESS <b>✧</b></span>
+    <span>YOUR STUDIO · YOUR RULES <b>✧</b></span>
+    <span>CALENDAR · CLIENTS · SERVICES <b>✧</b></span>
+    <span>BEAUTY MEETS BUSINESS <b>✧</b></span>
   </div>
 </div>
 
-<!-- INTRO -->
-
-<section class="intro container reveal">
-  <span class="eyebrow">Designed for your everyday business</span>
-
-  <h2>
-    Less chaos.<br>
-    <em>More beauty.</em>
-  </h2>
-
-  <p>
-    Mai puțin timp pierdut cu organizarea și mai mult timp
-    pentru ceea ce faci cel mai bine: să creezi.
-  </p>
-</section>
-
-<!-- FEATURES -->
-
-<section class="features" id="functionalitati">
-  <div class="container">
-
-    <div class="section-heading reveal">
-      <span class="eyebrow">EVERYTHING YOU NEED</span>
-      <h2>Made for the way you work.</h2>
-      <p>
-        Instrumentele esențiale pentru un salon organizat,
-        într-o experiență intuitivă.
-      </p>
-    </div>
-
-    <div class="feature-grid">
-
-      <article class="feature-card reveal tilt-card">
-        <span class="feature-number">01</span>
-        <h3>Calendar inteligent</h3>
-        <p>
-          Vizualizează programările într-un calendar clar.
-          Organizează-ți zilele și păstrează controlul asupra timpului.
-        </p>
-      </article>
-
-      <article class="feature-card reveal tilt-card">
-        <span class="feature-number">02</span>
-        <h3>Evidența clientelor</h3>
-        <p>
-          Păstrează informațiile importante despre clientele tale
-          și consultă mai ușor istoricul programărilor.
-        </p>
-      </article>
-
-      <article class="feature-card reveal tilt-card">
-        <span class="feature-number">03</span>
-        <h3>Remindere SMS</h3>
-        <p>
-          Notificări pentru programări, planificate pentru
-          versiunea viitoare a aplicației.
-        </p>
-      </article>
-
-      <article class="feature-card reveal tilt-card">
-        <span class="feature-number">04</span>
-        <h3>Organizare simplă</h3>
-        <p>
-          Adaugă, verifică și gestionează programările
-          fără agende complicate.
-        </p>
-      </article>
-
-      <article class="feature-card reveal tilt-card">
-        <span class="feature-number">05</span>
-        <h3>Design premium</h3>
-        <p>
-          O interfață elegantă, în nuanțe calde,
-          creată pentru profesioniștii care apreciază detaliile.
-        </p>
-      </article>
-
-      <article class="feature-card reveal tilt-card">
-        <span class="feature-number">06</span>
-        <h3>Business în evoluție</h3>
-        <p>
-          De la primele cliente până la un program încărcat,
-          NailMargin este concepută să crească odată cu tine.
-        </p>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- APP DEMO -->
-
-<section class="app-demo">
-  <div class="container demo-grid">
-
-    <div class="demo-copy reveal">
-      <span class="eyebrow">A MORE INTENTIONAL BUSINESS</span>
-
-      <h2>
-        Your time is<br>
-        <em>your luxury.</em>
-      </h2>
-
-      <p>
-        Fiecare minut dedicat organizării este un minut
-        pe care l-ai putea investi în creativitate,
-        perfecționare sau odihnă.
-      </p>
-
-      <p>
-        Iată cum ar putea arăta agenda NailMargin.
-      </p>
-
-      <p>
-        <strong>Previzualizare demonstrativă.</strong>
-        Datele afișate sunt fictive.
-      </p>
-    </div>
-
-    <div class="app-window reveal">
-
-      <div class="app-top">
-        <img src="nailmargin-academy-icon.png" alt="NailMargin">
-        <span>YOUR DAILY STUDIO</span>
-      </div>
-
-      <div class="app-content">
-
-        <div class="app-month">
-          <h3 id="demoMonth">Calendar</h3>
-          <small>DEMO</small>
-        </div>
-
-        <div class="weekdays">
-          <span>Lu</span>
-          <span>Ma</span>
-          <span>Mi</span>
-          <span>Jo</span>
-          <span>Vi</span>
-          <span>Sâ</span>
-          <span>Du</span>
-        </div>
-
-        <div class="days" id="demoCalendar"></div>
-
-        <div class="app-appointments">
-          <h4>Programările zilei · Exemplu</h4>
-
-          <div class="app-appointment">
-            <time>10:00</time>
-            <div>
-              Maria P.
-              <small>Întreținere gel</small>
-            </div>
-          </div>
-
-          <div class="app-appointment">
-            <time>13:30</time>
-            <div>
-              Alexandra M.
-              <small>Manichiură semipermanentă</small>
-            </div>
-          </div>
-
-          <div class="app-appointment">
-            <time>16:00</time>
-            <div>
-              Ioana D.
-              <small>Pedichiură estetică</small>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PRICING -->
+<!-- ABONAMENTE -->
 
 <section class="pricing" id="abonamente">
   <div class="container">
 
-    <div class="section-heading reveal">
+    <div class="heading reveal">
       <span class="eyebrow">SIMPLE & TRANSPARENT</span>
-      <h2>Choose your way to grow.</h2>
+
+      <h2>
+        Choose your <em>next chapter.</em>
+      </h2>
+
       <p>
-        Începe gratuit, apoi treci la un plan care îți oferă
-        mai mult spațiu pentru business.
+        Două planuri. Un singur loc pentru business-ul tău.
       </p>
     </div>
 
-    <div class="pricing-grid">
+    <div class="plans">
 
       <article class="plan reveal">
-        <span class="plan-label">NAILMARGIN FREE</span>
+
+        <span class="plan-label">
+          NAILMARGIN FREE
+        </span>
 
         <h3>The beginning.</h3>
 
-        <div class="plan-price">0 lei</div>
-
-        <p class="plan-description">
-          Pentru nail artiștii care își doresc să înceapă
-          organizarea digitală.
-        </p>
-
-        <ul class="plan-list">
-          <li>Până la 6 cliente în evidență</li>
-          <li>Calendar de programări</li>
-          <li>Gestionarea informațiilor de bază</li>
-          <li>Interfață simplă și elegantă</li>
-        </ul>
-
-        <a href="#disponibilitate" class="btn btn-outline">
-          Vezi disponibilitatea ↗
-        </a>
-      </article>
-
-      <article class="plan pro reveal">
-        <span class="plan-label">NAILMARGIN PRO</span>
-
-        <h3>The next level.</h3>
-
-        <div class="plan-price">
-          80 lei <small>/ lună</small>
+        <div class="price">
+          0 lei
         </div>
 
-        <p class="plan-description">
-          Pentru profesioniștii care vor să-și organizeze
-          activitatea fără limita planului gratuit.
-        </p>
-
-        <ul class="plan-list">
-          <li>Cliente nelimitate</li>
-          <li>Calendar de programări</li>
-          <li>Istoric și organizare cliente</li>
-          <li>Funcționalități avansate planificate</li>
-          <li>Remindere SMS — condițiile vor fi anunțate</li>
+        <ul>
+          <li>Până la 6 cliente</li>
+          <li>Calendar și programări</li>
+          <li>Servicii și tarife</li>
+          <li>Organizare simplă</li>
         </ul>
 
         <a href="#disponibilitate" class="btn">
-          Vezi disponibilitatea ↗
+          Disponibilitate ↗
         </a>
+
+      </article>
+
+      <article class="plan pro reveal">
+
+        <span class="plan-label">
+          NAILMARGIN PRO
+        </span>
+
+        <h3>The next level.</h3>
+
+        <div class="price">
+          80 lei <small>/ lună</small>
+        </div>
+
+        <ul>
+          <li>Cliente nelimitate</li>
+          <li>Calendar și programări</li>
+          <li>Servicii și statistici</li>
+          <li>Funcționalități avansate planificate</li>
+          <li>Remindere SMS planificate</li>
+        </ul>
+
+        <a href="#disponibilitate" class="btn">
+          Disponibilitate ↗
+        </a>
+
       </article>
 
     </div>
 
-    <p class="plan-note">
-      Prețurile și funcționalitățile afișate reprezintă
-      planurile propuse pentru lansare.
-      Activarea abonamentelor și condițiile SMS
-      vor fi comunicate înainte de disponibilitatea comercială.
+    <p class="disclaimer">
+      Aplicația este în testare prin TestFlight,
+      nu disponibilă încă public.
+      Prețurile și funcționalitățile abonamentelor
+      sunt propuse pentru lansare.
+      Condițiile finale vor fi comunicate ulterior.
     </p>
 
   </div>
 </section>
 
-<!-- AVAILABILITY -->
+<!-- FINAL -->
 
-<section id="disponibilitate" class="intro container reveal">
-  <span class="eyebrow">COMING SOON</span>
+<section class="closing" id="disponibilitate">
+  <div class="closing-content">
 
-  <h2>
-    Built for <em>your next chapter.</em>
-  </h2>
-
-  <p>
-    Aplicația este în pregătire. Această pagină este de prezentare,
-    iar abonamentele nu pot fi activate încă.
-  </p>
-</section>
-
-<!-- CLOSING -->
-
-<section class="closing">
-  <div class="closing-content reveal">
-
-    <span class="eyebrow">THE NEXT CHAPTER</span>
+    <span class="eyebrow" style="color:var(--champagne)">
+      COMING SOON
+    </span>
 
     <h2>
-      Your next chapter<br>
-      <em>starts here.</em>
+      Beautiful business.<br>
+      <em>Better days.</em>
     </h2>
 
     <p>
-      NailMargin App este în pregătire.
-      Între timp, poți folosi gratuit calculatorul de prețuri.
+      NailMargin App este în testare pentru iPhone.<br>
+      Între timp, descoperă calculatorul gratuit de prețuri.
     </p>
 
-    <a href="index.html#calculator" class="btn">
+    <a class="btn" href="index.html#calculator">
       Încearcă calculatorul ↗
     </a>
 
@@ -1156,206 +1061,212 @@ footer a:hover{color:white}
 <footer>
   <div class="container">
 
-    <div class="footer-grid">
+    <div class="footer-row">
 
       <div>
         <img
+          class="footer-logo"
           src="nailmargin-academy-icon.png"
           alt="NailMargin"
-          class="footer-logo"
         >
-        <p>BEAUTY · BUSINESS · ACADEMY</p>
+
+        <p style="font-size:11px;color:#c9b6a6">
+          BEAUTY · BUSINESS · ACADEMY
+        </p>
       </div>
 
-      <div class="footer-links">
+      <nav class="footer-links">
         <a href="index.html">Calculator</a>
         <a href="aplicatie.html">Aplicație</a>
         <a href="academy.html">Academy</a>
-      </div>
+      </nav>
 
     </div>
 
     <div class="footer-bottom">
-      © 2026 NailMargin. Creat pentru profesioniștii din industria nails.
+      © 2026 NailMargin.
+      Creat pentru profesioniștii din industria nails.
     </div>
 
   </div>
 </footer>
 
+<!-- IMAGE LIGHTBOX -->
+
+<div
+  class="lightbox"
+  id="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Captură de ecran mărită"
+  hidden
+>
+
+  <button
+    type="button"
+    class="lightbox-close"
+    aria-label="Închide"
+  >×</button>
+
+  <button
+    type="button"
+    class="lightbox-arrow lightbox-prev"
+    aria-label="Imaginea precedentă"
+  >‹</button>
+
+  <img
+    id="lightboxImage"
+    alt="Captură NailMargin mărită"
+  >
+
+  <button
+    type="button"
+    class="lightbox-arrow lightbox-next"
+    aria-label="Imaginea următoare"
+  >›</button>
+
+</div>
+
 <script>
 "use strict";
 
-/* ==========================================
-   DEMO CALENDAR
-========================================== */
+/* GALERIE */
 
-const monthNames = [
-  "Ianuarie","Februarie","Martie","Aprilie",
-  "Mai","Iunie","Iulie","August",
-  "Septembrie","Octombrie","Noiembrie","Decembrie"
+const screens = [
+  ...document.querySelectorAll(".screen")
 ];
 
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth();
-const selectedDay = today.getDate();
+const lightbox =
+  document.getElementById("lightbox");
 
-document.getElementById("demoMonth").textContent =
-  monthNames[month] + " " + year;
+const bigImage =
+  document.getElementById("lightboxImage");
 
-const offset =
-  (new Date(year,month,1).getDay()+6)%7;
+let activeImage = 0;
+let returnFocus = null;
 
-const count =
-  new Date(year,month+1,0).getDate();
+function showImage(index) {
+  activeImage =
+    (index + screens.length) % screens.length;
 
-const previous =
-  new Date(year,month,0).getDate();
+  const image =
+    screens[activeImage].querySelector("img");
 
-let cells = "";
-
-for(let i=0;i<offset;i++){
-  cells += `<span class="day other">${previous-offset+i+1}</span>`;
+  bigImage.src = image.src;
+  bigImage.alt = image.alt;
 }
 
-for(let d=1;d<=count;d++){
-  const status =
-    d===selectedDay
-      ? "selected"
-      : d%4===0 || d%7===0
-        ? "busy"
-        : "";
+function openLightbox(index) {
+  returnFocus = document.activeElement;
 
-  cells += `<span class="day ${status}">${d}</span>`;
+  showImage(index);
+
+  lightbox.hidden = false;
+  lightbox.classList.add("open");
+  document.body.classList.add("modal-open");
+
+  lightbox
+    .querySelector(".lightbox-close")
+    .focus();
 }
 
-for(let d=1;d<=(7-(offset+count)%7)%7;d++){
-  cells += `<span class="day other">${d}</span>`;
-}
+function closeLightbox() {
+  lightbox.classList.remove("open");
+  lightbox.hidden = true;
 
-document.getElementById("demoCalendar").innerHTML = cells;
+  document.body.classList.remove("modal-open");
 
-document.querySelectorAll(".day").forEach((day,index)=>{
-  day.style.animationDelay = (index*0.012)+"s";
-});
-
-/* ==========================================
-   ANIMATIONS
-========================================== */
-
-const reduceMotion = window.matchMedia(
-  "(prefers-reduced-motion:reduce)"
-).matches;
-
-/* SCROLL REVEAL */
-
-const revealElements = document.querySelectorAll(".reveal");
-
-if("IntersectionObserver" in window && !reduceMotion){
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },{threshold:.08});
-
-  revealElements.forEach(el=>observer.observe(el));
-}else{
-  revealElements.forEach(el=>el.classList.add("visible"));
-}
-
-/* MOUSE LIGHT + 3D CARDS */
-
-if(!reduceMotion && window.matchMedia("(pointer:fine)").matches){
-  const light = document.getElementById("ambientLight");
-
-  document.addEventListener("pointermove",event=>{
-    light.style.left = event.clientX+"px";
-    light.style.top = event.clientY+"px";
-    light.style.opacity = "1";
-  },{passive:true});
-
-  document.addEventListener("pointerleave",()=>{
-    light.style.opacity = "0";
-  });
-
-  document.querySelectorAll(".tilt-card").forEach(card=>{
-    card.addEventListener("pointermove",event=>{
-      const rect = card.getBoundingClientRect();
-
-      const x =
-        (event.clientX-rect.left)/rect.width-.5;
-
-      const y =
-        (event.clientY-rect.top)/rect.height-.5;
-
-      card.style.transform =
-        `perspective(1100px) rotateX(${-y*9}deg) `+
-        `rotateY(${x*9}deg) translateY(-8px)`;
-    });
-
-    card.addEventListener("pointerleave",()=>{
-      card.style.transform = "";
-    });
-  });
-}
-
-/* FLOATING PARTICLES */
-
-if(!reduceMotion){
-  const particles = document.getElementById("particles");
-
-  for(let i=0;i<28;i++){
-    const particle = document.createElement("span");
-
-    particle.className = "particle";
-    particle.style.left = Math.random()*100+"%";
-    particle.style.animationDuration =
-      12+Math.random()*20+"s";
-    particle.style.animationDelay =
-      -Math.random()*25+"s";
-
-    particles.appendChild(particle);
+  if(returnFocus) {
+    returnFocus.focus();
   }
 }
 
-/* BUTTON CLICK EFFECT */
+screens.forEach((screen,index)=>{
+  screen.addEventListener("click",()=>{
+    openLightbox(index);
+  });
+});
 
-if(!reduceMotion){
-  document.querySelectorAll(".btn").forEach(button=>{
-    button.addEventListener("click",event=>{
-      const rect = button.getBoundingClientRect();
-      const size = Math.max(rect.width,rect.height);
-      const ripple = document.createElement("span");
+lightbox
+  .querySelector(".lightbox-close")
+  .addEventListener("click",closeLightbox);
 
-      ripple.className = "ripple";
-      ripple.style.width = size+"px";
-      ripple.style.height = size+"px";
-      ripple.style.left =
-        event.clientX-rect.left-size/2+"px";
-      ripple.style.top =
-        event.clientY-rect.top-size/2+"px";
+lightbox
+  .querySelector(".lightbox-prev")
+  .addEventListener("click",()=>{
+    showImage(activeImage-1);
+  });
 
-      button.appendChild(ripple);
+lightbox
+  .querySelector(".lightbox-next")
+  .addEventListener("click",()=>{
+    showImage(activeImage+1);
+  });
 
-      ripple.addEventListener("animationend",()=>{
-        ripple.remove();
+lightbox.addEventListener("click",event=>{
+  if(event.target === lightbox) {
+    closeLightbox();
+  }
+});
+
+document.addEventListener("keydown",event=>{
+  if(!lightbox.classList.contains("open")) {
+    return;
+  }
+
+  if(event.key === "Escape") {
+    closeLightbox();
+  }
+
+  if(event.key === "ArrowLeft") {
+    showImage(activeImage-1);
+  }
+
+  if(event.key === "ArrowRight") {
+    showImage(activeImage+1);
+  }
+});
+
+/* SCROLL ANIMATIONS */
+
+const reduceMotion =
+  window.matchMedia(
+    "(prefers-reduced-motion:reduce)"
+  ).matches;
+
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+if("IntersectionObserver" in window && !reduceMotion) {
+  const observer =
+    new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
       });
-    });
+    },{threshold:.08});
+
+  revealElements.forEach(element=>{
+    observer.observe(element);
+  });
+} else {
+  revealElements.forEach(element=>{
+    element.classList.add("visible");
   });
 }
 
-/* STICKY HEADER */
+/* HEADER SHADOW */
 
 window.addEventListener("scroll",()=>{
   document.getElementById("header").classList.toggle(
     "scrolled",
-    window.scrollY>30
+    window.scrollY > 30
   );
 },{passive:true});
 
 </script>
+
 </body>
 </html>
