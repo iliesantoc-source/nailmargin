@@ -39,14 +39,10 @@ body {
 body.modal-open { overflow: hidden; }
 
 a { color: inherit; text-decoration: none; }
-
 button, input { font: inherit; }
-
 button { cursor: pointer; }
 
-button:focus-visible,
-a:focus-visible,
-input:focus-visible {
+:focus-visible {
   outline: 2px solid #b18c69;
   outline-offset: 4px;
 }
@@ -237,7 +233,7 @@ p { line-height: 1.8; }
   margin-top: 32px;
 }
 
-/* LOGO ONLY BEFORE CREATIVITY HAS NO LIMITS */
+/* LOGO ANIMAT */
 
 .creativity-panel {
   text-align: center;
@@ -330,7 +326,10 @@ p { line-height: 1.8; }
 }
 
 @keyframes starPulse {
-  50% { opacity: .4; transform: scale(1.15); }
+  50% {
+    opacity: .4;
+    transform: scale(1.15);
+  }
 }
 
 /* MARQUEE */
@@ -429,7 +428,11 @@ p { line-height: 1.8; }
   place-items: center;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 60% 40%, #ebd6e0, transparent 45%),
+    radial-gradient(
+      ellipse at 60% 40%,
+      #ebd6e0,
+      transparent 45%
+    ),
     linear-gradient(135deg, #bc9da5, #493942);
 }
 
@@ -437,7 +440,11 @@ p { line-height: 1.8; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, #30231e40, transparent 60%);
+  background: linear-gradient(
+    0deg,
+    #30231e40,
+    transparent 60%
+  );
 }
 
 .cat-eye-art {
@@ -446,16 +453,15 @@ p { line-height: 1.8; }
   width: 150px;
   height: 250px;
   border-radius: 90px 90px 45px 45px;
-  background:
-    linear-gradient(
-      115deg,
-      #211923 8%,
-      #62475c 30%,
-      #efc9d3 46%,
-      #f8e8da 50%,
-      #ae819f 57%,
-      #302333 85%
-    );
+  background: linear-gradient(
+    115deg,
+    #211923 8%,
+    #62475c 30%,
+    #efc9d3 46%,
+    #f8e8da 50%,
+    #ae819f 57%,
+    #302333 85%
+  );
   box-shadow:
     inset 10px 0 25px #ffffff35,
     inset -12px 0 30px #00000050,
@@ -478,7 +484,9 @@ p { line-height: 1.8; }
 }
 
 @keyframes catEyeFloat {
-  50% { transform: translateY(-12px) rotate(-14deg); }
+  50% {
+    transform: translateY(-12px) rotate(-14deg);
+  }
 }
 
 .course-tag {
@@ -827,16 +835,11 @@ footer p, footer a {
   }
 
   .hero-inner { gap: 50px; }
-  .hero { min-height: auto; }
 }
 
 @media (max-width: 650px) {
-  .container {
-    width: calc(100% - 30px);
-  }
-
+  .container { width: calc(100% - 30px); }
   .nav { min-height: 70px; }
-
   .brand { font-size: 25px; }
 
   .brand small {
@@ -845,27 +848,18 @@ footer p, footer a {
   }
 
   .nav-links { gap: 12px; }
-
   .nav-links a { font-size: 10px; }
-
   .nav-links a:nth-child(2) { display: none; }
 
   .hero-inner { padding: 80px 0 95px; }
-
   .hero h1 { font-size: clamp(60px, 14vw, 85px); }
 
   .section { padding: 70px 0; }
-
   .steps { grid-template-columns: 1fr; }
-
   .course-visual { min-height: 290px; }
-
   .manifesto-art { min-height: 300px; }
-
   .access-box, .modal-panel { padding: 25px; }
-
   .modal-panel h2 { font-size: 42px; }
-
   .creativity-title { letter-spacing: .25em; }
 }
 
@@ -888,6 +882,7 @@ footer p, footer a {
 
 <header class="header">
   <div class="container nav">
+
     <a href="index.html" class="brand">
       NailMargin <small>ACADEMY</small>
     </a>
@@ -897,6 +892,7 @@ footer p, footer a {
       <a href="#colectie">Tutoriale</a>
       <a href="#acces">Acces cursanți</a>
     </nav>
+
   </div>
 </header>
 
@@ -932,7 +928,7 @@ footer p, footer a {
       </div>
     </div>
 
-    <!-- LOGO ONLY HERE -->
+    <!-- LOGO DOAR AICI -->
 
     <div class="creativity-panel">
 
@@ -1087,9 +1083,7 @@ footer p, footer a {
     <div class="section-heading center reveal">
       <span class="eyebrow">Simple & beautiful</span>
       <h2>How it works.</h2>
-      <p>
-        Trei pași simpli, fără conturi sau parole.
-      </p>
+      <p>Trei pași simpli, fără conturi sau parole.</p>
     </div>
 
     <div class="steps">
@@ -1268,17 +1262,16 @@ footer p, footer a {
     <div class="modal-price">150 lei</div>
 
     <p class="payment-note">
-      Pentru achiziție, poți folosi Revolut.
+      Pentru achiziție, poți folosi transferul bancar
+      prin IBAN sau Revolut RevTag.
       După efectuarea plății, trimite confirmarea
       pe WhatsApp.
     </p>
 
     <div class="bank-detail">
 
-      <small>BENEFICIAR REVOLUT</small>
-      <strong id="beneficiary">
-        ANTONIA CARINA ILIES
-      </strong>
+      <small>BENEFICIAR</small>
+      <strong>ANTONIA CARINA ILIES</strong>
 
       <button
         type="button"
@@ -1286,6 +1279,17 @@ footer p, footer a {
         data-copy="ANTONIA CARINA ILIES"
       >
         Copiază beneficiarul
+      </button>
+
+      <small>IBAN REVOLUT</small>
+      <strong>RO94REVO0000101864019896</strong>
+
+      <button
+        type="button"
+        class="copy-btn"
+        data-copy="RO94REVO0000101864019896"
+      >
+        Copiază IBAN
       </button>
 
       <small>REVOLUT REVTag</small>
@@ -1296,7 +1300,7 @@ footer p, footer a {
         class="copy-btn"
         data-copy="@iliesanto"
       >
-        Copiază Revtag
+        Copiază RevTag
       </button>
 
       <small>SUMĂ DE PLATĂ</small>
@@ -1305,13 +1309,22 @@ footer p, footer a {
       <small>REFERINȚĂ PLATĂ</small>
       <strong>MAGIC CAT EYE</strong>
 
+      <button
+        type="button"
+        class="copy-btn"
+        data-copy="MAGIC CAT EYE"
+      >
+        Copiază referința
+      </button>
+
     </div>
 
     <p class="payment-note">
-      Verifică numele beneficiarului afișat în Revolut
-      înainte să confirmi transferul.
-      Pentru plățile din alte țări, conversia valutară
-      și disponibilitatea transferului depind de Revolut.
+      Verifică numele beneficiarului înainte să
+      confirmi transferul. Pentru plățile din alte
+      țări, disponibilitatea transferului și
+      conversia valutară depind de serviciul bancar
+      utilizat.
     </p>
 
     <a
@@ -1328,7 +1341,7 @@ footer p, footer a {
       WhatsApp: +40 754 601 789.
       Accesul prin cod nu este încă activ.
       Confirmă disponibilitatea tutorialului
-      înainte de a efectua plata.
+      înainte de efectuarea plății.
     </p>
 
     <button
@@ -1347,10 +1360,11 @@ footer p, footer a {
 <script>
 "use strict";
 
-/* PURCHASE CONFIGURATION */
+/* CONFIGURARE */
 
 const CONFIG = {
   beneficiary: "ANTONIA CARINA ILIES",
+  iban: "RO94REVO0000101864019896",
   revtag: "@iliesanto",
   whatsapp: "40754601789",
   price: 150,
@@ -1431,10 +1445,10 @@ document.addEventListener("keydown", function(event) {
   }
 });
 
-/* WHATSAPP INTERNATIONAL LINK */
+/* WHATSAPP INTERNATIONAL */
 
 const whatsappMessage =
-  "Bună! Doresc să cumpăr tutorialul " +
+  "Bună! Doresc tutorialul " +
   CONFIG.tutorial +
   " de pe NailMargin Academy, la prețul de " +
   CONFIG.price +
@@ -1474,7 +1488,7 @@ document.querySelectorAll("[data-copy]").forEach(function(button) {
   });
 });
 
-/* ACCESS CODE — NOT ACTIVE YET */
+/* ACCES PRIN COD — ÎNCĂ NEACTIVAT */
 
 const accessButton = document.getElementById("accessButton");
 const accessCode = document.getElementById("accessCode");
