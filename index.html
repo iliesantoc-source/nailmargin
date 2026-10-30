@@ -3,267 +3,2123 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F8F3EA">
-<title>NailMargin Academy — Tutoriale video</title>
+<meta name="description" content="NailMargin — calculator de prețuri și profit, aplicație pentru nail artiști și cursuri NailMargin Academy.">
+<title>NailMargin — Beauty · Business · Academy</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;700&family=WindSong:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=WindSong:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-:root {
+:root{
   --cream:#F8F3EA;
   --beige:#E9DCCC;
-  --chocolate:#392820;
+  --nude:#D6BEAA;
+  --cappuccino:#A8846B;
   --mocha:#765543;
+  --chocolate:#392820;
+  --white:#FFFDFA;
+  --muted:#806B5E;
   --border:#DFD0C1;
+  --shadow:0 18px 50px rgba(57,40,32,.08);
 }
-* {box-sizing:border-box}
-html {scroll-behavior:smooth}
-body {
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
   margin:0;
   background:var(--cream);
   color:var(--chocolate);
-  font:14px Manrope,Arial,sans-serif;
+  font-family:Manrope,Arial,sans-serif;
 }
-a {color:inherit}
-header {
-  padding:20px max(20px,calc((100% - 1100px)/2));
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  border-bottom:1px solid var(--border);
-}
-.logo {
-  font:44px WindSong,cursive;
-  text-decoration:none;
-  transition:color .3s;
-}
-.logo:hover {color:var(--mocha)}
-main {
-  width:min(1100px,calc(100% - 36px));
+
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+.container{
+  width:min(1120px,calc(100% - 36px));
   margin:auto;
-  padding:55px 0 90px;
 }
-h1,h2,h3 {
+
+h1,h2,h3,p{margin-top:0}
+
+h1,h2,h3{
   font-family:"Cormorant Garamond",Georgia,serif;
   font-weight:500;
-  transition:color .3s;
+  transition:color .35s ease;
 }
-h1 {font-size:clamp(44px,7vw,75px);margin:0}
-h2 {font-size:37px;margin:0 0 12px}
-h3 {font-size:29px;margin:0 0 8px}
-h1:hover,h2:hover,h3:hover {color:var(--mocha)}
-.lead {
+
+h1:hover,h2:hover,h3:hover{
   color:var(--mocha);
-  max-width:700px;
-  line-height:1.8;
 }
-.panel,.course {
-  background:#FFFDFA;
-  border:1px solid var(--border);
-  padding:24px;
-  margin:25px 0;
+
+p{line-height:1.75}
+
+:focus-visible{
+  outline:3px solid var(--cappuccino);
+  outline-offset:3px;
 }
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:18px;
+
+/* HEADER */
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(248,243,234,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
 }
-.course {
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  transition:transform .3s,box-shadow .3s;
-}
-.course:hover {
-  transform:translateY(-5px);
-  box-shadow:0 15px 35px rgba(57,40,32,.1);
-}
-.course p {line-height:1.7;flex:1}
-.price {
-  font-size:28px;
-  font-family:"Cormorant Garamond",Georgia,serif;
-}
-.row {
+
+.nav{
   display:flex;
   align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
   justify-content:space-between;
+  gap:20px;
+  min-height:90px;
 }
-.btn {
-  border:1px solid var(--chocolate);
-  background:var(--chocolate);
-  color:white;
-  padding:12px 20px;
-  cursor:pointer;
-  font-weight:700;
-  transition:background .25s,transform .25s;
+
+.brand{
+  font-family:WindSong,cursive;
+  font-size:39px;
+  line-height:1.2;
+  white-space:nowrap;
+  transition:color .3s,transform .3s;
 }
-.btn:hover {
-  background:var(--mocha);
+
+.brand:hover{
+  color:var(--cappuccino);
   transform:translateY(-2px);
 }
-.btn:disabled {opacity:.55;cursor:not-allowed}
-.secondary {
+
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:23px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.navlinks a:not(.btn){
+  position:relative;
+  padding:8px 0;
+}
+
+.navlinks a:not(.btn)::after{
+  content:"";
+  position:absolute;
+  bottom:2px;
+  left:0;
+  height:1px;
+  width:0;
+  background:var(--mocha);
+  transition:width .3s;
+}
+
+.navlinks a:not(.btn):hover::after{
+  width:100%;
+}
+
+/* BUTTONS */
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:47px;
+  padding:13px 23px;
+  border:1px solid var(--chocolate);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-align:center;
+  transition:
+    transform .3s,
+    background .3s,
+    color .3s,
+    box-shadow .3s;
+}
+
+.btn-primary{
+  background:var(--chocolate);
+  color:white;
+}
+
+.btn-secondary{
   background:transparent;
   color:var(--chocolate);
 }
-input,textarea {
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 24px rgba(57,40,32,.13);
+}
+
+.btn-primary:hover{
+  background:var(--mocha);
+  color:white;
+}
+
+.btn-secondary:hover{
+  background:var(--chocolate);
+  color:white;
+}
+
+/* HERO */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:90px 18px 105px;
+  text-align:center;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      rgba(214,190,170,.35),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 90% 90%,
+      rgba(168,132,107,.18),
+      transparent 45%
+    ),
+    var(--cream);
+}
+
+.eyebrow{
+  display:block;
+  color:var(--mocha);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  margin-bottom:22px;
+  transition:letter-spacing .35s,color .35s;
+}
+
+.eyebrow:hover{
+  letter-spacing:.32em;
+  color:var(--chocolate);
+}
+
+.signature{
+  font-family:WindSong,cursive;
+  font-size:clamp(70px,12vw,150px);
+  font-weight:400;
+  line-height:1.5;
+  margin:0 auto;
+  color:var(--chocolate);
+  transition:color .5s,transform .5s;
+}
+
+.signature:hover{
+  color:var(--mocha);
+  transform:scale(1.025);
+}
+
+.hero-subtitle{
+  font-size:10px;
+  letter-spacing:.45em;
+  font-weight:700;
+  margin:0 0 36px;
+}
+
+.hero h1{
+  font-size:clamp(42px,5.5vw,75px);
+  max-width:870px;
+  line-height:1.08;
+  margin:0 auto 20px;
+}
+
+.hero p{
+  max-width:660px;
+  margin:0 auto;
+  color:var(--muted);
+  font-size:15px;
+}
+
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:32px;
+}
+
+.trust{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+  margin-top:30px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* GENERAL SECTIONS */
+
+.section{
+  padding:85px 0;
+}
+
+.section-head{
+  max-width:800px;
+  text-align:center;
+  margin:0 auto 35px;
+}
+
+.section-head h2{
+  font-size:clamp(43px,5.5vw,69px);
+  line-height:1.08;
+  margin-bottom:14px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:
+    transform .35s,
+    box-shadow .35s,
+    border-color .35s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 24px 55px rgba(57,40,32,.12);
+  border-color:var(--nude);
+}
+
+/* CALCULATOR */
+
+.calculator{
+  max-width:930px;
+  margin:auto;
+  padding:35px;
+}
+
+.calculator:hover{
+  transform:none;
+}
+
+.calc-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:start;
+  gap:20px;
+}
+
+.calc-head h3{
+  font-size:41px;
+  margin-bottom:7px;
+}
+
+.calc-head p{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.free-pill{
+  border:1px solid var(--border);
+  color:var(--mocha);
+  padding:8px 13px;
+  font-size:10px;
+  letter-spacing:.15em;
+  white-space:nowrap;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:25px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  font-weight:800;
+}
+
+input,select{
+  display:block;
   width:100%;
-  padding:12px;
-  margin:7px 0 15px;
+  margin-top:8px;
+  padding:13px 12px;
   border:1px solid var(--border);
   background:white;
-  font:inherit;
+  color:var(--chocolate);
+  border-radius:0;
+  transition:border-color .3s,box-shadow .3s;
 }
-label {display:block;font-weight:700}
-video {
-  width:100%;
-  max-height:520px;
-  background:#1A1411;
+
+input:focus,select:focus{
+  outline:none;
+  border-color:var(--mocha);
+  box-shadow:0 0 0 3px rgba(168,132,107,.12);
 }
-.hidden {display:none!important}
-.status {color:var(--mocha);min-height:24px}
-.eyebrow {
+
+.calc-title{
+  font-size:34px;
+  margin:34px 0 10px;
+}
+
+.note{
+  padding:16px;
+  background:#F4EAE0;
+  border-left:3px solid var(--cappuccino);
+  font-size:12px;
+  color:#5F493B;
+  line-height:1.8;
+  margin:20px 0;
+}
+
+.note p{
+  margin:8px 0;
+}
+
+.cost-row{
+  display:grid;
+  grid-template-columns:1fr 110px;
+  align-items:center;
+  gap:16px;
+  border-bottom:1px solid #E9DFD5;
+  padding:12px 0;
+  transition:background .25s;
+}
+
+.cost-row:hover{
+  background:rgba(233,220,204,.18);
+}
+
+.cost-row strong{
+  font-size:12px;
+}
+
+.cost-row small{
+  display:block;
+  color:var(--muted);
   font-size:11px;
-  letter-spacing:.2em;
-  font-weight:700;
+  line-height:1.6;
+  margin-top:4px;
+}
+
+.cost-row input{
+  margin:0;
+  text-align:right;
+}
+
+.subtotal{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  font-weight:800;
+  padding:20px 0;
+  font-size:14px;
+}
+
+.breakdown-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+
+.breakdown-row strong{
+  white-space:nowrap;
+}
+
+.price-result{
+  background:var(--chocolate);
+  color:white;
+  text-align:center;
+  padding:35px 15px;
+  margin-top:28px;
+  transition:background .4s;
+}
+
+.price-result:hover{
+  background:#4D3528;
+}
+
+.price-result small{
+  display:block;
+  font-size:11px;
+  letter-spacing:.24em;
+}
+
+.price-result strong{
+  display:block;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(56px,8vw,86px);
+  font-weight:500;
+  margin:8px 0;
+}
+
+.price-result span{
+  font-size:11px;
+  color:var(--beige);
+}
+
+.muted{
+  color:var(--muted);
+  font-size:12px;
+}
+
+details{
+  padding:17px;
+  margin-top:12px;
+  background:var(--white);
+  border:1px solid var(--border);
+}
+
+summary{
+  cursor:pointer;
+  font-size:13px;
+  font-weight:800;
+  transition:color .3s;
+}
+
+summary:hover{
+  color:var(--cappuccino);
+}
+
+details p{
+  font-size:12px;
+  color:var(--muted);
+  margin:15px 0 0;
+}
+
+/* APP SHOWCASE */
+
+.showcase{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:65px;
+}
+
+.phone{
+  width:min(100%,355px);
+  margin:auto;
+  padding:11px;
+  border-radius:38px;
+  background:#392820;
+  box-shadow:0 25px 55px rgba(57,40,32,.22);
+  transition:transform .5s,box-shadow .5s;
+}
+
+.phone:hover{
+  transform:translateY(-7px) rotate(-1deg);
+  box-shadow:0 32px 65px rgba(57,40,32,.27);
+}
+
+.phone-screen{
+  background:#FFF9F3;
+  border-radius:29px;
+  overflow:hidden;
+  min-height:560px;
+}
+
+.phone-top{
+  background:var(--beige);
+  padding:25px 18px;
+}
+
+.phone-top strong{
+  font-family:WindSong,cursive;
+  font-size:32px;
+}
+
+.phone-top p{
+  font-size:11px;
+  margin:0;
+}
+
+.weekdays,.month-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+}
+
+.weekdays span{
+  padding:12px 0;
+  font-size:10px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.day{
+  min-height:68px;
+  border:1px solid #EEE3D8;
+  padding:5px 3px;
+  font-size:10px;
+}
+
+.day b{
+  display:block;
+  margin-bottom:6px;
+}
+
+.event{
+  background:#E6D2C0;
+  padding:4px 2px;
+  font-size:8px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-bottom:3px;
+}
+
+.event.alt{
+  background:#F0E7DD;
+}
+
+.showcase-copy h2{
+  font-size:clamp(43px,5vw,65px);
+  line-height:1.1;
+}
+
+.showcase-copy p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.feature-list{
+  display:grid;
+  gap:15px;
+  margin-top:25px;
+}
+
+.feature{
+  display:flex;
+  align-items:start;
+  gap:13px;
+  font-size:13px;
+  transition:transform .3s;
+}
+
+.feature:hover{
+  transform:translateX(5px);
+}
+
+.feature-icon{
+  width:31px;
+  height:31px;
+  flex:0 0 31px;
+  background:var(--beige);
+  display:grid;
+  place-items:center;
+}
+
+.feature b{
+  display:block;
+}
+
+.feature small{
+  display:block;
+  color:var(--muted);
+  margin-top:4px;
+  line-height:1.6;
+}
+
+/* PREVIEW */
+
+.preview-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.preview{
+  padding:24px;
+}
+
+.preview-art{
+  min-height:170px;
+  padding:16px;
+  background:linear-gradient(135deg,#F8F3EA,#E9DCCC);
+}
+
+.preview h3{
+  font-size:34px;
+  margin:20px 0 8px;
+}
+
+.preview p{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.mini-item{
+  padding:12px;
+  margin-bottom:9px;
+  background:white;
+  font-size:11px;
+  transition:transform .3s;
+}
+
+.mini-item:hover{
+  transform:translateX(4px);
+}
+
+.mini-item small{
+  display:block;
+  color:var(--muted);
+}
+
+/* ACADEMY */
+
+.academy{
+  background:var(--beige);
+  padding:95px 0;
+}
+
+.academy .section-head{
+  margin-bottom:38px;
+}
+
+.academy-courses{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px;
+}
+
+.academy-course{
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.academy-course-art{
+  height:220px;
+  background:linear-gradient(135deg,#D6BEAA,#765543);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  color:#FFF9F3;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:100px;
+  transition:filter .4s;
+}
+
+.academy-course-art span{
+  font:700 11px Manrope,Arial,sans-serif;
+  letter-spacing:.25em;
+  writing-mode:vertical-rl;
+}
+
+.academy-course-art.alt{
+  background:linear-gradient(135deg,#E9DCCC,#A8846B);
+}
+
+.academy-course:hover .academy-course-art{
+  filter:saturate(1.15);
+}
+
+.academy-course-content{
+  padding:27px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.academy-course-content h3{
+  font-size:38px;
+  margin:0 0 8px;
+}
+
+.academy-course-content p{
+  font-size:13px;
+  color:var(--muted);
+  flex:1;
+}
+
+.academy-course-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.academy-course-bottom strong{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:35px;
+  font-weight:600;
+}
+
+.academy-legal{
+  font-size:12px;
   color:var(--mocha);
+  margin:25px 0 0;
+  text-align:center;
 }
-small {color:var(--mocha)}
-@media(max-width:700px) {
-  .grid {grid-template-columns:1fr}
-  header {flex-wrap:wrap}
-  .panel {padding:16px}
+
+.academy-actions{
+  text-align:center;
+  margin-top:35px;
 }
-@media(prefers-reduced-motion:reduce) {
-  * {transition:none!important}
+
+/* PRICING */
+
+.pricing{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  max-width:850px;
+  margin:auto;
+}
+
+.plan{
+  padding:32px;
+  position:relative;
+}
+
+.plan.featured{
+  border:2px solid var(--mocha);
+}
+
+.plan h3{
+  font-size:37px;
+}
+
+.price{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:67px;
+  margin:20px 0 0;
+}
+
+.period{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.plan ul{
+  padding-left:20px;
+  margin:25px 0;
+  font-size:13px;
+  line-height:2.3;
+}
+
+.plan .btn{
+  width:100%;
+}
+
+.popular{
+  position:absolute;
+  top:18px;
+  right:18px;
+  background:var(--chocolate);
+  color:white;
+  padding:7px 12px;
+  font-size:10px;
+}
+
+/* DOWNLOAD */
+
+.download{
+  background:var(--chocolate);
+  color:white;
+  padding:50px;
+  text-align:center;
+}
+
+.download h2{
+  font-size:clamp(42px,5vw,65px);
+}
+
+.download h2:hover{
+  color:var(--beige);
+}
+
+.download p{
+  color:#E9DCCC;
+  font-size:14px;
+}
+
+.store-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+
+.store{
+  background:white;
+  color:var(--chocolate);
+  padding:13px 25px;
+  min-width:170px;
+  font-size:13px;
+  font-weight:800;
+}
+
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:45px 15px;
+  border-top:1px solid var(--border);
+  font-size:11px;
+  color:var(--muted);
+}
+
+.footer-logo{
+  font-family:WindSong,cursive;
+  font-size:45px;
+  color:var(--chocolate);
+  margin-bottom:15px;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+  .showcase{
+    grid-template-columns:1fr;
+  }
+
+  .preview-grid{
+    grid-template-columns:1fr;
+  }
+
+  .pricing{
+    grid-template-columns:1fr;
+  }
+
+  .navlinks a:not(.btn){
+    display:none;
+  }
+}
+
+@media(max-width:700px){
+  .academy-courses{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:620px){
+  .nav{
+    min-height:75px;
+  }
+
+  .brand{
+    font-size:30px;
+  }
+
+  .navlinks .btn{
+    font-size:10px;
+    padding:10px;
+  }
+
+  .hero{
+    padding:60px 15px 70px;
+  }
+
+  .signature{
+    font-size:clamp(65px,16vw,95px);
+  }
+
+  .hero-subtitle{
+    letter-spacing:.2em;
+  }
+
+  .section{
+    padding:60px 0;
+  }
+
+  .calculator{
+    padding:20px;
+  }
+
+  .grid2{
+    grid-template-columns:1fr;
+  }
+
+  .calc-head{
+    display:block;
+  }
+
+  .free-pill{
+    display:inline-block;
+    margin:10px 0;
+  }
+
+  .cost-row{
+    grid-template-columns:1fr 85px;
+  }
+
+  .download{
+    padding:35px 20px;
+  }
+
+  .academy{
+    padding:65px 0;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    transition:none!important;
+    animation:none!important;
+  }
 }
 </style>
 </head>
 
 <body>
-<header>
-  <a class="logo" href="index.html">NailMargin</a>
-  <a href="index.html">← Înapoi la site</a>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="#acasa">NailMargin</a>
+
+    <nav class="navlinks" aria-label="Meniu principal">
+      <a href="#calculator">Calculator</a>
+      <a href="#aplicatie">Aplicație</a>
+      <a href="#academy">Academy</a>
+      <a href="#preturi">Prețuri</a>
+      <a class="btn btn-primary" href="#download">
+        Descarcă aplicația
+      </a>
+    </nav>
+  </div>
 </header>
 
 <main>
-  <span class="eyebrow">BEAUTY · BUSINESS · ACADEMY</span>
-  <h1>NailMargin Academy</h1>
 
-  <p class="lead">
-    Tutoriale video profesionale, disponibile individual
-    la 150 lei. Creează un cont, cumpără un curs și
-    urmărește-l din biblioteca ta.
+<!-- HERO -->
+
+<section class="hero" id="acasa">
+  <span class="eyebrow">
+    THE ART OF BEAUTY BUSINESS
+  </span>
+
+  <div class="signature">NailMargin</div>
+
+  <div class="hero-subtitle">
+    BEAUTY · BUSINESS · ACADEMY
+  </div>
+
+  <h1>
+    Frumusețea este arta ta.
+    Businessul este viitorul tău.
+  </h1>
+
+  <p>
+    Un spațiu creat pentru nail artiștii care vor să își
+    cunoască valoarea, să își organizeze programările
+    și să construiască un business profitabil.
   </p>
 
-  <section class="panel" id="auth">
-    <h2>Contul tău</h2>
+  <div class="hero-actions">
+    <a href="#calculator" class="btn btn-primary">
+      DESCOPERĂ PREȚUL CORECT
+    </a>
 
-    <div id="signedOut">
+    <a href="#aplicatie" class="btn btn-secondary">
+      EXPLOREAZĂ NAILMARGIN
+    </a>
+  </div>
+
+  <div class="trust">
+    <span>✓ Calculator gratuit</span>
+    <span>✓ Free până la 6 cliente</span>
+    <span>✓ Pro 80 lei/lună</span>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+
+<section id="calculator" class="section container">
+  <div class="section-head">
+    <span class="eyebrow">
+      NAILMARGIN BUSINESS TOOLS
+    </span>
+
+    <h2>
+      Cât valorează cu adevărat munca ta?
+    </h2>
+
+    <p>
+      Descoperă un preț recomandat în funcție de experiență,
+      durata serviciului, materiale și costurile salonului.
+    </p>
+  </div>
+
+  <div class="calculator card">
+    <div class="calc-head">
+      <div>
+        <h3>Calculator de preț corect</h3>
+        <p>
+          Valorile sunt orientative și pot fi personalizate.
+        </p>
+      </div>
+
+      <div class="free-pill">100% GRATUIT</div>
+    </div>
+
+    <div class="grid2">
+
       <label>
-        Email
-        <input type="email" id="email" autocomplete="email">
+        Nivelul tău de experiență
+        <select id="experience">
+          <option value="beginner">
+            Începător · 0–2 ani
+          </option>
+          <option value="medium" selected>
+            Mediu · 2–5 ani
+          </option>
+          <option value="advanced">
+            Avansat · peste 5 ani
+          </option>
+        </select>
       </label>
 
       <label>
-        Parolă (minimum 6 caractere)
-        <input type="password" id="password"
-               autocomplete="current-password">
+        Serviciul efectuat
+        <select id="service">
+          <option value="semi">
+            Manichiură semipermanentă
+          </option>
+          <option value="gel" selected>
+            Întreținere gel
+          </option>
+          <option value="extension">
+            Construcție gel
+          </option>
+          <option value="pedi">
+            Pedichiură estetică semipermanentă
+          </option>
+        </select>
       </label>
 
-      <div class="row">
-        <button class="btn" id="signIn">
-          Autentificare
-        </button>
-        <button class="btn secondary" id="signUp">
-          Creează cont
-        </button>
+      <label>
+        Durata serviciului (minute)
+        <input
+          id="minutes"
+          type="number"
+          min="15"
+          value="130">
+      </label>
+
+      <label>
+        Valoarea muncii tale pe oră (lei)
+        <input
+          id="hourRate"
+          type="number"
+          min="0"
+          value="55">
+      </label>
+
+      <label>
+        Numărul de cliente pe lună
+        <input
+          id="clients"
+          type="number"
+          min="1"
+          value="80">
+      </label>
+
+      <label>
+        Rezervă pentru business (%)
+        <input
+          id="reserve"
+          type="number"
+          min="0"
+          value="15">
+      </label>
+
+      <label>
+        Prețul pe care îl practici acum (lei)
+        <input
+          id="actualPrice"
+          type="number"
+          min="0"
+          placeholder="Opțional">
+      </label>
+    </div>
+
+    <div class="note">
+      <strong>
+        Ce înseamnă nivelul de experiență?
+      </strong>
+
+      <p>
+        Începător: tarif orientativ al muncii de 35 lei/oră.
+        Mediu: 55 lei/oră.
+        Avansat: 80 lei/oră.
+      </p>
+
+      <p>
+        Nivelul modifică și durata estimată a serviciului.
+        Acestea nu sunt tarife oficiale sau obligatorii:
+        poți schimba manual orice valoare.
+      </p>
+    </div>
+
+    <h3 class="calc-title">
+      01. Materiale și consumabile
+    </h3>
+
+    <p class="muted">
+      Estimări de consum pentru un serviciu.
+      Poți modifica fiecare sumă în funcție de produsele tale.
+    </p>
+
+    <div id="materialRows"></div>
+
+    <div class="subtotal">
+      <span>Total materiale</span>
+      <strong id="materialsTotal">0 lei</strong>
+    </div>
+
+    <h3 class="calc-title">
+      02. Cheltuieli fixe lunare
+    </h3>
+
+    <p class="muted">
+      Costuri pe care le suporți pentru a menține salonul
+      funcțional, chiar dacă nu ai toate programările ocupate.
+    </p>
+
+    <div id="fixedRows"></div>
+
+    <div class="subtotal">
+      <span>Total cheltuieli lunare</span>
+      <strong id="monthlyFixedTotal">0 lei</strong>
+    </div>
+
+    <div class="subtotal">
+      <span>Cost fix alocat unei cliente</span>
+      <strong id="fixedPerClient">0 lei</strong>
+    </div>
+
+    <div class="note">
+      <strong>
+        Cum împărțim costurile fixe?
+      </strong>
+
+      <p>
+        Dacă ai cheltuieli lunare de 2.700 lei și
+        80 de cliente, fiecare serviciu trebuie să
+        contribuie cu 33,75 lei la acoperirea
+        acestor cheltuieli.
+      </p>
+    </div>
+
+    <h3 class="calc-title">
+      03. Calculul prețului
+    </h3>
+
+    <div id="breakdown"></div>
+
+    <div class="price-result" aria-live="polite">
+      <small>
+        PREȚ RECOMANDAT PENTRU SERVICIUL TĂU
+      </small>
+
+      <strong id="recommended">—</strong>
+
+      <span>
+        Estimare rotunjită în sus la 5 lei
+      </span>
+    </div>
+
+    <div
+      class="note"
+      id="insight"
+      aria-live="polite">
+    </div>
+
+    <details>
+      <summary>
+        De unde provin costurile materialelor?
+      </summary>
+
+      <p>
+        Sunt estimări de lucru inspirate de prețuri
+        uzuale pentru produse profesionale comercializate
+        în România.
+      </p>
+
+      <p>
+        De exemplu, un gel builder de 50 g la 160 lei
+        înseamnă aproximativ 3,20 lei/g.
+      </p>
+
+      <p>
+        Valorile nu reprezintă cotații live.
+        Cantitățile consumate pot varia în funcție
+        de tehnică și produs.
+      </p>
+    </details>
+
+    <details>
+      <summary>
+        Ce include costul fix pe clientă?
+      </summary>
+
+      <p>
+        Chirie, electricitate, apă, încălzire,
+        internet, contabilitate, administrare,
+        întreținerea aparatelor, curățenie
+        și marketing.
+      </p>
+    </details>
+
+    <details>
+      <summary>
+        Prețul recomandat este profit net?
+      </summary>
+
+      <p>
+        Nu. Calculatorul adună materialele,
+        cheltuielile fixe, remunerația muncii
+        și rezerva pentru business.
+      </p>
+
+      <p>
+        Nu calculează automat TVA, impozitul pe venit,
+        CAS, CASS sau alte obligații fiscale.
+      </p>
+    </details>
+  </div>
+</section>
+
+<!-- APP -->
+
+<section id="aplicatie" class="section container">
+  <div class="showcase">
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="phone-top">
+          <strong>NailMargin</strong>
+          <p>Agenda ta · August</p>
+        </div>
+
+        <div class="weekdays">
+          <span>L</span>
+          <span>M</span>
+          <span>M</span>
+          <span>J</span>
+          <span>V</span>
+          <span>S</span>
+          <span>D</span>
+        </div>
+
+        <div
+          class="month-grid"
+          id="calendarPreview">
+        </div>
       </div>
     </div>
 
-    <div id="signedIn" class="hidden">
-      <p>Conectată ca <strong id="userEmail"></strong></p>
-      <button class="btn secondary" id="signOut">
-        Deconectare
-      </button>
-    </div>
+    <div class="showcase-copy">
+      <span class="eyebrow">
+        THE NAILMARGIN APP
+      </span>
 
-    <p class="status" id="authStatus" role="status"></p>
-  </section>
+      <h2>
+        Agenda ta. Regulile tale.
+        Businessul tău.
+      </h2>
 
-  <section>
-    <h2>Catalogul cursurilor</h2>
-    <div id="catalog" class="grid">
-      <p>Se încarcă tutorialele...</p>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>Biblioteca mea</h2>
-    <p class="lead">
-      Aici găsești cursurile cumpărate.
-      Accesul este acordat numai după confirmarea plății.
-    </p>
-
-    <div id="library">
-      Autentifică-te pentru a vedea biblioteca.
-    </div>
-
-    <div id="player" class="hidden">
-      <h3 id="playerTitle"></h3>
-      <video id="video" controls
-             controlsList="nodownload" playsinline></video>
       <p>
-        <small>
-          Linkul video expiră automat.
-          Înregistrarea ecranului nu poate fi împiedicată complet.
-        </small>
+        NailMargin este gândită pentru nail artiștii
+        care își doresc mai mult decât o simplă agendă.
+      </p>
+
+      <div class="feature-list">
+
+        <div class="feature">
+          <div class="feature-icon">✓</div>
+          <div>
+            <b>Servicii personalizate</b>
+            <small>
+              Îți stabilești propriile servicii,
+              durate și tarife.
+            </small>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">✓</div>
+          <div>
+            <b>Calendar complet</b>
+            <small>
+              Vizualizare pe zi, 3 zile,
+              săptămână sau lună.
+            </small>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">✓</div>
+          <div>
+            <b>Reminder-e</b>
+            <small>
+              Mesaje WhatsApp și SMS planificate
+              pentru versiunea live.
+            </small>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">✓</div>
+          <div>
+            <b>Rapoarte de business</b>
+            <small>
+              Urmărești venituri, servicii
+              și profitabilitate.
+            </small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+
+<section class="section container">
+  <div class="section-head">
+    <span class="eyebrow">
+      DESIGNED FOR NAIL ARTISTS
+    </span>
+
+    <h2>
+      Mai multă organizare.
+      Mai mult control.
+    </h2>
+
+    <p>
+      Instrumente create în jurul activității tale.
+    </p>
+  </div>
+
+  <div class="preview-grid">
+
+    <div class="preview card">
+      <div class="preview-art">
+
+        <div class="mini-item">
+          <b>Întreținere gel S</b>
+          <small>90 min · 160 lei</small>
+        </div>
+
+        <div class="mini-item">
+          <b>Construcție gel M</b>
+          <small>120 min · 210 lei</small>
+        </div>
+
+        <div class="mini-item">
+          <b>Pedichiură</b>
+          <small>75 min · 140 lei</small>
+        </div>
+
+      </div>
+
+      <h3>Serviciile tale</h3>
+      <p>
+        Configurezi meniul de servicii
+        în funcție de salonul tău.
       </p>
     </div>
-  </section>
 
-  <section class="panel hidden" id="admin">
-    <span class="eyebrow">DOAR ADMINISTRATOR</span>
-    <h2>Încarcă un curs nou</h2>
+    <div class="preview card">
+      <div class="preview-art">
+        <div class="mini-item">
+          <b>Reminder programare</b>
+          <small>
+            Bună, Maria! Ai programare mâine
+            la 14:30 pentru întreținere gel.
+            Te așteptăm!
+          </small>
+        </div>
+      </div>
 
-    <label>
-      Titlu
-      <input id="courseTitle" maxlength="120">
-    </label>
+      <h3>Reminder-e</h3>
+      <p>
+        Exemplu de mesaj personalizat pentru cliente.
+      </p>
+    </div>
 
-    <label>
-      Descriere
-      <textarea id="courseDescription" rows="4"></textarea>
-    </label>
+    <div class="preview card">
+      <div class="preview-art">
 
-    <label>
-      Durata în minute
-      <input id="courseDuration" type="number" min="1">
-    </label>
+        <div class="mini-item">
+          <b>Venit lunar</b>
+          <small>8.420 lei</small>
+        </div>
 
-    <label>
-      Fișier video MP4 (maximum 500 MB)
-      <input id="courseVideo" type="file" accept="video/mp4">
-    </label>
+        <div class="mini-item">
+          <b>Profit estimat</b>
+          <small>5.980 lei</small>
+        </div>
 
-    <button class="btn" id="uploadCourse">
-      Încarcă și publică
-    </button>
+        <div class="mini-item">
+          <b>Ore lucrate</b>
+          <small>86 ore</small>
+        </div>
 
-    <p class="status" id="adminStatus" role="status"></p>
-  </section>
+      </div>
 
-  <p class="status" id="globalStatus" role="status"></p>
+      <h3>Rapoarte</h3>
+      <p>
+        Exemple de statistici pentru viitoarea aplicație.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACADEMY -->
+
+<section id="academy" class="academy">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="eyebrow">
+        NAILMARGIN ACADEMY · VIDEO TUTORIALS
+      </span>
+
+      <h2>
+        Învață în ritmul tău.
+      </h2>
+
+      <p>
+        Tutoriale video de tehnică și design
+        pentru nail artiști. Fiecare curs va putea
+        fi achiziționat individual, la 150 lei.
+      </p>
+    </div>
+
+    <div class="academy-courses">
+
+      <article class="academy-course card">
+        <div class="academy-course-art">
+          01
+          <span>NAIL ART</span>
+        </div>
+
+        <div class="academy-course-content">
+          <span class="eyebrow">
+            TUTORIAL VIDEO · ÎN PREGĂTIRE
+          </span>
+
+          <h3>
+            Design elegant, pas cu pas
+          </h3>
+
+          <p>
+            Pregătirea materialelor,
+            realizarea modelului și finisarea.
+            Vei putea urmări lecția după achiziție.
+          </p>
+
+          <div class="academy-course-bottom">
+            <strong>150 lei</strong>
+
+            <a
+              href="academy.html"
+              class="btn btn-primary">
+              DESCOPERĂ CURSUL
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="academy-course card">
+        <div class="academy-course-art alt">
+          02
+          <span>TECHNIQUE</span>
+        </div>
+
+        <div class="academy-course-content">
+          <span class="eyebrow">
+            TUTORIAL VIDEO · ÎN PREGĂTIRE
+          </span>
+
+          <h3>
+            Tehnică și structură
+          </h3>
+
+          <p>
+            Un viitor curs despre controlul
+            produsului, arhitectura unghiei
+            și finisarea corectă.
+          </p>
+
+          <div class="academy-course-bottom">
+            <strong>150 lei</strong>
+
+            <a
+              href="academy.html"
+              class="btn btn-primary">
+              DESCOPERĂ CURSUL
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="academy-actions">
+      <a
+        href="academy.html"
+        class="btn btn-primary">
+        INTRĂ ÎN NAILMARGIN ACADEMY
+      </a>
+    </div>
+
+    <p class="academy-legal">
+      Cursurile afișate sunt exemple de prezentare.
+      Plățile și accesul securizat la videoclipuri
+      vor fi disponibile după configurarea platformei.
+    </p>
+
+  </div>
+</section>
+
+<!-- PRICING -->
+
+<section id="preturi" class="section container">
+  <div class="section-head">
+    <span class="eyebrow">
+      SIMPLE & TRANSPARENT
+    </span>
+
+    <h2>
+      Investește în creșterea ta.
+    </h2>
+
+    <p>
+      Începi gratuit. Treci la Pro când ai nevoie.
+    </p>
+  </div>
+
+  <div class="pricing">
+
+    <div class="plan card">
+      <h3>NailMargin Free</h3>
+
+      <div class="price">0 lei</div>
+      <div class="period">fără card</div>
+
+      <ul>
+        <li>Până la 6 cliente</li>
+        <li>Programări de bază</li>
+        <li>Servicii și tarife proprii</li>
+        <li>Calculator gratuit pe site</li>
+        <li>Posibilitate de upgrade</li>
+      </ul>
+
+      <a
+        href="#download"
+        class="btn btn-secondary">
+        ÎNCEPE GRATUIT
+      </a>
+    </div>
+
+    <div class="plan card featured">
+      <span class="popular">PRO</span>
+
+      <h3>NailMargin Pro</h3>
+
+      <div class="price">80 lei</div>
+      <div class="period">pe lună</div>
+
+      <ul>
+        <li>Cliente nelimitate</li>
+        <li>Calendar complet</li>
+        <li>Servicii nelimitate</li>
+        <li>Reminder-e WhatsApp / SMS</li>
+        <li>Istoric cliente</li>
+        <li>Rapoarte și profitabilitate</li>
+        <li>Funcții noi incluse</li>
+      </ul>
+
+      <a
+        href="#download"
+        class="btn btn-primary">
+        DESCOPERĂ PRO
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+
+<section id="download" class="section container">
+  <div class="download">
+
+    <span
+      class="eyebrow"
+      style="color:#E9DCCC">
+      NAILMARGIN MOBILE
+    </span>
+
+    <h2>
+      Viitorul salonului tău începe aici.
+    </h2>
+
+    <p>
+      Aplicația mobilă NailMargin pentru
+      iPhone și Android este în pregătire.
+    </p>
+
+    <div class="store-buttons">
+      <div class="store">
+         App Store · În curând
+      </div>
+
+      <div class="store">
+        ▶ Google Play · În curând
+      </div>
+    </div>
+
+    <p style="font-size:11px">
+      Acestea sunt indicatoare de lansare,
+      nu linkuri active.
+    </p>
+  </div>
+</section>
+
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="config.js"></script>
-<script src="academy.js"></script>
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-logo">
+    NailMargin
+  </div>
+
+  <p>
+    BEAUTY · BUSINESS · ACADEMY
+  </p>
+
+  <p>
+    © 2026 NailMargin.
+    Creat pentru profesioniștii din industria nails.
+  </p>
+</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+function numeric(id){
+  return Math.max(0,Number($(id).value)||0);
+}
+
+function money(value){
+  return value.toLocaleString("ro-RO",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  })+" lei";
+}
+
+/* EXPERIENȚĂ */
+
+const levels={
+  beginner:{
+    rate:35,
+    durations:{
+      semi:135,
+      gel:180,
+      extension:240,
+      pedi:120
+    }
+  },
+
+  medium:{
+    rate:55,
+    durations:{
+      semi:100,
+      gel:130,
+      extension:180,
+      pedi:95
+    }
+  },
+
+  advanced:{
+    rate:80,
+    durations:{
+      semi:75,
+      gel:105,
+      extension:150,
+      pedi:80
+    }
+  }
+};
+
+/* MATERIALE */
+
+const materials={
+  semi:[
+    ["Bază rubber",4.00,"Consum estimat 1,3 g"],
+    ["Culoare semipermanentă",3.50,"Aproximativ 1 ml"],
+    ["Top coat",2.00,"Consum estimat 0,5 g"],
+    ["Primer / dehydrator / cleanser",1.80,"Consum de soluții"],
+    ["Pilă de unică folosință",1.88,"47 lei / 25 bucăți"],
+    ["Buffer / abraziv",1.40,"Consum estimat"],
+    ["Mănuși nitril",0.72,"O pereche"],
+    ["Șervețele și dischete",1.70,"Consum estimat"],
+    ["Dezinfectare și sterilizare",3.50,"Soluții și materiale"],
+    ["Ulei cuticule",1.30,"Consum estimat"]
+  ],
+
+  gel:[
+    ["Gel builder",11.20,"3,5 g × 3,20 lei/g"],
+    ["Bază / bonder",1.50,"Consum estimat 0,5 g"],
+    ["Top coat",2.00,"Consum estimat 0,5 g"],
+    ["Culoare / design simplu",2.80,"Consum estimat"],
+    ["Primer / cleanser / dehydrator",2.00,"Soluții de pregătire"],
+    ["Pilă de unică folosință",1.88,"47 lei / 25 bucăți"],
+    ["Buffer / abraziv",1.40,"Consum estimat"],
+    ["Mănuși nitril",0.72,"O pereche"],
+    ["Șervețele și dischete",2.20,"Consum estimat"],
+    ["Dezinfectare și sterilizare",3.50,"Soluții și materiale"],
+    ["Ulei cuticule",1.30,"Consum estimat"]
+  ],
+
+  extension:[
+    ["Gel builder",19.20,"6 g × 3,20 lei/g"],
+    ["Bază / bonder",1.50,"Consum estimat"],
+    ["Top coat",2.00,"Consum estimat"],
+    ["Culoare",3.50,"Consum estimat"],
+    ["Primer / cleanser / dehydrator",2.30,"Soluții de pregătire"],
+    ["Șabloane / tips",4.00,"Consum estimat"],
+    ["Pilă de unică folosință",1.88,"O bucată"],
+    ["Buffer / abraziv",1.40,"Consum estimat"],
+    ["Mănuși nitril",0.72,"O pereche"],
+    ["Șervețele și dischete",2.80,"Consum estimat"],
+    ["Dezinfectare și sterilizare",3.50,"Soluții și materiale"],
+    ["Ulei cuticule",1.30,"Consum estimat"]
+  ],
+
+  pedi:[
+    ["Bază / gel",4.00,"Consum estimat"],
+    ["Culoare semipermanentă",3.50,"Consum estimat"],
+    ["Top coat",2.00,"Consum estimat"],
+    ["Primer / cleanser / dehydrator",2.00,"Soluții de pregătire"],
+    ["Pile și abrazive",4.00,"Consum estimat"],
+    ["Mănuși nitril",0.72,"O pereche"],
+    ["Șervețele și protecție",3.00,"Consum estimat"],
+    ["Dezinfectare și sterilizare",4.00,"Soluții și materiale"],
+    ["Ulei / cremă",2.00,"Consum estimat"]
+  ]
+};
+
+/* CHELTUIELI FIXE */
+
+const fixedCosts=[
+  ["Chirie spațiu",1900,"Chirie lunară estimată"],
+  ["Electricitate, apă, încălzire",300,"Utilități"],
+  ["Internet și telefon",50,"Cost lunar"],
+  ["Contabilitate și administrativ",250,"Contabilitate, bancă, software"],
+  ["Amortizare echipamente",150,"Freză, aspirator, lampă, mobilier"],
+  ["Curățenie și marketing",50,"Cost lunar estimat"]
+];
+
+const materialOverrides={};
+const fixedOverrides={};
+
+function escapeHTML(value){
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+/* AFIȘARE MATERIALE */
+
+function renderMaterials(){
+  const service=$("service").value;
+  const rows=materials[service];
+
+  $("materialRows").innerHTML=rows.map((item,index)=>{
+    const custom=materialOverrides[service]?.[index];
+    const value=custom===undefined?item[1]:custom;
+
+    return `
+      <div class="cost-row">
+        <div>
+          <strong>${escapeHTML(item[0])}</strong>
+          <small>${escapeHTML(item[2])}</small>
+        </div>
+
+        <input
+          type="number"
+          min="0"
+          step="0.01"
+          value="${value}"
+          data-index="${index}"
+          aria-label="Cost ${escapeHTML(item[0])}">
+      </div>
+    `;
+  }).join("");
+
+  $("materialRows")
+    .querySelectorAll("input")
+    .forEach(input=>{
+      input.addEventListener("input",()=>{
+        if(!materialOverrides[service]){
+          materialOverrides[service]={};
+        }
+
+        materialOverrides[service][input.dataset.index]=
+          Math.max(0,Number(input.value)||0);
+
+        calculate();
+      });
+    });
+
+  calculate();
+}
+
+/* AFIȘARE CHELTUIELI FIXE */
+
+function renderFixed(){
+  $("fixedRows").innerHTML=fixedCosts.map((item,index)=>{
+    const custom=fixedOverrides[index];
+    const value=custom===undefined?item[1]:custom;
+
+    return `
+      <div class="cost-row">
+        <div>
+          <strong>${escapeHTML(item[0])}</strong>
+          <small>${escapeHTML(item[2])}</small>
+        </div>
+
+        <input
+          type="number"
+          min="0"
+          step="1"
+          value="${value}"
+          data-index="${index}"
+          aria-label="${escapeHTML(item[0])}">
+      </div>
+    `;
+  }).join("");
+
+  $("fixedRows")
+    .querySelectorAll("input")
+    .forEach(input=>{
+      input.addEventListener("input",()=>{
+        fixedOverrides[input.dataset.index]=
+          Math.max(0,Number(input.value)||0);
+
+        calculate();
+      });
+    });
+
+  calculate();
+}
+
+/* CALCUL PREȚ */
+
+function calculate(){
+  const service=$("service").value;
+
+  const materialCost=materials[service].reduce(
+    (total,item,index)=>{
+      const override=materialOverrides[service]?.[index];
+
+      return total+(
+        override===undefined?item[1]:override
+      );
+    },0
+  );
+
+  const monthlyFixed=fixedCosts.reduce(
+    (total,item,index)=>{
+      const override=fixedOverrides[index];
+
+      return total+(
+        override===undefined?item[1]:override
+      );
+    },0
+  );
+
+  const clients=Math.max(1,numeric("clients"));
+  const fixedPerClient=monthlyFixed/clients;
+
+  const hours=numeric("minutes")/60;
+  const labor=hours*numeric("hourRate");
+
+  const subtotal=
+    materialCost+
+    fixedPerClient+
+    labor;
+
+  const reserveAmount=
+    subtotal*numeric("reserve")/100;
+
+  const estimatedTotal=
+    subtotal+reserveAmount;
+
+  const recommended=
+    Math.ceil(estimatedTotal/5)*5;
+
+  $("materialsTotal").textContent=
+    money(materialCost);
+
+  $("monthlyFixedTotal").textContent=
+    money(monthlyFixed);
+
+  $("fixedPerClient").textContent=
+    money(fixedPerClient);
+
+  const parts=[
+    ["Materiale și consumabile",materialCost],
+    ["Cost fix alocat / clientă",fixedPerClient],
+    ["Remunerația muncii",labor],
+    ["Rezervă business",reserveAmount]
+  ];
+
+  $("breakdown").innerHTML=parts.map(([label,value])=>`
+    <div class="breakdown-row">
+      <span>${escapeHTML(label)}</span>
+      <strong>${money(value)}</strong>
+    </div>
+  `).join("");
+
+  $("recommended").textContent=
+    recommended.toLocaleString("ro-RO")+" lei";
+
+  const actualInput=
+    $("actualPrice").value.trim();
+
+  if(actualInput!==""){
+    const actual=numeric("actualPrice");
+    const difference=actual-estimatedTotal;
+
+    if(difference>=0){
+      $("insight").textContent=
+        "Prețul tău actual acoperă costurile, " +
+        "remunerația și rezerva estimate. " +
+        "Diferența este "+money(difference)+
+        ". Aceasta nu reprezintă profit net după taxe.";
+    }else{
+      $("insight").textContent=
+        "La prețul tău actual lipsesc aproximativ "+
+        money(Math.abs(difference))+
+        " pentru a acoperi toate componentele estimate.";
+    }
+  }else{
+    $("insight").textContent=
+      "Prețul recomandat include materialele, "+
+      "cheltuielile fixe, remunerația timpului "+
+      "și o rezervă pentru business. "+
+      "Este o estimare înainte de taxele aplicabile.";
+  }
+}
+
+/* EXPERIENȚĂ */
+
+function updateExperience(){
+  const level=levels[$("experience").value];
+  const service=$("service").value;
+
+  $("minutes").value=level.durations[service];
+  $("hourRate").value=level.rate;
+
+  calculate();
+}
+
+$("experience").addEventListener(
+  "change",
+  updateExperience
+);
+
+$("service").addEventListener("change",()=>{
+  updateExperience();
+  renderMaterials();
+});
+
+[
+  "minutes",
+  "hourRate",
+  "clients",
+  "reserve",
+  "actualPrice"
+].forEach(id=>{
+  $(id).addEventListener("input",calculate);
+});
+
+/* CALENDAR DEMONSTRATIV */
+
+const appointments={
+  3:["Mara D."],
+  4:["Daria P."],
+  5:["Teodora M.","Ana C."],
+  6:["Cristina V."],
+  10:["Larisa N."],
+  11:["Denisa O."],
+  12:["Alexandra L."],
+  13:["Rebeca F."],
+  14:["Amalia K."],
+  18:["Oana M."],
+  26:["Maria H."],
+  27:["Bianca S."]
+};
+
+function renderCalendar(){
+  const calendar=$("calendarPreview");
+  const days=[];
+
+  for(let i=0;i<35;i++){
+    const day=i<5?27+i:i-4;
+    const currentMonth=i>=5;
+
+    const events=currentMonth
+      ?(appointments[day]||[])
+      :[];
+
+    const eventHTML=events.map((name,index)=>`
+      <div class="event ${index%2?"alt":""}">
+        ${escapeHTML(name)}
+      </div>
+    `).join("");
+
+    days.push(`
+      <div class="day">
+        <b>${day}</b>
+        ${eventHTML}
+      </div>
+    `);
+  }
+
+  calendar.innerHTML=days.join("");
+}
+
+/* START */
+
+renderFixed();
+renderMaterials();
+renderCalendar();
+
+</script>
+
 </body>
 </html>
