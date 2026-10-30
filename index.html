@@ -26,9 +26,13 @@
   --shadow:0 18px 50px rgba(57,40,32,.08);
 }
 
-* {box-sizing:border-box}
+* {
+  box-sizing:border-box;
+}
 
-html {scroll-behavior:smooth}
+html {
+  scroll-behavior:smooth;
+}
 
 body {
   margin:0;
@@ -37,10 +41,22 @@ body {
   font-family:Manrope,Arial,sans-serif;
 }
 
-a {text-decoration:none;color:inherit}
-button,input,select {font:inherit}
-button {cursor:pointer}
-h1,h2,h3,h4,p {margin-top:0}
+a {
+  text-decoration:none;
+  color:inherit;
+}
+
+button,input,select {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+h1,h2,h3,h4,p {
+  margin-top:0;
+}
 
 h1,h2,h3,h4 {
   font-family:"Cormorant Garamond",Georgia,serif;
@@ -52,7 +68,9 @@ h1:hover,h2:hover,h3:hover {
   color:var(--mocha);
 }
 
-p {line-height:1.75}
+p {
+  line-height:1.75;
+}
 
 .container {
   width:min(1120px,calc(100% - 36px));
@@ -792,45 +810,6 @@ details p {
   font-size:10px;
 }
 
-/* DESCARCARE */
-
-.download {
-  background:var(--brown);
-  color:white;
-  padding:50px;
-  text-align:center;
-}
-
-.download h2 {
-  font-size:clamp(42px,5vw,65px);
-}
-
-.download h2:hover {
-  color:var(--beige);
-}
-
-.download p {
-  color:var(--beige);
-  font-size:14px;
-}
-
-.store-buttons {
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:12px;
-  margin:25px 0;
-}
-
-.store {
-  background:white;
-  color:var(--brown);
-  padding:13px 25px;
-  min-width:170px;
-  font-size:13px;
-  font-weight:800;
-}
-
 /* FOOTER */
 
 footer {
@@ -919,10 +898,6 @@ footer {
     grid-template-columns:1fr 85px;
   }
 
-  .download {
-    padding:35px 20px;
-  }
-
   .academy {
     padding:65px 0;
   }
@@ -958,10 +933,6 @@ footer {
       <a href="#aplicatie">Aplicație</a>
       <a href="#academy">Academy</a>
       <a href="#preturi">Prețuri</a>
-
-      <a class="btn btn-primary" href="#download">
-        Descarcă aplicația
-      </a>
     </nav>
 
   </div>
@@ -1587,7 +1558,7 @@ footer {
       </ul>
 
       <a
-        href="#download"
+        href="#aplicatie"
         class="btn btn-secondary">
         ÎNCEPE GRATUIT
       </a>
@@ -1621,55 +1592,12 @@ footer {
       </ul>
 
       <a
-        href="#download"
+        href="#aplicatie"
         class="btn btn-primary">
         DESCOPERĂ PRO
       </a>
 
     </div>
-
-  </div>
-
-</section>
-
-<!-- DESCARCARE -->
-
-<section id="download" class="section container">
-
-  <div class="download">
-
-    <span
-      class="eyebrow"
-      style="color:#E9DCCC">
-      NAILMARGIN MOBILE
-    </span>
-
-    <h2>
-      Viitorul salonului tău
-      începe aici.
-    </h2>
-
-    <p>
-      Aplicația NailMargin pentru iPhone
-      și Android este în pregătire.
-    </p>
-
-    <div class="store-buttons">
-
-      <div class="store">
-         App Store · În curând
-      </div>
-
-      <div class="store">
-        ▶ Google Play · În curând
-      </div>
-
-    </div>
-
-    <p style="font-size:11px">
-      Butoanele vor deveni active
-      după publicarea oficială a aplicației.
-    </p>
 
   </div>
 
