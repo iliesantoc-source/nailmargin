@@ -3,10 +3,10 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F8F3EA">
-<meta name="description" content="NailMargin — calculator gratuit de prețuri și profit, programări și instrumente pentru nail artiști.">
-<title>NailMargin — Beauty · Business · Academy</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f1e9">
+<meta name="description" content="NailMargin — calculator gratuit de prețuri pentru nail artiști. Descoperă valoarea reală a muncii tale.">
+<title>NailMargin — The Art of Knowing Your Worth</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,1729 +14,913 @@
 
 <style>
 :root {
-  --cream:#F8F3EA;
-  --white:#FFFDFA;
-  --beige:#E9DCCC;
-  --nude:#D6BEAA;
-  --cappuccino:#A8846B;
+  --cream:#f7f1e9;
+  --paper:#fffdfa;
+  --ivory:#fdf8f0;
+  --sand:#e9d9c8;
+  --champagne:#d8b899;
+  --gold:#b58b67;
   --mocha:#765543;
-  --brown:#392820;
-  --muted:#806B5E;
-  --border:#DFD0C1;
-  --shadow:0 18px 50px rgba(57,40,32,.08);
+  --espresso:#30221d;
+  --muted:#87766a;
+  --line:#e2d5c7;
+  --ease:cubic-bezier(.22,1,.36,1);
 }
-
-* {
-  box-sizing:border-box;
-}
-
-html {
-  scroll-behavior:smooth;
-}
-
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
 body {
   margin:0;
   background:var(--cream);
-  color:var(--brown);
+  color:var(--espresso);
   font-family:Manrope,Arial,sans-serif;
+  overflow-x:hidden;
 }
-
-a {
-  text-decoration:none;
-  color:inherit;
-}
-
-button,input,select {
-  font:inherit;
-}
-
-button {
-  cursor:pointer;
-}
-
-h1,h2,h3,h4,p {
-  margin-top:0;
-}
-
-h1,h2,h3,h4 {
+body::selection {background:var(--champagne)}
+a {text-decoration:none;color:inherit}
+button,input,select {font:inherit}
+button {cursor:pointer}
+h1,h2,h3,p {margin-top:0}
+h1,h2,h3 {
   font-family:"Cormorant Garamond",Georgia,serif;
   font-weight:500;
-  transition:color .3s ease;
 }
-
-h1:hover,h2:hover,h3:hover {
+p {line-height:1.8}
+.container {width:min(1160px,calc(100% - 40px));margin:auto}
+:focus-visible {outline:2px solid var(--gold);outline-offset:4px}
+.eyebrow {
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.3em;
+  text-transform:uppercase;
   color:var(--mocha);
 }
+.reveal {
+  opacity:0;
+  transform:translateY(35px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+}
+.reveal.visible {opacity:1;transform:none}
 
-p {
-  line-height:1.75;
+/* LIGHT & ATMOSPHERE */
+.ambient-light {
+  position:fixed;
+  width:400px;
+  height:400px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:20;
+  background:radial-gradient(circle,#d8b89927,transparent 70%);
+  transform:translate(-50%,-50%);
+  opacity:0;
+}
+.grain {
+  position:fixed;
+  inset:0;
+  z-index:30;
+  pointer-events:none;
+  opacity:.13;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
 }
 
-.container {
-  width:min(1120px,calc(100% - 36px));
-  margin:auto;
-}
-
-:focus-visible {
-  outline:3px solid var(--cappuccino);
-  outline-offset:3px;
-}
-
-/* MENIU */
-
-.topbar {
+/* NAVIGATION */
+.header {
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(248,243,234,.96);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
+  background:#f7f1e9ed;
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid #e2d5c7a8;
 }
-
 .nav {
   min-height:88px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:20px;
 }
-
 .brand {
   font-family:WindSong,cursive;
-  font-size:39px;
+  font-size:40px;
   white-space:nowrap;
-  transition:transform .3s,color .3s;
+  transition:transform .4s var(--ease),color .4s;
 }
-
-.brand:hover {
-  color:var(--mocha);
-  transform:translateY(-2px);
-}
-
-.navlinks {
-  display:flex;
-  align-items:center;
-  gap:24px;
+.brand:hover {transform:translateY(-3px);color:var(--mocha)}
+.navlinks {display:flex;gap:34px;align-items:center}
+.navlinks a {
+  position:relative;
   font-size:12px;
   font-weight:700;
+  padding:12px 0;
+  transition:color .3s,letter-spacing .3s;
 }
-
-.navlinks a:not(.btn) {
-  position:relative;
-  padding:8px 0;
-}
-
-.navlinks a:not(.btn)::after {
+.navlinks a:hover {color:var(--gold);letter-spacing:.035em}
+.navlinks a::after {
   content:"";
   position:absolute;
-  bottom:2px;
+  bottom:5px;
   left:0;
-  width:0;
   height:1px;
-  background:var(--mocha);
-  transition:width .3s;
+  width:0;
+  background:var(--gold);
+  transition:width .4s var(--ease);
 }
+.navlinks a:hover::after,.navlinks a.active::after {width:100%}
 
-.navlinks a:not(.btn):hover::after {
-  width:100%;
-}
-
-/* BUTOANE */
-
+/* BUTTONS */
 .btn {
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:47px;
-  padding:13px 23px;
-  border:1px solid var(--brown);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.04em;
-  text-align:center;
-  transition:
-    transform .3s,
-    background .3s,
-    color .3s,
-    box-shadow .3s;
-}
-
-.btn-primary {
-  background:var(--brown);
-  color:white;
-}
-
-.btn-secondary {
+  gap:14px;
+  min-height:53px;
+  padding:16px 27px;
+  border:1px solid var(--espresso);
   background:transparent;
-  color:var(--brown);
+  color:var(--espresso);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  transition:transform .4s var(--ease),background .4s,color .4s,box-shadow .4s;
 }
-
-.btn:hover {
-  transform:translateY(-3px);
-  box-shadow:0 12px 24px rgba(57,40,32,.13);
-}
-
-.btn-primary:hover {
-  background:var(--mocha);
-  color:white;
-}
-
-.btn-secondary:hover {
-  background:var(--brown);
-  color:white;
-}
+.btn:hover {transform:translateY(-4px);box-shadow:0 15px 30px #30221d20}
+.btn-dark {background:var(--espresso);color:white}
+.btn-dark:hover {background:var(--mocha)}
+.btn-outline:hover {background:var(--espresso);color:white}
+.btn-arrow {transition:transform .35s}
+.btn:hover .btn-arrow {transform:translateX(6px)}
 
 /* HERO */
-
 .hero {
-  text-align:center;
-  padding:90px 18px 105px;
+  position:relative;
+  overflow:hidden;
+  min-height:750px;
+  display:flex;
+  align-items:center;
   background:
-    radial-gradient(
-      ellipse at 15% 10%,
-      rgba(214,190,170,.35),
-      transparent 45%
-    ),
-    radial-gradient(
-      ellipse at 90% 90%,
-      rgba(168,132,107,.18),
-      transparent 45%
-    ),
+    radial-gradient(ellipse at 12% 20%,#dfc5aa77,transparent 43%),
+    radial-gradient(ellipse at 85% 80%,#bca18b55,transparent 45%),
     var(--cream);
 }
-
-.eyebrow {
+.hero::before {
+  content:"";
+  position:absolute;
+  width:720px;
+  height:720px;
+  right:-220px;
+  top:-170px;
+  border-radius:50%;
+  border:1px solid #b58b6740;
+  animation:heroOrbit 25s linear infinite;
+}
+.hero::after {
+  content:"";
+  position:absolute;
+  width:550px;
+  height:550px;
+  right:-120px;
+  top:-80px;
+  border-radius:50%;
+  border:1px solid #b58b672a;
+  animation:heroOrbit 20s linear infinite reverse;
+}
+@keyframes heroOrbit {
+  to {transform:rotate(360deg) scale(1.06)}
+}
+.hero-inner {
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:55px;
+  align-items:center;
+  padding:110px 0 130px;
+}
+.hero-copy .eyebrow {
   display:block;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.28em;
-  color:var(--mocha);
-  margin-bottom:22px;
-  transition:letter-spacing .35s;
+  animation:fadeUp 1.2s both;
 }
-
-.eyebrow:hover {
-  letter-spacing:.33em;
-}
-
-.signature {
-  font-family:WindSong,cursive;
-  font-size:clamp(70px,12vw,150px);
-  line-height:1.5;
-  margin:0;
-  transition:transform .4s,color .4s;
-}
-
-.signature:hover {
-  transform:scale(1.025);
-  color:var(--mocha);
-}
-
-.hero-subtitle {
-  font-size:10px;
-  letter-spacing:.45em;
-  font-weight:700;
-  margin-bottom:35px;
-}
-
 .hero h1 {
-  font-size:clamp(42px,5.5vw,75px);
-  max-width:850px;
-  line-height:1.08;
-  margin:0 auto 22px;
+  font-size:clamp(65px,7.4vw,112px);
+  line-height:.93;
+  letter-spacing:-.04em;
+  margin:32px 0;
+  animation:fadeUp 1.3s .15s both;
 }
-
-.hero p {
-  max-width:670px;
-  margin:auto;
-  font-size:15px;
-  color:var(--muted);
+.hero h1 em {
+  font-weight:400;
+  color:var(--mocha);
+  display:inline-block;
+  animation:softFloat 7s ease-in-out infinite;
 }
-
-.hero-actions {
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:33px;
-}
-
-.trust {
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:22px;
-  margin-top:30px;
-  color:var(--muted);
-  font-size:11px;
-}
-
-/* SECTIUNI */
-
-.section {
-  padding:85px 0;
-}
-
-.section-head {
-  text-align:center;
-  max-width:800px;
-  margin:0 auto 38px;
-}
-
-.section-head h2 {
-  font-size:clamp(43px,5.5vw,69px);
-  line-height:1.08;
-  margin-bottom:15px;
-}
-
-.section-head p {
+.hero-description {
+  max-width:530px;
   color:var(--muted);
   font-size:14px;
+  animation:fadeUp 1.3s .3s both;
+}
+.hero-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:13px;
+  margin-top:35px;
+  animation:fadeUp 1.3s .45s both;
+}
+@keyframes fadeUp {
+  from {opacity:0;transform:translateY(35px)}
+  to {opacity:1;transform:translateY(0)}
+}
+@keyframes softFloat {
+  50% {transform:translateY(-9px)}
+}
+.hero-visual {
+  min-height:500px;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.visual-frame {
+  width:min(100%,420px);
+  aspect-ratio:4/5;
+  background:linear-gradient(140deg,#e7d3be,#b6957c 60%,#e8d8c7);
+  border:1px solid #fff8;
+  position:relative;
+  overflow:hidden;
+  box-shadow:35px 35px 70px #60452e28;
+  animation:visualFloat 8s ease-in-out infinite;
+}
+@keyframes visualFloat {
+  50% {transform:translateY(-15px) rotate(1deg)}
+}
+.visual-frame::before {
+  content:"";
+  position:absolute;
+  width:480px;
+  height:480px;
+  border:1px solid #fff8;
+  border-radius:50%;
+  top:7%;
+  left:-12%;
+}
+.visual-frame::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,transparent 20%,#ffffff55 47%,transparent 65%);
+  transform:translateX(-130%);
+  animation:shine 9s ease-in-out infinite;
+}
+@keyframes shine {
+  0%,55% {transform:translateX(-130%)}
+  85%,100% {transform:translateX(130%)}
+}
+.visual-content {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+}
+.visual-content .signature {
+  font-family:WindSong,cursive;
+  font-size:clamp(60px,6vw,94px);
+  line-height:1.6;
+  color:#fffaf2;
+  text-shadow:0 8px 30px #3b2b2860;
+}
+.visual-content small {
+  font-size:10px;
+  letter-spacing:.5em;
+  color:white;
+}
+.floating-label {
+  position:absolute;
+  right:-25px;
+  bottom:45px;
+  background:#fffaf2f2;
+  padding:22px 27px;
+  box-shadow:0 15px 45px #30221d24;
+  border:1px solid #fff;
+  animation:softFloat 6s ease-in-out infinite;
+}
+.floating-label strong {
+  font-family:"Cormorant Garamond",serif;
+  font-size:31px;
+  font-weight:500;
+  display:block;
+}
+.floating-label span {font-size:9px;letter-spacing:.16em;color:var(--muted)}
+.hero-bottom {
+  position:absolute;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  letter-spacing:.3em;
+  color:var(--mocha);
+  white-space:nowrap;
 }
 
-.card {
-  background:var(--white);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-  transition:
-    transform .35s,
-    box-shadow .35s,
-    border-color .35s;
+/* MARQUEE */
+.marquee {
+  background:var(--espresso);
+  color:#e6d3bf;
+  overflow:hidden;
+  padding:19px 0;
 }
+.marquee-track {
+  display:flex;
+  width:max-content;
+  animation:marquee 38s linear infinite;
+}
+.marquee-track span {
+  white-space:nowrap;
+  font-size:10px;
+  letter-spacing:.28em;
+  margin-right:55px;
+}
+.marquee-track b {margin-left:55px;color:var(--champagne)}
+@keyframes marquee {to {transform:translateX(-50%)}}
 
-.card:hover {
-  transform:translateY(-4px);
-  box-shadow:0 24px 55px rgba(57,40,32,.12);
-  border-color:var(--nude);
+/* INTRO */
+.intro {padding:110px 0 90px;text-align:center}
+.intro h2 {
+  font-size:clamp(52px,6vw,85px);
+  line-height:1.02;
+  max-width:850px;
+  margin:22px auto;
 }
+.intro h2 em {color:var(--mocha);font-weight:400}
+.intro p {max-width:650px;margin:auto;color:var(--muted);font-size:14px}
 
 /* CALCULATOR */
-
+.calc-section {padding:45px 0 120px;position:relative}
+.section-heading {text-align:center;max-width:770px;margin:0 auto 45px}
+.section-heading h2 {
+  font-size:clamp(52px,6vw,83px);
+  line-height:1.05;
+  margin:20px 0;
+}
+.section-heading p {color:var(--muted);font-size:14px}
 .calculator {
-  max-width:930px;
+  max-width:970px;
   margin:auto;
-  padding:35px;
+  padding:45px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 30px 90px #30221d0e;
+  position:relative;
 }
-
-.calculator:hover {
-  transform:none;
+.calculator::before {
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:1px solid #e9ded255;
+  pointer-events:none;
 }
-
 .calc-head {
   display:flex;
-  justify-content:space-between;
   align-items:flex-start;
+  justify-content:space-between;
   gap:20px;
 }
-
-.calc-head h3 {
-  font-size:41px;
-  margin-bottom:8px;
-}
-
-.calc-head p {
-  color:var(--muted);
-  font-size:13px;
-}
-
+.calc-head h3 {font-size:45px;margin-bottom:7px}
+.calc-head p {font-size:12px;color:var(--muted)}
 .free-pill {
-  padding:9px 13px;
-  border:1px solid var(--border);
-  color:var(--mocha);
+  border:1px solid var(--champagne);
+  padding:11px 15px;
   font-size:10px;
   letter-spacing:.15em;
   white-space:nowrap;
+  color:var(--mocha);
 }
-
 .grid2 {
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:18px;
-  margin-top:25px;
+  gap:19px;
+  margin-top:30px;
 }
-
-label {
-  display:block;
-  font-size:12px;
-  font-weight:800;
-}
-
+label {font-size:12px;font-weight:800;display:block}
 input,select {
-  display:block;
   width:100%;
-  margin-top:8px;
-  padding:13px 12px;
-  border:1px solid var(--border);
-  background:white;
-  color:var(--brown);
+  margin-top:9px;
+  padding:14px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--espresso);
   border-radius:0;
   transition:border-color .3s,box-shadow .3s;
 }
-
 input:focus,select:focus {
   outline:none;
-  border-color:var(--mocha);
-  box-shadow:0 0 0 3px rgba(168,132,107,.12);
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px #d8b89930;
 }
-
 .calc-title {
-  font-size:34px;
-  margin:34px 0 10px;
+  font-size:37px;
+  margin:40px 0 12px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
 }
-
-.muted {
-  color:var(--muted);
-  font-size:12px;
-}
-
+.muted {color:var(--muted);font-size:12px}
 .note {
-  background:#F4EAE0;
-  border-left:3px solid var(--cappuccino);
-  padding:16px;
-  margin:20px 0;
-  color:#5F493B;
+  background:#f5eee6;
+  border-left:2px solid var(--gold);
+  padding:19px;
+  margin:24px 0;
   font-size:12px;
+  color:#624b3c;
   line-height:1.8;
 }
-
-.note p {
-  margin:8px 0;
-}
-
+.note p {margin:8px 0}
 .cost-row {
   display:grid;
-  grid-template-columns:1fr 110px;
-  gap:16px;
+  grid-template-columns:1fr 115px;
   align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid #E9DFD5;
-  transition:background .25s;
+  gap:16px;
+  padding:12px 9px;
+  border-bottom:1px solid #eee5dc;
+  transition:background .3s;
 }
-
-.cost-row:hover {
-  background:rgba(233,220,204,.18);
-}
-
-.cost-row strong {
-  font-size:12px;
-}
-
+.cost-row:hover {background:#f7f1e9}
+.cost-row strong {font-size:12px}
 .cost-row small {
   display:block;
+  margin-top:5px;
   color:var(--muted);
   font-size:11px;
-  line-height:1.6;
-  margin-top:4px;
-}
-
-.cost-row input {
-  margin:0;
-  text-align:right;
-}
-
-.subtotal {
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:20px 0;
-  font-weight:800;
-  font-size:14px;
-}
-
-.breakdown-row {
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:12px 0;
-  border-bottom:1px solid var(--border);
-  font-size:13px;
-}
-
-.price-result {
-  background:var(--brown);
-  color:white;
-  text-align:center;
-  padding:35px 15px;
-  margin-top:28px;
-  transition:background .4s;
-}
-
-.price-result:hover {
-  background:#4D3528;
-}
-
-.price-result small {
-  display:block;
-  font-size:11px;
-  letter-spacing:.24em;
-}
-
-.price-result strong {
-  display:block;
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:clamp(56px,8vw,86px);
-  font-weight:500;
-  margin:8px 0;
-}
-
-.price-result span {
-  font-size:11px;
-  color:var(--beige);
-}
-
-details {
-  padding:17px;
-  margin-top:12px;
-  background:var(--white);
-  border:1px solid var(--border);
-}
-
-summary {
-  cursor:pointer;
-  font-size:13px;
-  font-weight:800;
-  transition:color .3s;
-}
-
-summary:hover {
-  color:var(--cappuccino);
-}
-
-details p {
-  font-size:12px;
-  color:var(--muted);
-  margin:15px 0 0;
-}
-
-/* APLICATIE */
-
-.showcase {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:65px;
-  align-items:center;
-}
-
-.phone {
-  width:min(100%,355px);
-  margin:auto;
-  padding:11px;
-  border-radius:38px;
-  background:var(--brown);
-  box-shadow:0 25px 55px rgba(57,40,32,.22);
-  transition:transform .5s,box-shadow .5s;
-}
-
-.phone:hover {
-  transform:translateY(-7px) rotate(-1deg);
-  box-shadow:0 32px 65px rgba(57,40,32,.27);
-}
-
-.phone-screen {
-  background:#FFF9F3;
-  border-radius:29px;
-  overflow:hidden;
-  min-height:560px;
-}
-
-.phone-top {
-  background:var(--beige);
-  padding:25px 18px;
-}
-
-.phone-top strong {
-  font-family:WindSong,cursive;
-  font-size:32px;
-}
-
-.phone-top p {
-  font-size:11px;
-  margin:0;
-}
-
-.weekdays,.month-grid {
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-}
-
-.weekdays span {
-  text-align:center;
-  padding:12px 0;
-  font-size:10px;
-  color:var(--muted);
-}
-
-.day {
-  min-height:68px;
-  border:1px solid #EEE3D8;
-  padding:5px 3px;
-  font-size:10px;
-}
-
-.day b {
-  display:block;
-  margin-bottom:6px;
-}
-
-.event {
-  background:#E6D2C0;
-  padding:4px 2px;
-  font-size:8px;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  margin-bottom:3px;
-}
-
-.event.alt {
-  background:#F0E7DD;
-}
-
-.showcase-copy h2 {
-  font-size:clamp(43px,5vw,65px);
-  line-height:1.1;
-}
-
-.showcase-copy p {
-  color:var(--muted);
-  font-size:14px;
-}
-
-.feature-list {
-  display:grid;
-  gap:15px;
-  margin-top:25px;
-}
-
-.feature {
-  display:flex;
-  align-items:flex-start;
-  gap:13px;
-  font-size:13px;
-  transition:transform .3s;
-}
-
-.feature:hover {
-  transform:translateX(5px);
-}
-
-.feature-icon {
-  width:31px;
-  height:31px;
-  flex:0 0 31px;
-  background:var(--beige);
-  display:grid;
-  place-items:center;
-}
-
-.feature b {
-  display:block;
-}
-
-.feature small {
-  display:block;
-  color:var(--muted);
-  margin-top:4px;
-  line-height:1.6;
-}
-
-/* PREZENTARE */
-
-.preview-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.preview {
-  padding:24px;
-}
-
-.preview-art {
-  min-height:170px;
-  padding:16px;
-  background:linear-gradient(135deg,#F8F3EA,#E9DCCC);
-}
-
-.preview h3 {
-  font-size:34px;
-  margin:20px 0 8px;
-}
-
-.preview p {
-  color:var(--muted);
-  font-size:12px;
-}
-
-.mini-item {
-  padding:12px;
-  margin-bottom:9px;
-  background:white;
-  font-size:11px;
-  transition:transform .3s;
-}
-
-.mini-item:hover {
-  transform:translateX(4px);
-}
-
-.mini-item small {
-  display:block;
-  color:var(--muted);
-}
-
-/* ACADEMY */
-
-.academy {
-  background:var(--beige);
-  padding:95px 0;
-}
-
-.academy-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:65px;
-  align-items:center;
-}
-
-.academy-art {
-  min-height:360px;
-  background:linear-gradient(145deg,#F8F3EA,#D6BEAA);
-  border:1px solid rgba(57,40,32,.13);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  box-shadow:20px 20px 0 rgba(255,253,249,.38);
-  transition:transform .4s;
-}
-
-.academy-art:hover {
-  transform:translateY(-5px);
-}
-
-.academy-art strong {
-  font-family:WindSong,cursive;
-  font-size:clamp(55px,6vw,90px);
-  font-weight:400;
   line-height:1.5;
 }
-
-.academy-art small {
-  font-size:11px;
-  letter-spacing:.4em;
-  color:var(--mocha);
-}
-
-.academy-copy h2 {
-  font-size:clamp(45px,5vw,68px);
-  line-height:1.1;
-}
-
-.academy-copy p {
-  color:var(--mocha);
-  font-size:14px;
-}
-
-.academy-label {
-  font-size:11px;
-  letter-spacing:.22em;
-  color:var(--mocha);
-  font-weight:800;
-}
-
-.coming-soon {
-  display:inline-block;
-  border:1px solid var(--brown);
-  padding:13px 24px;
-  margin-top:15px;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.1em;
-}
-
-/* ABONAMENTE */
-
-.pricing {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  max-width:850px;
-  margin:auto;
-}
-
-.plan {
-  padding:32px;
-  position:relative;
-}
-
-.plan.featured {
-  border:2px solid var(--mocha);
-}
-
-.plan h3 {
-  font-size:37px;
-}
-
-.price {
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:67px;
-  margin:20px 0 0;
-}
-
-.period {
-  font-size:12px;
-  color:var(--muted);
-}
-
-.plan ul {
-  padding-left:20px;
-  margin:25px 0;
+.cost-row input {margin:0;text-align:right}
+.subtotal,.breakdown-row {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:17px 0;
+  border-bottom:1px solid var(--line);
   font-size:13px;
-  line-height:2.3;
 }
-
-.plan .btn {
-  width:100%;
-}
-
-.popular {
-  position:absolute;
-  top:18px;
-  right:18px;
-  background:var(--brown);
+.subtotal {font-weight:800}
+.price-result {
+  position:relative;
+  margin-top:28px;
+  padding:45px 20px;
+  text-align:center;
   color:white;
-  padding:7px 12px;
-  font-size:10px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#30221d,#624638);
 }
+.price-result::before {
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle,#d8b89955,transparent 70%);
+  right:-70px;
+  top:-130px;
+  animation:softFloat 6s infinite;
+}
+.price-result small {
+  position:relative;
+  display:block;
+  font-size:10px;
+  letter-spacing:.3em;
+}
+.price-result strong {
+  position:relative;
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(65px,8vw,95px);
+  font-weight:500;
+  margin:10px 0;
+}
+.price-result span {position:relative;font-size:11px;color:#e5d3c0}
+details {
+  margin-top:12px;
+  padding:20px;
+  background:var(--ivory);
+  border:1px solid var(--line);
+}
+summary {cursor:pointer;font-size:12px;font-weight:800}
+details p {font-size:12px;color:var(--muted);margin:14px 0 0}
+
+/* CLOSING */
+.closing {
+  background:var(--espresso);
+  color:var(--ivory);
+  text-align:center;
+  padding:110px 20px;
+  position:relative;
+  overflow:hidden;
+}
+.closing::before {
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  border:1px solid #d8b89944;
+  border-radius:50%;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+.closing-content {position:relative}
+.closing .eyebrow {color:var(--champagne)}
+.closing h2 {
+  font-size:clamp(55px,7vw,100px);
+  line-height:1;
+  margin:25px 0;
+}
+.closing h2 em {color:var(--champagne);font-weight:400}
+.closing p {font-size:13px;color:#d7c5b7;max-width:580px;margin:0 auto 30px}
+.closing .btn {border-color:var(--champagne);color:var(--espresso);background:var(--champagne)}
+.closing .btn:hover {background:#efd5b9}
 
 /* FOOTER */
-
 footer {
-  text-align:center;
-  padding:45px 15px;
-  border-top:1px solid var(--border);
-  font-size:11px;
-  color:var(--muted);
+  padding:65px 0 30px;
+  background:#211915;
+  color:#d9c5b3;
+}
+.footer-grid {
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  flex-wrap:wrap;
+}
+.footer-logo {font-family:WindSong,cursive;font-size:49px}
+footer p,footer a {font-size:11px;color:#c9b6a6}
+footer a:hover {color:white}
+.footer-links {display:flex;gap:25px;flex-wrap:wrap}
+.footer-bottom {
+  border-top:1px solid #ffffff25;
+  padding-top:23px;
+  margin-top:42px;
+  font-size:10px;
+  color:#b3a093;
 }
 
-.footer-logo {
-  font-family:WindSong,cursive;
-  font-size:45px;
-  color:var(--brown);
-  margin-bottom:15px;
+/* RESPONSIVE */
+@media(max-width:950px) {
+  .hero-inner {grid-template-columns:1fr}
+  .hero-visual {display:none}
+  .hero {min-height:640px}
 }
-
-/* TELEFON SI TABLETA */
-
-@media(max-width:850px) {
-  .showcase,.academy-grid {
-    grid-template-columns:1fr;
-  }
-
-  .preview-grid {
-    grid-template-columns:1fr;
-  }
-
-  .pricing {
-    grid-template-columns:1fr;
-  }
-
-  .navlinks a:not(.btn) {
-    display:none;
-  }
+@media(max-width:650px) {
+  .container {width:calc(100% - 30px)}
+  .nav {min-height:74px}
+  .brand {font-size:29px}
+  .navlinks {gap:13px}
+  .navlinks a {font-size:10px}
+  .hero-inner {padding:95px 0}
+  .hero h1 {font-size:clamp(62px,13vw,83px)}
+  .hero {min-height:630px}
+  .intro {padding:75px 0}
+  .calc-section {padding:30px 0 80px}
+  .calculator {padding:24px 18px}
+  .grid2 {grid-template-columns:1fr}
+  .calc-head {display:block}
+  .free-pill {display:inline-block;margin:10px 0}
+  .cost-row {grid-template-columns:1fr 90px}
+  .closing {padding:85px 18px}
 }
-
-@media(max-width:620px) {
-  .nav {
-    min-height:75px;
-  }
-
-  .brand {
-    font-size:30px;
-  }
-
-  .navlinks .btn {
-    font-size:10px;
-    padding:10px;
-  }
-
-  .hero {
-    padding:60px 15px 70px;
-  }
-
-  .signature {
-    font-size:clamp(65px,16vw,95px);
-  }
-
-  .hero-subtitle {
-    letter-spacing:.2em;
-  }
-
-  .section {
-    padding:60px 0;
-  }
-
-  .calculator {
-    padding:20px;
-  }
-
-  .grid2 {
-    grid-template-columns:1fr;
-  }
-
-  .calc-head {
-    display:block;
-  }
-
-  .free-pill {
-    display:inline-block;
-    margin:10px 0;
-  }
-
-  .cost-row {
-    grid-template-columns:1fr 85px;
-  }
-
-  .academy {
-    padding:65px 0;
-  }
-
-  .academy-art {
-    min-height:250px;
-  }
-}
-
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after {
-    scroll-behavior:auto!important;
-    transition:none!important;
     animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
   }
+  .reveal {opacity:1;transform:none}
 }
 </style>
 </head>
 
 <body>
+<div class="ambient-light" id="ambientLight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<!-- MENIU -->
-
-<header class="topbar">
+<header class="header">
   <div class="container nav">
-
-    <a class="brand" href="#acasa">
-      NailMargin
-    </a>
-
-    <nav class="navlinks">
-      <a href="#calculator">Calculator</a>
-      <a href="#aplicatie">Aplicație</a>
-      <a href="#academy">Academy</a>
-      <a href="#preturi">Prețuri</a>
+    <a class="brand" href="index.html">NailMargin</a>
+    <nav class="navlinks" aria-label="Meniu principal">
+      <a href="index.html" class="active" aria-current="page">Calculator</a>
+      <a href="aplicatie.html">Aplicație</a>
+      <a href="academy.html">Academy</a>
     </nav>
-
   </div>
 </header>
 
 <main>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">The art of beauty business</span>
+        <h1>Know your worth.<br><em>Own your success.</em></h1>
+        <p class="hero-description">
+          Munca ta are o valoare. Talentul tău merită să fie răsplătit.
+          NailMargin transformă costurile, timpul și experiența ta într-un
+          preț calculat conștient — pentru un business construit cu încredere.
+        </p>
+        <div class="hero-actions">
+          <a href="#calculator" class="btn btn-dark">
+            Descoperă calculatorul <span class="btn-arrow">↗</span>
+          </a>
+          <a href="aplicatie.html" class="btn btn-outline">
+            Explorează aplicația <span class="btn-arrow">↗</span>
+          </a>
+        </div>
+      </div>
 
-<!-- PRIMA PAGINA -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="visual-frame">
+          <div class="visual-content">
+            <div class="signature">NailMargin</div>
+            <small>BEAUTY · BUSINESS · ART</small>
+          </div>
+        </div>
+        <div class="floating-label">
+          <strong>Beauty in business.</strong>
+          <span>DESIGNED FOR NAIL ARTISTS</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bottom">SCROLL TO DISCOVER ↓</div>
+  </section>
 
-<section class="hero" id="acasa">
-
-  <span class="eyebrow">
-    THE ART OF BEAUTY BUSINESS
-  </span>
-
-  <div class="signature">
-    NailMargin
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>KNOW YOUR WORTH <b>✧</b></span>
+      <span>THE ART OF PRICING <b>✧</b></span>
+      <span>BEAUTY MEETS BUSINESS <b>✧</b></span>
+      <span>CREATED FOR NAIL ARTISTS <b>✧</b></span>
+      <span>KNOW YOUR WORTH <b>✧</b></span>
+      <span>THE ART OF PRICING <b>✧</b></span>
+      <span>BEAUTY MEETS BUSINESS <b>✧</b></span>
+      <span>CREATED FOR NAIL ARTISTS <b>✧</b></span>
+    </div>
   </div>
 
-  <div class="hero-subtitle">
-    BEAUTY · BUSINESS · ACADEMY
-  </div>
-
-  <h1>
-    Profitul și programările tale,
-    în sfârșit în același loc.
-  </h1>
-
-  <p>
-    NailMargin te ajută să înțelegi cât câștigi
-    cu adevărat, iar aplicația mobilă îți organizează
-    clientele, serviciile, calendarul și reminder-ele.
-  </p>
-
-  <div class="hero-actions">
-
-    <a href="#calculator" class="btn btn-primary">
-      CALCULEAZĂ GRATUIT
-    </a>
-
-    <a href="#aplicatie" class="btn btn-secondary">
-      VEZI APLICAȚIA
-    </a>
-
-  </div>
-
-  <div class="trust">
-    <span>✓ Calculator gratuit</span>
-    <span>✓ Free până la 6 cliente</span>
-    <span>✓ Pro 80 lei/lună</span>
-  </div>
-
-</section>
-
-<!-- CALCULATOR -->
-
-<section id="calculator" class="section container">
-
-  <div class="section-head">
-    <span class="eyebrow">
-      NAILMARGIN · BUSINESS TOOLS
-    </span>
-
-    <h2>
-      Cât ar trebui să coste munca ta?
-    </h2>
-
+  <section class="intro container reveal">
+    <span class="eyebrow">Your talent. Your time. Your value.</span>
+    <h2>Behind every beautiful set, there is <em>valuable work.</em></h2>
     <p>
-      Prețul recomandat se construiește din materiale,
-      timp, cheltuielile salonului și experiența ta.
-      Toate valorile pot fi personalizate.
+      Fiecare produs, fiecare minut și fiecare an de experiență contează.
+      Un preț corect nu se ghicește. Se construiește.
     </p>
-  </div>
+  </section>
 
-  <div class="calculator card">
-
-    <div class="calc-head">
-      <div>
-        <h3>Calculator de preț corect</h3>
-
+  <section class="calc-section" id="calculator">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="eyebrow">NailMargin · Business Tools</span>
+        <h2>The art of pricing.</h2>
         <p>
-          Alege nivelul și serviciul.
-          Modifică valorile pentru salonul tău.
+          Descoperă cât ar trebui să coste serviciile tale.
+          Calculatorul este gratuit și poate fi personalizat
+          în funcție de salonul și experiența ta.
         </p>
       </div>
 
-      <div class="free-pill">
-        100% GRATUIT
-      </div>
-    </div>
-
-    <div class="grid2">
-
-      <label>
-        Experiența ta
-        <select id="experience">
-          <option value="beginner">
-            Începător · 0–2 ani
-          </option>
-
-          <option value="medium" selected>
-            Mediu · 2–5 ani
-          </option>
-
-          <option value="advanced">
-            Avansat · peste 5 ani
-          </option>
-        </select>
-      </label>
-
-      <label>
-        Tipul serviciului
-        <select id="service">
-          <option value="semi">
-            Manichiură semipermanentă
-          </option>
-
-          <option value="gel" selected>
-            Întreținere gel
-          </option>
-
-          <option value="extension">
-            Construcție gel
-          </option>
-
-          <option value="pedi">
-            Pedichiură estetică semipermanentă
-          </option>
-        </select>
-      </label>
-
-      <label>
-        Durata serviciului (minute)
-        <input
-          id="minutes"
-          type="number"
-          min="15"
-          value="130">
-      </label>
-
-      <label>
-        Valoarea muncii tale / oră (lei)
-        <input
-          id="hourRate"
-          type="number"
-          min="0"
-          value="55">
-      </label>
-
-      <label>
-        Numărul de cliente pe lună
-        <input
-          id="clients"
-          type="number"
-          min="1"
-          value="80">
-      </label>
-
-      <label>
-        Rezervă pentru business (%)
-        <input
-          id="reserve"
-          type="number"
-          min="0"
-          value="15">
-      </label>
-
-      <label>
-        Prețul tău actual (lei) · opțional
-        <input
-          id="actualPrice"
-          type="number"
-          min="0"
-          placeholder="Introdu pentru comparație">
-      </label>
-
-    </div>
-
-    <div class="note">
-      <strong>
-        Cum influențează experiența prețul?
-      </strong>
-
-      <p>
-        Calculatorul folosește orientativ:
-        35 lei/oră pentru începător,
-        55 lei/oră pentru nivel mediu și
-        80 lei/oră pentru nivel avansat.
-      </p>
-
-      <p>
-        Poți modifica manual tariful orar și durata.
-        Nu sunt prețuri obligatorii.
-      </p>
-    </div>
-
-    <h3 class="calc-title">
-      01. Materiale și consumabile
-    </h3>
-
-    <p class="muted">
-      Estimări pentru un serviciu.
-      Poți modifica fiecare cost.
-    </p>
-
-    <div id="materialRows"></div>
-
-    <div class="subtotal">
-      <span>Total materiale</span>
-      <strong id="materialsTotal">0 lei</strong>
-    </div>
-
-    <h3 class="calc-title">
-      02. Cheltuieli fixe lunare
-    </h3>
-
-    <p class="muted">
-      Chirie, utilități, contabilitate,
-      echipamente și alte cheltuieli.
-    </p>
-
-    <div id="fixedRows"></div>
-
-    <div class="subtotal">
-      <span>Total cheltuieli lunare</span>
-      <strong id="monthlyFixedTotal">0 lei</strong>
-    </div>
-
-    <div class="subtotal">
-      <span>Cost fix alocat unei cliente</span>
-      <strong id="fixedPerClient">0 lei</strong>
-    </div>
-
-    <div class="note">
-      <strong>
-        Cum împărțim costurile fixe?
-      </strong>
-
-      <p>
-        Dacă salonul are cheltuieli de 2.700 lei
-        și lucrezi cu 80 de cliente lunar,
-        fiecare serviciu trebuie să contribuie
-        cu 33,75 lei la acoperirea costurilor fixe.
-      </p>
-    </div>
-
-    <h3 class="calc-title">
-      03. Calculul prețului final
-    </h3>
-
-    <div id="breakdown"></div>
-
-    <div class="price-result" aria-live="polite">
-
-      <small>
-        PREȚ RECOMANDAT
-      </small>
-
-      <strong id="recommended">
-        —
-      </strong>
-
-      <span>
-        Estimare rotunjită în sus la 5 lei
-      </span>
-
-    </div>
-
-    <div
-      class="note"
-      id="insight"
-      aria-live="polite">
-    </div>
-
-    <details>
-      <summary>
-        De unde provin costurile materialelor?
-      </summary>
-
-      <p>
-        Sunt estimări de consum pentru produse
-        profesionale comercializate în România.
-        De exemplu, un gel builder de 50 g
-        la 160 lei înseamnă aproximativ
-        3,20 lei pentru fiecare gram.
-      </p>
-
-      <p>
-        Valorile nu sunt prețuri actualizate
-        automat. Pentru un rezultat cât mai
-        corect, introdu costurile produselor tale.
-      </p>
-    </details>
-
-    <details>
-      <summary>
-        Ce reprezintă prețul recomandat?
-      </summary>
-
-      <p>
-        Suma acoperă materialele, cheltuielile
-        fixe, remunerația muncii și o rezervă
-        pentru dezvoltarea businessului.
-      </p>
-
-      <p>
-        Nu reprezintă profit net după impozite
-        și nu include automat TVA, CAS, CASS
-        sau alte obligații fiscale.
-      </p>
-    </details>
-
-  </div>
-</section>
-
-<!-- APLICATIA -->
-
-<section id="aplicatie" class="section container">
-
-  <div class="showcase">
-
-    <div class="phone">
-
-      <div class="phone-screen">
-
-        <div class="phone-top">
-          <strong>NailMargin</strong>
-          <p>Agenda ta · August</p>
-        </div>
-
-        <div class="weekdays">
-          <span>L</span>
-          <span>M</span>
-          <span>M</span>
-          <span>J</span>
-          <span>V</span>
-          <span>S</span>
-          <span>D</span>
-        </div>
-
-        <div
-          class="month-grid"
-          id="calendarPreview">
-        </div>
-
-      </div>
-    </div>
-
-    <div class="showcase-copy">
-
-      <span class="eyebrow">
-        THE NAILMARGIN APP
-      </span>
-
-      <h2>
-        Agenda ta. Regulile tale.
-        Businessul tău.
-      </h2>
-
-      <p>
-        NailMargin este creată pentru nail artiștii
-        care își doresc mai mult decât
-        o simplă agendă de programări.
-      </p>
-
-      <div class="feature-list">
-
-        <div class="feature">
-          <div class="feature-icon">✓</div>
-
+      <div class="calculator reveal">
+        <div class="calc-head">
           <div>
-            <b>Servicii personalizate</b>
-            <small>
-              Stabilești propriile servicii,
-              durate și tarife.
-            </small>
+            <h3>Calculator de preț corect</h3>
+            <p>Completează valorile și descoperă prețul recomandat.</p>
           </div>
+          <span class="free-pill">100% GRATUIT</span>
         </div>
 
-        <div class="feature">
-          <div class="feature-icon">✓</div>
+        <div class="grid2">
+          <label>Experiența ta
+            <select id="experience">
+              <option value="beginner">Începător · 0–2 ani</option>
+              <option value="medium" selected>Mediu · 2–5 ani</option>
+              <option value="advanced">Avansat · peste 5 ani</option>
+            </select>
+          </label>
 
-          <div>
-            <b>Calendar complet</b>
-            <small>
-              Vizualizare pe zi, 3 zile,
-              săptămână sau lună.
-            </small>
-          </div>
+          <label>Tipul serviciului
+            <select id="service">
+              <option value="semi">Manichiură semipermanentă</option>
+              <option value="gel" selected>Întreținere gel</option>
+              <option value="extension">Construcție gel</option>
+              <option value="pedi">Pedichiură estetică semipermanentă</option>
+            </select>
+          </label>
+
+          <label>Durata serviciului (minute)
+            <input id="minutes" type="number" min="15" value="130">
+          </label>
+
+          <label>Valoarea muncii tale / oră (lei)
+            <input id="hourRate" type="number" min="0" value="55">
+          </label>
+
+          <label>Numărul de cliente pe lună
+            <input id="clients" type="number" min="1" value="80">
+          </label>
+
+          <label>Rezervă pentru business (%)
+            <input id="reserve" type="number" min="0" value="15">
+          </label>
+
+          <label>Prețul tău actual (lei) · opțional
+            <input id="actualPrice" type="number" min="0" placeholder="Introdu pentru comparație">
+          </label>
         </div>
 
-        <div class="feature">
-          <div class="feature-icon">✓</div>
-
-          <div>
-            <b>Reminder-e</b>
-            <small>
-              Mesaje WhatsApp și SMS planificate
-              pentru aplicație.
-            </small>
-          </div>
+        <div class="note">
+          <strong>Cum influențează experiența prețul?</strong>
+          <p>
+            Calculatorul folosește orientativ 35 lei/oră pentru începător,
+            55 lei/oră pentru nivel mediu și 80 lei/oră pentru nivel avansat.
+            Poți modifica manual tariful și durata.
+          </p>
         </div>
 
-        <div class="feature">
-          <div class="feature-icon">✓</div>
-
-          <div>
-            <b>Rapoarte de business</b>
-            <small>
-              Urmărești veniturile, serviciile
-              și profitabilitatea.
-            </small>
-          </div>
+        <h3 class="calc-title">01. Materiale și consumabile</h3>
+        <p class="muted">Estimări pentru un serviciu. Poți modifica fiecare cost.</p>
+        <div id="materialRows"></div>
+        <div class="subtotal">
+          <span>Total materiale</span>
+          <strong id="materialsTotal">0 lei</strong>
         </div>
 
+        <h3 class="calc-title">02. Cheltuieli fixe lunare</h3>
+        <p class="muted">Chirie, utilități, contabilitate, echipamente și alte cheltuieli.</p>
+        <div id="fixedRows"></div>
+        <div class="subtotal">
+          <span>Total cheltuieli lunare</span>
+          <strong id="monthlyFixedTotal">0 lei</strong>
+        </div>
+        <div class="subtotal">
+          <span>Cost fix alocat unei cliente</span>
+          <strong id="fixedPerClient">0 lei</strong>
+        </div>
+
+        <div class="note">
+          <strong>Cum împărțim costurile fixe?</strong>
+          <p>
+            Dacă salonul are cheltuieli de 2.700 lei și lucrezi
+            cu 80 de cliente lunar, fiecare serviciu contribuie
+            cu 33,75 lei la acoperirea costurilor fixe.
+          </p>
+        </div>
+
+        <h3 class="calc-title">03. Calculul prețului final</h3>
+        <div id="breakdown"></div>
+
+        <div class="price-result" aria-live="polite">
+          <small>PREȚ RECOMANDAT</small>
+          <strong id="recommended">—</strong>
+          <span>Estimare rotunjită în sus la 5 lei</span>
+        </div>
+
+        <div class="note" id="insight" aria-live="polite"></div>
+
+        <details>
+          <summary>De unde provin costurile materialelor?</summary>
+          <p>
+            Sunt estimări de consum pentru produse profesionale.
+            De exemplu, un gel builder de 50 g la 160 lei
+            înseamnă aproximativ 3,20 lei pentru fiecare gram.
+            Introdu propriile costuri pentru un calcul personalizat.
+          </p>
+        </details>
+
+        <details>
+          <summary>Ce reprezintă prețul recomandat?</summary>
+          <p>
+            Suma include materialele, cheltuielile fixe,
+            remunerația muncii și rezerva de business.
+            Nu reprezintă profit net după taxe și nu include
+            automat TVA, CAS, CASS sau alte obligații fiscale.
+          </p>
+        </details>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
-
-<!-- PREZENTARE FUNCTII -->
-
-<section class="section container">
-
-  <div class="section-head">
-
-    <span class="eyebrow">
-      DESIGNED FOR NAIL ARTISTS
-    </span>
-
-    <h2>
-      Mai multă organizare.
-      Mai mult control.
-    </h2>
-
-    <p>
-      Instrumente create în jurul activității tale.
-    </p>
-
-  </div>
-
-  <div class="preview-grid">
-
-    <div class="preview card">
-
-      <div class="preview-art">
-
-        <div class="mini-item">
-          <b>Întreținere gel S</b>
-          <small>90 min · 160 lei</small>
-        </div>
-
-        <div class="mini-item">
-          <b>Construcție gel M</b>
-          <small>120 min · 210 lei</small>
-        </div>
-
-        <div class="mini-item">
-          <b>Pedichiură</b>
-          <small>75 min · 140 lei</small>
-        </div>
-
-      </div>
-
-      <h3>Serviciile tale</h3>
-
+  <section class="closing">
+    <div class="closing-content reveal">
+      <span class="eyebrow">The next chapter</span>
+      <h2>More than a calculator.<br><em>A new way to grow.</em></h2>
       <p>
-        Configurezi meniul de servicii
-        în funcție de salonul tău.
+        Descoperă NailMargin App — spațiul dedicat programărilor,
+        clientelor și organizării businessului tău.
       </p>
-
-    </div>
-
-    <div class="preview card">
-
-      <div class="preview-art">
-
-        <div class="mini-item">
-          <b>Reminder programare</b>
-
-          <small>
-            Bună, Maria! Ai programare mâine
-            la 14:30 pentru întreținere gel.
-            Te așteptăm!
-          </small>
-        </div>
-
-      </div>
-
-      <h3>Reminder-e</h3>
-
-      <p>
-        Exemple de mesaje personalizate
-        pentru clientele tale.
-      </p>
-
-    </div>
-
-    <div class="preview card">
-
-      <div class="preview-art">
-
-        <div class="mini-item">
-          <b>Venit lunar</b>
-          <small>8.420 lei</small>
-        </div>
-
-        <div class="mini-item">
-          <b>Profit estimat</b>
-          <small>5.980 lei</small>
-        </div>
-
-        <div class="mini-item">
-          <b>Ore lucrate</b>
-          <small>86 ore</small>
-        </div>
-
-      </div>
-
-      <h3>Rapoarte</h3>
-
-      <p>
-        Exemple de statistici pentru
-        viitoarea aplicație.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- NAILMARGIN ACADEMY -->
-
-<section id="academy" class="academy">
-
-  <div class="container academy-grid">
-
-    <div class="academy-art">
-      <strong>NailMargin</strong>
-      <small>ACADEMY</small>
-    </div>
-
-    <div class="academy-copy">
-
-      <span class="academy-label">
-        EDUCAȚIE · BEAUTY · BUSINESS
-      </span>
-
-      <h2>
-        Arta de a evolua.
-      </h2>
-
-      <p>
-        NailMargin Academy este următorul capitol:
-        un spațiu dedicat cursurilor de nail design,
-        tehnică și dezvoltare profesională.
-      </p>
-
-      <p>
-        Pregătim un loc în care pasiunea pentru
-        frumusețe întâlnește educația,
-        perfecționarea și inspirația.
-      </p>
-
-      <p>
-        Primele cursuri vor fi anunțate în curând.
-      </p>
-
-      <span class="coming-soon">
-        NAILMARGIN ACADEMY · ÎN CURÂND
-      </span>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- PRETURI -->
-
-<section id="preturi" class="section container">
-
-  <div class="section-head">
-
-    <span class="eyebrow">
-      SIMPLE & TRANSPARENT
-    </span>
-
-    <h2>
-      Începi gratuit.
-      Plătești când ai nevoie să crești.
-    </h2>
-
-    <p>
-      Planul gratuit îți permite să testezi
-      aplicația în activitatea reală.
-    </p>
-
-  </div>
-
-  <div class="pricing">
-
-    <div class="plan card">
-
-      <h3>NailMargin Free</h3>
-
-      <div class="price">
-        0 lei
-      </div>
-
-      <div class="period">
-        fără card
-      </div>
-
-      <ul>
-        <li>Până la 6 cliente</li>
-        <li>Programări de bază</li>
-        <li>Servicii și tarife proprii</li>
-        <li>Calculator gratuit pe site</li>
-        <li>Posibilitate de upgrade</li>
-      </ul>
-
-      <a
-        href="#aplicatie"
-        class="btn btn-secondary">
-        ÎNCEPE GRATUIT
+      <a href="aplicatie.html" class="btn">
+        Descoperă NailMargin App <span class="btn-arrow">↗</span>
       </a>
-
     </div>
-
-    <div class="plan card featured">
-
-      <span class="popular">
-        PRO
-      </span>
-
-      <h3>NailMargin Pro</h3>
-
-      <div class="price">
-        80 lei
-      </div>
-
-      <div class="period">
-        pe lună
-      </div>
-
-      <ul>
-        <li>Cliente nelimitate</li>
-        <li>Calendar complet</li>
-        <li>Servicii nelimitate</li>
-        <li>Reminder-e WhatsApp / SMS</li>
-        <li>Istoric cliente</li>
-        <li>Rapoarte și profitabilitate</li>
-        <li>Funcții noi incluse</li>
-      </ul>
-
-      <a
-        href="#aplicatie"
-        class="btn btn-primary">
-        DESCOPERĂ PRO
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
+  </section>
 </main>
 
-<!-- FOOTER -->
-
 <footer>
-
-  <div class="footer-logo">
-    NailMargin
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">NailMargin</div>
+        <p>BEAUTY · BUSINESS · ACADEMY</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Calculator</a>
+        <a href="aplicatie.html">Aplicație</a>
+        <a href="academy.html">Academy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 NailMargin. Creat pentru profesioniștii din industria nails.
+    </div>
   </div>
-
-  <p>
-    BEAUTY · BUSINESS · ACADEMY
-  </p>
-
-  <p>
-    © 2026 NailMargin.
-    Creat pentru profesioniștii din industria nails.
-  </p>
-
 </footer>
-
-<!-- JAVASCRIPT -->
 
 <script>
 "use strict";
 
+/* CALCULATOR */
 const $ = id => document.getElementById(id);
 
 function numeric(id) {
-  return Math.max(0, Number($(id).value) || 0);
+  return Math.max(0,Number($(id).value)||0);
 }
 
 function money(value) {
-  return value.toLocaleString("ro-RO", {
+  return value.toLocaleString("ro-RO",{
     minimumFractionDigits:2,
     maximumFractionDigits:2
-  }) + " lei";
+  })+" lei";
 }
-
-/* NIVELURI DE EXPERIENTA */
 
 const levels = {
   beginner:{
     rate:35,
-    durations:{
-      semi:135,
-      gel:180,
-      extension:240,
-      pedi:120
-    }
+    durations:{semi:135,gel:180,extension:240,pedi:120}
   },
-
   medium:{
     rate:55,
-    durations:{
-      semi:100,
-      gel:130,
-      extension:180,
-      pedi:95
-    }
+    durations:{semi:100,gel:130,extension:180,pedi:95}
   },
-
   advanced:{
     rate:80,
-    durations:{
-      semi:75,
-      gel:105,
-      extension:150,
-      pedi:80
-    }
+    durations:{semi:75,gel:105,extension:150,pedi:80}
   }
 };
 
-/* MATERIALE SI CONSUMABILE */
-
 const materials = {
-
   semi:[
-    ["Bază rubber",4.00,"Consum estimat 1,3 g"],
-    ["Culoare semipermanentă",3.50,"Aproximativ 1 ml"],
-    ["Top coat",2.00,"Consum estimat 0,5 g"],
-    ["Primer / dehydrator / cleanser",1.80,"Consum de soluții"],
+    ["Bază rubber",4,"Consum estimat 1,3 g"],
+    ["Culoare semipermanentă",3.5,"Aproximativ 1 ml"],
+    ["Top coat",2,"Consum estimat 0,5 g"],
+    ["Primer / dehydrator / cleanser",1.8,"Consum de soluții"],
     ["Pilă de unică folosință",1.88,"47 lei / 25 bucăți"],
-    ["Buffer / abraziv",1.40,"Consum estimat"],
-    ["Mănuși nitril",0.72,"O pereche"],
-    ["Șervețele și dischete",1.70,"Consum estimat"],
-    ["Dezinfectare și sterilizare",3.50,"Soluții și materiale"],
-    ["Ulei cuticule",1.30,"Consum estimat"]
+    ["Buffer / abraziv",1.4,"Consum estimat"],
+    ["Mănuși nitril",.72,"O pereche"],
+    ["Șervețele și dischete",1.7,"Consum estimat"],
+    ["Dezinfectare și sterilizare",3.5,"Soluții și materiale"],
+    ["Ulei cuticule",1.3,"Consum estimat"]
   ],
-
   gel:[
-    ["Gel builder",11.20,"3,5 g × 3,20 lei/g"],
-    ["Bază / bonder",1.50,"Consum estimat 0,5 g"],
-    ["Top coat",2.00,"Consum estimat 0,5 g"],
-    ["Culoare / design simplu",2.80,"Consum estimat"],
-    ["Primer / cleanser / dehydrator",2.00,"Soluții de pregătire"],
+    ["Gel builder",11.2,"3,5 g × 3,20 lei/g"],
+    ["Bază / bonder",1.5,"Consum estimat 0,5 g"],
+    ["Top coat",2,"Consum estimat 0,5 g"],
+    ["Culoare / design simplu",2.8,"Consum estimat"],
+    ["Primer / cleanser / dehydrator",2,"Soluții de pregătire"],
     ["Pilă de unică folosință",1.88,"47 lei / 25 bucăți"],
-    ["Buffer / abraziv",1.40,"Consum estimat"],
-    ["Mănuși nitril",0.72,"O pereche"],
-    ["Șervețele și dischete",2.20,"Consum estimat"],
-    ["Dezinfectare și sterilizare",3.50,"Soluții și materiale"],
-    ["Ulei cuticule",1.30,"Consum estimat"]
+    ["Buffer / abraziv",1.4,"Consum estimat"],
+    ["Mănuși nitril",.72,"O pereche"],
+    ["Șervețele și dischete",2.2,"Consum estimat"],
+    ["Dezinfectare și sterilizare",3.5,"Soluții și materiale"],
+    ["Ulei cuticule",1.3,"Consum estimat"]
   ],
-
   extension:[
-    ["Gel builder",19.20,"6 g × 3,20 lei/g"],
-    ["Bază / bonder",1.50,"Consum estimat"],
-    ["Top coat",2.00,"Consum estimat"],
-    ["Culoare",3.50,"Consum estimat"],
-    ["Primer / cleanser / dehydrator",2.30,"Soluții de pregătire"],
-    ["Șabloane / tips",4.00,"Consum estimat"],
+    ["Gel builder",19.2,"6 g × 3,20 lei/g"],
+    ["Bază / bonder",1.5,"Consum estimat"],
+    ["Top coat",2,"Consum estimat"],
+    ["Culoare",3.5,"Consum estimat"],
+    ["Primer / cleanser / dehydrator",2.3,"Soluții de pregătire"],
+    ["Șabloane / tips",4,"Consum estimat"],
     ["Pilă de unică folosință",1.88,"O bucată"],
-    ["Buffer / abraziv",1.40,"Consum estimat"],
-    ["Mănuși nitril",0.72,"O pereche"],
-    ["Șervețele și dischete",2.80,"Consum estimat"],
-    ["Dezinfectare și sterilizare",3.50,"Soluții și materiale"],
-    ["Ulei cuticule",1.30,"Consum estimat"]
+    ["Buffer / abraziv",1.4,"Consum estimat"],
+    ["Mănuși nitril",.72,"O pereche"],
+    ["Șervețele și dischete",2.8,"Consum estimat"],
+    ["Dezinfectare și sterilizare",3.5,"Soluții și materiale"],
+    ["Ulei cuticule",1.3,"Consum estimat"]
   ],
-
   pedi:[
-    ["Bază / gel",4.00,"Consum estimat"],
-    ["Culoare semipermanentă",3.50,"Consum estimat"],
-    ["Top coat",2.00,"Consum estimat"],
-    ["Primer / cleanser / dehydrator",2.00,"Soluții de pregătire"],
-    ["Pile și abrazive",4.00,"Consum estimat"],
-    ["Mănuși nitril",0.72,"O pereche"],
-    ["Șervețele și protecție",3.00,"Consum estimat"],
-    ["Dezinfectare și sterilizare",4.00,"Soluții și materiale"],
-    ["Ulei / cremă",2.00,"Consum estimat"]
+    ["Bază / gel",4,"Consum estimat"],
+    ["Culoare semipermanentă",3.5,"Consum estimat"],
+    ["Top coat",2,"Consum estimat"],
+    ["Primer / cleanser / dehydrator",2,"Soluții de pregătire"],
+    ["Pile și abrazive",4,"Consum estimat"],
+    ["Mănuși nitril",.72,"O pereche"],
+    ["Șervețele și protecție",3,"Consum estimat"],
+    ["Dezinfectare și sterilizare",4,"Soluții și materiale"],
+    ["Ulei / cremă",2,"Consum estimat"]
   ]
-
 };
-
-/* CHELTUIELI FIXE */
 
 const fixedCosts = [
   ["Chirie spațiu",1900,"Chirie lunară estimată"],
@@ -1747,12 +931,8 @@ const fixedCosts = [
   ["Curățenie și marketing",50,"Cost lunar estimat"]
 ];
 
-/* MODIFICARI UTILIZATOR */
-
 const materialOverrides = {};
 const fixedOverrides = {};
-
-/* PROTECTIE TEXT HTML */
 
 function escapeHTML(value) {
   return String(value)
@@ -1762,199 +942,101 @@ function escapeHTML(value) {
     .replace(/"/g,"&quot;");
 }
 
-/* AFISARE MATERIALE */
-
 function renderMaterials() {
-
   const service = $("service").value;
   const rows = materials[service];
 
-  $("materialRows").innerHTML = rows.map(
-    (item,index) => {
+  $("materialRows").innerHTML = rows.map((item,index) => {
+    const custom = materialOverrides[service]?.[index];
+    const value = custom===undefined ? item[1] : custom;
 
-      const custom =
-        materialOverrides[service]?.[index];
-
-      const value =
-        custom === undefined
-          ? item[1]
-          : custom;
-
-      return `
-        <div class="cost-row">
-
-          <div>
-            <strong>
-              ${escapeHTML(item[0])}
-            </strong>
-
-            <small>
-              ${escapeHTML(item[2])}
-            </small>
-          </div>
-
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            value="${value}"
-            data-index="${index}"
-            aria-label="Cost ${escapeHTML(item[0])}">
-
+    return `
+      <div class="cost-row">
+        <div>
+          <strong>${escapeHTML(item[0])}</strong>
+          <small>${escapeHTML(item[2])}</small>
         </div>
-      `;
-    }
-  ).join("");
+        <input
+          type="number"
+          min="0"
+          step="0.01"
+          value="${value}"
+          data-index="${index}"
+          aria-label="Cost ${escapeHTML(item[0])}">
+      </div>
+    `;
+  }).join("");
 
-  $("materialRows")
-    .querySelectorAll("input")
-    .forEach(input => {
-
-      input.addEventListener("input", () => {
-
-        if (!materialOverrides[service]) {
-          materialOverrides[service] = {};
-        }
-
-        materialOverrides[service][input.dataset.index] =
-          Math.max(0,Number(input.value)||0);
-
-        calculate();
-      });
-
+  $("materialRows").querySelectorAll("input").forEach(input => {
+    input.addEventListener("input",() => {
+      if(!materialOverrides[service]) materialOverrides[service]={};
+      materialOverrides[service][input.dataset.index] =
+        Math.max(0,Number(input.value)||0);
+      calculate();
     });
+  });
 
   calculate();
 }
-
-/* AFISARE CHELTUIELI FIXE */
 
 function renderFixed() {
+  $("fixedRows").innerHTML = fixedCosts.map((item,index) => {
+    const custom = fixedOverrides[index];
+    const value = custom===undefined ? item[1] : custom;
 
-  $("fixedRows").innerHTML = fixedCosts.map(
-    (item,index) => {
-
-      const custom = fixedOverrides[index];
-
-      const value =
-        custom === undefined
-          ? item[1]
-          : custom;
-
-      return `
-        <div class="cost-row">
-
-          <div>
-            <strong>
-              ${escapeHTML(item[0])}
-            </strong>
-
-            <small>
-              ${escapeHTML(item[2])}
-            </small>
-          </div>
-
-          <input
-            type="number"
-            min="0"
-            step="1"
-            value="${value}"
-            data-index="${index}"
-            aria-label="${escapeHTML(item[0])}">
-
+    return `
+      <div class="cost-row">
+        <div>
+          <strong>${escapeHTML(item[0])}</strong>
+          <small>${escapeHTML(item[2])}</small>
         </div>
-      `;
-    }
-  ).join("");
+        <input
+          type="number"
+          min="0"
+          step="1"
+          value="${value}"
+          data-index="${index}"
+          aria-label="${escapeHTML(item[0])}">
+      </div>
+    `;
+  }).join("");
 
-  $("fixedRows")
-    .querySelectorAll("input")
-    .forEach(input => {
-
-      input.addEventListener("input", () => {
-
-        fixedOverrides[input.dataset.index] =
-          Math.max(0,Number(input.value)||0);
-
-        calculate();
-      });
-
+  $("fixedRows").querySelectorAll("input").forEach(input => {
+    input.addEventListener("input",() => {
+      fixedOverrides[input.dataset.index] =
+        Math.max(0,Number(input.value)||0);
+      calculate();
     });
+  });
 
   calculate();
 }
 
-/* CALCULUL PRETULUI */
-
 function calculate() {
-
   const service = $("service").value;
 
-  const materialCost =
-    materials[service].reduce(
-      (total,item,index) => {
+  const materialCost = materials[service].reduce((total,item,index) => {
+    const override = materialOverrides[service]?.[index];
+    return total+(override===undefined ? item[1] : override);
+  },0);
 
-        const override =
-          materialOverrides[service]?.[index];
+  const monthlyFixed = fixedCosts.reduce((total,item,index) => {
+    const override = fixedOverrides[index];
+    return total+(override===undefined ? item[1] : override);
+  },0);
 
-        return total + (
-          override === undefined
-            ? item[1]
-            : override
-        );
+  const clients = Math.max(1,numeric("clients"));
+  const fixedPerClient = monthlyFixed/clients;
+  const hours = numeric("minutes")/60;
+  const labor = hours*numeric("hourRate");
+  const subtotal = materialCost+fixedPerClient+labor;
+  const reserveAmount = subtotal*numeric("reserve")/100;
+  const estimatedTotal = subtotal+reserveAmount;
+  const recommended = Math.ceil(estimatedTotal/5)*5;
 
-      },0
-    );
-
-  const monthlyFixed =
-    fixedCosts.reduce(
-      (total,item,index) => {
-
-        const override = fixedOverrides[index];
-
-        return total + (
-          override === undefined
-            ? item[1]
-            : override
-        );
-
-      },0
-    );
-
-  const clients =
-    Math.max(1,numeric("clients"));
-
-  const fixedPerClient =
-    monthlyFixed / clients;
-
-  const hours =
-    numeric("minutes") / 60;
-
-  const labor =
-    hours * numeric("hourRate");
-
-  const subtotal =
-    materialCost +
-    fixedPerClient +
-    labor;
-
-  const reserveAmount =
-    subtotal * numeric("reserve") / 100;
-
-  const estimatedTotal =
-    subtotal + reserveAmount;
-
-  const recommended =
-    Math.ceil(estimatedTotal / 5) * 5;
-
-  $("materialsTotal").textContent =
-    money(materialCost);
-
-  $("monthlyFixedTotal").textContent =
-    money(monthlyFixed);
-
-  $("fixedPerClient").textContent =
-    money(fixedPerClient);
+  $("materialsTotal").textContent = money(materialCost);
+  $("monthlyFixedTotal").textContent = money(monthlyFixed);
+  $("fixedPerClient").textContent = money(fixedPerClient);
 
   const parts = [
     ["Materiale și consumabile",materialCost],
@@ -1963,169 +1045,96 @@ function calculate() {
     ["Rezervă business",reserveAmount]
   ];
 
-  $("breakdown").innerHTML =
-    parts.map(([label,value]) => `
-      <div class="breakdown-row">
-        <span>${escapeHTML(label)}</span>
-        <strong>${money(value)}</strong>
-      </div>
-    `).join("");
+  $("breakdown").innerHTML = parts.map(([label,value]) => `
+    <div class="breakdown-row">
+      <span>${escapeHTML(label)}</span>
+      <strong>${money(value)}</strong>
+    </div>
+  `).join("");
 
   $("recommended").textContent =
-    recommended.toLocaleString("ro-RO") + " lei";
+    recommended.toLocaleString("ro-RO")+" lei";
 
-  const actualInput =
-    $("actualPrice").value.trim();
+  const actualInput = $("actualPrice").value.trim();
 
-  if (actualInput !== "") {
+  if(actualInput!=="") {
+    const actual = numeric("actualPrice");
+    const difference = actual-estimatedTotal;
 
-    const actual =
-      numeric("actualPrice");
-
-    const difference =
-      actual - estimatedTotal;
-
-    if (difference >= 0) {
-
+    if(difference>=0) {
       $("insight").textContent =
-        "Prețul tău actual acoperă costurile, " +
-        "remunerația și rezerva estimate. " +
-        "Diferența este " +
-        money(difference) +
+        "Prețul tău actual acoperă costurile, remunerația " +
+        "și rezerva estimate. Diferența este "+money(difference)+
         ". Aceasta nu reprezintă profit net după taxe.";
-
     } else {
-
       $("insight").textContent =
-        "La prețul tău actual lipsesc aproximativ " +
-        money(Math.abs(difference)) +
+        "La prețul tău actual lipsesc aproximativ "+
+        money(Math.abs(difference))+
         " pentru a acoperi toate componentele estimate.";
-
     }
-
   } else {
-
     $("insight").textContent =
-      "Prețul recomandat include materialele, " +
-      "cheltuielile fixe, remunerația timpului " +
-      "și o rezervă pentru business. " +
+      "Prețul recomandat include materialele, cheltuielile fixe, " +
+      "remunerația timpului și o rezervă pentru business. " +
       "Este o estimare înainte de taxele aplicabile.";
-
   }
-
 }
 
-/* ACTUALIZARE EXPERIENTA */
-
 function updateExperience() {
-
-  const level =
-    levels[$("experience").value];
-
-  const service =
-    $("service").value;
-
-  $("minutes").value =
-    level.durations[service];
-
-  $("hourRate").value =
-    level.rate;
-
+  const level = levels[$("experience").value];
+  const service = $("service").value;
+  $("minutes").value = level.durations[service];
+  $("hourRate").value = level.rate;
   calculate();
 }
 
-$("experience").addEventListener(
-  "change",
-  updateExperience
-);
+$("experience").addEventListener("change",updateExperience);
 
-$("service").addEventListener(
-  "change",
-  () => {
-    updateExperience();
-    renderMaterials();
-  }
-);
-
-[
-  "minutes",
-  "hourRate",
-  "clients",
-  "reserve",
-  "actualPrice"
-].forEach(id => {
-
-  $(id).addEventListener(
-    "input",
-    calculate
-  );
-
+$("service").addEventListener("change",() => {
+  updateExperience();
+  renderMaterials();
 });
 
-/* CALENDAR DEMONSTRATIV */
+["minutes","hourRate","clients","reserve","actualPrice"].forEach(id => {
+  $(id).addEventListener("input",calculate);
+});
 
-const appointments = {
-  3:["Mara D."],
-  4:["Daria P."],
-  5:["Teodora M.","Ana C."],
-  6:["Cristina V."],
-  10:["Larisa N."],
-  11:["Denisa O."],
-  12:["Alexandra L."],
-  13:["Rebeca F."],
-  14:["Amalia K."],
-  18:["Oana M."],
-  26:["Maria H."],
-  27:["Bianca S."]
-};
+/* ANIMATIONS */
+const reduceMotion = window.matchMedia(
+  "(prefers-reduced-motion:reduce)"
+).matches;
 
-function renderCalendar() {
+const observer = "IntersectionObserver" in window
+  ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.08})
+  : null;
 
-  const calendar =
-    $("calendarPreview");
+document.querySelectorAll(".reveal").forEach(element => {
+  if(observer && !reduceMotion) observer.observe(element);
+  else element.classList.add("visible");
+});
 
-  const days = [];
-
-  for (let i = 0; i < 35; i++) {
-
-    const day =
-      i < 5 ? 27 + i : i - 4;
-
-    const currentMonth =
-      i >= 5;
-
-    const events =
-      currentMonth
-        ? (appointments[day] || [])
-        : [];
-
-    const eventHTML =
-      events.map((name,index) => `
-        <div class="event ${index % 2 ? "alt" : ""}">
-          ${escapeHTML(name)}
-        </div>
-      `).join("");
-
-    days.push(`
-      <div class="day">
-        <b>${day}</b>
-        ${eventHTML}
-      </div>
-    `);
-
-  }
-
-  calendar.innerHTML =
-    days.join("");
+if(!reduceMotion && window.matchMedia("(pointer:fine)").matches) {
+  const light = $("ambientLight");
+  document.addEventListener("pointermove",event => {
+    light.style.left = event.clientX+"px";
+    light.style.top = event.clientY+"px";
+    light.style.opacity="1";
+  },{passive:true});
+  document.addEventListener("pointerleave",() => {
+    light.style.opacity="0";
+  });
 }
 
-/* PORNIRE SITE */
-
+/* START */
 renderFixed();
 renderMaterials();
-renderCalendar();
-
 </script>
-
 </body>
 </html>
