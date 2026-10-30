@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f2ea">
+<meta name="description" content="NailMargin Academy — tutoriale exclusive de nail art, tehnici moderne și tendințe în designul unghiilor.">
+<title>NailMargin Academy — The Art of Nail Education</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=WindSong:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ivory:#f7f2ea;
+  --paper:#fffcf7;
+  --champagne:#d9bea1;
+  --sand:#e9ded1;
+  --espresso:#30231e;
+  --brown:#5b4336;
+  --muted:#877568;
+  --line:#e2d6c8;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  margin:0;
+  background:var(--ivory);
+  color:var(--espresso);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+body.modal-open {overflow:hidden}
+a {color:inherit;text-decoration:none}
+button,input {font:inherit}
+button {cursor:pointer}
+button:disabled {cursor:not-allowed;opacity:.5}
+h1,h2,h3,p {margin-top:0}
+h1,h2,h3 {
+  font-family:"Cormorant Garamond",serif;
+  font-weight:500;
+}
+p {line-height:1.8}
+::selection {background:var(--champagne);color:var(--espresso)}
+:focus-visible {outline:2px solid #b18c69;outline-offset:4px}
+.container {width:min(1200px,calc(100% - 44px));margin:auto}
+.eyebrow {
+  font-size:10px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  font-weight:700;
+}
+.muted {color:var(--muted)}
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:16px 27px;
+  min-height:52px;
+  border:1px solid var(--espresso);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  transition:background .35s,color .35s,transform .35s,box-shadow .35s;
+}
+.btn:hover {transform:translateY(-3px);box-shadow:0 12px 28px #30231e1a}
+.btn-dark {background:var(--espresso);color:white}
+.btn-dark:hover {background:#684d3e}
+.btn-outline {background:transparent;color:var(--espresso)}
+.btn-outline:hover {background:var(--espresso);color:white}
+.btn-gold {background:var(--champagne);border-color:var(--champagne);color:var(--espresso)}
+.btn-gold:hover {background:#f0d8bd}
+.full {width:100%}
+
+/* HEADER */
+.header {
+  position:sticky;
+  top:0;
+  z-index:90;
+  background:#f7f2eaed;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav {
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.logo {
+  font-family:WindSong,cursive;
+  font-size:36px;
+  white-space:nowrap;
+}
+.logo span {
+  font-family:"DM Sans",sans-serif;
+  font-size:9px;
+  letter-spacing:.28em;
+  margin-left:10px;
+  vertical-align:middle;
+}
+.nav-links {display:flex;gap:28px;align-items:center}
+.nav-links a {
+  font-size:11px;
+  font-weight:600;
+  position:relative;
+  transition:color .3s;
+}
+.nav-links a:hover {color:#ad8769}
+.nav-links a::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-7px;
+  height:1px;
+  width:0;
+  background:currentColor;
+  transition:width .35s;
+}
+.nav-links a:hover::after {width:100%}
+
+/* HERO */
+.hero {
+  background:var(--espresso);
+  color:var(--paper);
+  position:relative;
+  min-height:690px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+}
+.hero::before {
+  content:"";
+  position:absolute;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,#b08b6840,transparent 68%);
+  right:-160px;
+  top:-130px;
+  pointer-events:none;
+  animation:glow 10s ease-in-out infinite alternate;
+}
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:1px solid #d9bea122;
+  pointer-events:none;
+}
+@keyframes glow {
+  to {transform:translate(-90px,70px) scale(1.25);opacity:.6}
+}
+.hero-inner {
+  position:relative;
+  z-index:1;
+  padding:115px 0;
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:70px;
+  align-items:center;
+}
+.hero .eyebrow {color:var(--champagne)}
+.hero h1 {
+  font-size:clamp(68px,8vw,120px);
+  line-height:.91;
+  letter-spacing:-.035em;
+  margin:30px 0;
+}
+.hero h1 em {
+  color:var(--champagne);
+  font-weight:400;
+}
+.hero-desc {
+  max-width:480px;
+  color:#d6c5b8;
+  font-size:14px;
+}
+.hero-actions {display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.hero-side {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:430px;
+  position:relative;
+}
+.orbit {
+  width:min(100%,390px);
+  aspect-ratio:1;
+  border:1px solid #d9bea14d;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+  animation:float 7s ease-in-out infinite;
+}
+.orbit::before,.orbit::after {
+  content:"";
+  position:absolute;
+  inset:23px;
+  border:1px solid #d9bea126;
+  border-radius:50%;
+}
+.orbit::after {inset:48px}
+.orbit-text {
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.orbit-text .script {
+  font-family:WindSong,cursive;
+  font-size:clamp(55px,6vw,85px);
+  color:var(--champagne);
+  line-height:1.7;
+}
+.orbit-text small {display:block;letter-spacing:.45em;font-size:11px}
+.orbit-star {
+  position:absolute;
+  top:10%;
+  right:7%;
+  font-family:serif;
+  font-size:60px;
+  color:var(--champagne);
+}
+@keyframes float {
+  50% {transform:translateY(-15px)}
+}
+.scroll-indicator {
+  position:absolute;
+  bottom:32px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#d6c5b8;
+  font-size:9px;
+  letter-spacing:.25em;
+  z-index:2;
+}
+
+/* MARQUEE */
+.marquee {
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:17px 0;
+  background:var(--sand);
+}
+.marquee-track {
+  display:flex;
+  gap:60px;
+  width:max-content;
+  animation:marquee 35s linear infinite;
+}
+.marquee-track span {
+  font-size:10px;
+  letter-spacing:.25em;
+  white-space:nowrap;
+}
+.marquee-track b {color:#ad8769;margin-left:60px}
+@keyframes marquee {
+  to {transform:translateX(-50%)}
+}
+
+/* SECTIONS */
+.section {padding:105px 0}
+.section-heading {max-width:750px;margin-bottom:50px}
+.section-heading.center {text-align:center;margin:0 auto 55px}
+.section-heading h2 {
+  font-size:clamp(49px,6vw,83px);
+  line-height:1.03;
+  margin:17px 0;
+}
+.section-heading p {color:var(--muted);font-size:14px}
+.section-heading .eyebrow {color:#a78366}
+.reveal {
+  opacity:0;
+  transform:translateY(35px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease);
+}
+.reveal.visible {opacity:1;transform:translateY(0)}
+
+/* FILTERS */
+.filters {display:flex;flex-wrap:wrap;gap:10px;margin-bottom:35px}
+.filter {
+  border:1px solid var(--line);
+  background:transparent;
+  padding:12px 19px;
+  font-size:11px;
+  transition:all .3s;
+}
+.filter:hover,.filter.active {background:var(--espresso);color:white;border-color:var(--espresso)}
+
+/* COURSE CARDS */
+.course-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.course-card {
+  background:var(--paper);
+  border:1px solid var(--line);
+  overflow:hidden;
+  transition:transform .5s var(--ease),box-shadow .5s;
+}
+.course-card:hover {transform:translateY(-9px);box-shadow:0 25px 55px #30231e18}
+.course-visual {
+  height:275px;
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#e8d7c7,#b68e79);
+}
+.course-visual.v2 {background:linear-gradient(145deg,#c9a4a0,#6b4c53)}
+.course-visual.v3 {background:linear-gradient(135deg,#e7dccd,#bca18c)}
+.course-visual.v4 {background:linear-gradient(135deg,#b6a1a1,#473a42)}
+.course-visual.v5 {background:linear-gradient(135deg,#e3c9ad,#8e6451)}
+.course-visual.v6 {background:linear-gradient(135deg,#d9cfcb,#8e8885)}
+.course-visual::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(0deg,#30231e30,transparent 60%);
+}
+.visual-symbol {
+  font-family:"Cormorant Garamond",serif;
+  font-size:120px;
+  color:#fff9;
+  transition:transform .8s var(--ease);
+}
+.course-card:hover .visual-symbol {transform:scale(1.15) rotate(10deg)}
+.course-tag {
+  position:absolute;
+  z-index:2;
+  top:17px;
+  left:17px;
+  background:#fffcf7e8;
+  padding:9px 12px;
+  font-size:9px;
+  letter-spacing:.15em;
+}
+.course-content {padding:25px}
+.course-meta {
+  font-size:10px;
+  letter-spacing:.13em;
+  color:var(--muted);
+}
+.course-content h3 {font-size:36px;line-height:1.05;margin:14px 0}
+.course-content p {font-size:12px;color:var(--muted);min-height:66px}
+.course-bottom {
+  border-top:1px solid var(--line);
+  padding-top:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.course-price {font-size:20px;font-weight:600}
+.course-bottom button {
+  background:transparent;
+  border:none;
+  color:var(--brown);
+  font-size:11px;
+  font-weight:700;
+  padding:10px 0;
+  transition:transform .3s;
+}
+.course-bottom button:hover {transform:translateX(5px)}
+.empty-state {display:none;text-align:center;color:var(--muted);padding:40px}
+
+/* MANIFESTO */
+.manifesto {background:var(--sand)}
+.manifesto-grid {display:grid;grid-template-columns:1fr 1fr;gap:75px;align-items:center}
+.manifesto-art {
+  min-height:460px;
+  background:var(--espresso);
+  display:grid;
+  place-items:center;
+  color:var(--champagne);
+  position:relative;
+  overflow:hidden;
+}
+.manifesto-art::before {
+  content:"";
+  position:absolute;
+  width:350px;
+  height:350px;
+  border:1px solid #d9bea17a;
+  border-radius:50%;
+  animation:spin 30s linear infinite;
+}
+.manifesto-art::after {
+  content:"✧";
+  position:absolute;
+  font-size:260px;
+  font-family:serif;
+  opacity:.08;
+}
+@keyframes spin {to {transform:rotate(360deg)}}
+.manifesto-art span {
+  font-family:WindSong,cursive;
+  font-size:clamp(65px,7vw,100px);
+  z-index:1;
+}
+.manifesto-copy h2 {font-size:clamp(50px,6vw,80px);line-height:1.02}
+.manifesto-copy p {color:var(--muted);font-size:14px}
+.manifesto-list {margin-top:28px}
+.manifesto-list div {padding:16px 0;border-bottom:1px solid #cdbdab;font-size:13px}
+.manifesto-list b {color:#9a765a;margin-right:20px}
+
+/* HOW IT WORKS */
+.steps {display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.step {border-top:1px solid var(--espresso);padding-top:22px}
+.step-num {font-family:"Cormorant Garamond",serif;font-size:62px;color:#b49a82}
+.step h3 {font-size:34px;margin:15px 0}
+.step p {font-size:13px;color:var(--muted)}
+
+/* ACCESS */
+.access-section {background:var(--espresso);color:var(--paper)}
+.access-section .section-heading p {color:#d6c5b8}
+.access-section .eyebrow {color:var(--champagne)}
+.access-grid {display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.access-box {
+  border:1px solid #d9bea14d;
+  padding:40px;
+  background:#ffffff06;
+}
+.access-box h3 {font-size:43px;margin:0 0 15px}
+.access-box p {font-size:13px;color:#d6c5b8}
+.access-box input {
+  width:100%;
+  padding:16px;
+  margin:10px 0 15px;
+  background:#ffffff10;
+  border:1px solid #d9bea166;
+  color:white;
+  outline:none;
+}
+.access-box input::placeholder {color:#d6c5b8}
+.access-box input:focus {border-color:var(--champagne)}
+.access-note {font-size:11px;color:#d6c5b8;margin-top:16px}
+#accessMessage {min-height:24px;font-size:12px;color:var(--champagne)}
+
+/* MODAL */
+.modal {
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:#1b130fbd;
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal.open {display:flex}
+.modal-panel {
+  background:var(--paper);
+  color:var(--espresso);
+  width:min(100%,560px);
+  max-height:90vh;
+  overflow:auto;
+  padding:38px;
+  position:relative;
+  animation:modalIn .5s var(--ease);
+}
+@keyframes modalIn {
+  from {opacity:0;transform:translateY(30px) scale(.97)}
+  to {opacity:1;transform:translateY(0) scale(1)}
+}
+.modal-close {
+  position:absolute;
+  right:18px;
+  top:14px;
+  background:none;
+  border:none;
+  font-size:27px;
+}
+.modal-panel h2 {font-size:52px;line-height:1.05;margin:14px 0}
+.modal-panel p {font-size:13px;color:var(--muted)}
+.modal-price {font-family:"Cormorant Garamond",serif;font-size:70px}
+.bank-detail {
+  background:var(--ivory);
+  padding:18px;
+  margin:22px 0;
+  border:1px solid var(--line);
+  overflow-wrap:anywhere;
+}
+.bank-detail small {font-size:10px;color:var(--muted);letter-spacing:.15em}
+.bank-detail strong {display:block;font-size:13px;margin:7px 0 15px}
+.copy-btn {
+  border:1px solid var(--line);
+  background:var(--paper);
+  padding:10px 15px;
+  font-size:11px;
+  margin-bottom:12px;
+}
+.modal-actions {display:grid;gap:10px}
+.warning {font-size:11px!important;line-height:1.7}
+
+/* FOOTER */
+footer {padding:60px 0;background:#211915;color:#e7d7c7}
+.footer-grid {display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+.footer-logo {font-family:WindSong,cursive;font-size:45px}
+footer p,footer a {font-size:11px;color:#cbb7a7}
+footer a:hover {color:white}
+.footer-bottom {border-top:1px solid #ffffff25;margin-top:35px;padding-top:22px;font-size:10px;color:#ad9b8e}
+
+/* CURSOR LIGHT */
+.cursor-glow {
+  position:fixed;
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+  background:radial-gradient(circle,#d9bea11a,transparent 70%);
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity .3s;
+}
+
+/* RESPONSIVE */
+@media(max-width:950px) {
+  .hero-inner,.manifesto-grid {grid-template-columns:1fr}
+  .hero-side {display:none}
+  .hero {min-height:auto}
+  .course-grid {grid-template-columns:repeat(2,1fr)}
+  .access-grid {grid-template-columns:1fr}
+}
+@media(max-width:650px) {
+  .container {width:min(100% - 30px,1200px)}
+  .nav {min-height:70px}
+  .logo {font-size:29px}
+  .logo span {font-size:8px;margin-left:4px}
+  .nav-links {gap:12px}
+  .nav-links a {font-size:10px}
+  .nav-links a:nth-child(2) {display:none}
+  .hero-inner {padding:95px 0}
+  .hero h1 {font-size:clamp(65px,15vw,90px)}
+  .section {padding:70px 0}
+  .course-grid,.steps {grid-template-columns:1fr}
+  .course-visual {height:260px}
+  .manifesto-art {min-height:300px}
+  .access-box,.modal-panel {padding:25px}
+  .modal-panel h2 {font-size:42px}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal {opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<header class="header">
+  <div class="container nav">
+    <a href="index.html" class="logo">NailMargin <span>ACADEMY</span></a>
+    <nav class="nav-links" aria-label="Navigare">
+      <a href="index.html">Acasă</a>
+      <a href="#colectie">Tutoriale</a>
+      <a href="#acces">Acces cursanți</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">The art of nail education</span>
+        <h1>Where artistry <em>meets mastery.</em></h1>
+        <p class="hero-desc">
+          Descoperă o nouă dimensiune a designului pe unghii.
+          Tutoriale video exclusive, tehnici actuale și inspirație
+          pentru artiștii care nu se mulțumesc cu obișnuitul.
+        </p>
+        <div class="hero-actions">
+          <a href="#colectie" class="btn btn-gold">Explorează colecția <span>↗</span></a>
+          <a href="#cum-functioneaza" class="btn btn-outline" style="color:white;border-color:#d9bea166">Cum funcționează</a>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="orbit">
+          <span class="orbit-star">✧</span>
+          <div class="orbit-text">
+            <div class="script">NailMargin</div>
+            <small>ACADEMY</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-indicator">SCROLL TO EXPLORE ↓</span>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>NAIL ART EDUCATION <b>✧</b></span>
+      <span>EXCLUSIVE TUTORIALS <b>✧</b></span>
+      <span>CREATIVE MASTERY <b>✧</b></span>
+      <span>THE NEW NAIL TRENDS <b>✧</b></span>
+      <span>NAIL ART EDUCATION <b>✧</b></span>
+      <span>EXCLUSIVE TUTORIALS <b>✧</b></span>
+      <span>CREATIVE MASTERY <b>✧</b></span>
+      <span>THE NEW NAIL TRENDS <b>✧</b></span>
+    </div>
+  </div>
+
+  <section class="section" id="colectie">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="eyebrow">The exclusive collection</span>
+        <h2>Designed to inspire.</h2>
+        <p>Fiecare tutorial este o experiență de învățare. Alege designul care te inspiră și descoperă tehnica din spatele lui.</p>
+      </div>
+
+      <div class="filters reveal" id="filters" aria-label="Filtre tutoriale">
+        <button class="filter active" data-filter="all" aria-pressed="true">Toate</button>
+        <button class="filter" data-filter="trends" aria-pressed="false">Trending</button>
+        <button class="filter" data-filter="effects" aria-pressed="false">Efecte speciale</button>
+        <button class="filter" data-filter="art" aria-pressed="false">Nail art</button>
+      </div>
+
+      <div class="course-grid" id="courseGrid"></div>
+      <p class="empty-state" id="emptyState">Nu există tutoriale în această categorie.</p>
+
+      <p style="text-align:center;color:var(--muted);font-size:11px;margin-top:30px">
+        Colecție demonstrativă — înlocuiește exemplele cu tutorialele tale reale înainte de lansare.
+      </p>
+    </div>
+  </section>
+
+  <section class="section manifesto">
+    <div class="container manifesto-grid">
+      <div class="manifesto-art reveal">
+        <span>NailMargin</span>
+      </div>
+      <div class="manifesto-copy reveal">
+        <span class="eyebrow">Our philosophy</span>
+        <h2>Creativity has no limits.</h2>
+        <p>
+          NailMargin Academy este locul unde tehnica întâlnește expresia artistică.
+          Învață în ritmul tău, experimentează și transformă fiecare set de unghii într-o creație personală.
+        </p>
+        <div class="manifesto-list">
+          <div><b>01</b> Tehnici explicate pas cu pas</div>
+          <div><b>02</b> Tendințe moderne de nail design</div>
+          <div><b>03</b> Acces individual la fiecare tutorial cumpărat</div>
+          <div><b>04</b> Înveți în propriul ritm</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cum-functioneaza">
+    <div class="container">
+      <div class="section-heading center reveal">
+        <span class="eyebrow">Your learning journey</span>
+        <h2>Three simple steps.</h2>
+        <p>De la inspirație la primul design realizat.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3>Alege tutorialul</h3>
+          <p>Explorează colecția și selectează tehnica pe care dorești să o înveți.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3>Achită 150 lei</h3>
+          <p>Transferă suma în contul Revolut și trimite dovada plății pe WhatsApp.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3>Primește accesul</h3>
+          <p>După verificarea încasării, vei primi acces personal la tutorialul achiziționat, conform condițiilor de acces.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section access-section" id="acces">
+    <div class="container">
+      <div class="section-heading center reveal">
+        <span class="eyebrow">Members only</span>
+        <h2>Your private learning space.</h2>
+        <p>Zona rezervată cursanților NailMargin Academy.</p>
+      </div>
+      <div class="access-grid">
+        <div class="access-box reveal">
+          <span class="eyebrow">Already a member?</span>
+          <h3>Ai deja un cod?</h3>
+          <p>Accesul securizat va fi disponibil după conectarea sistemului privat de tutoriale.</p>
+          <label for="accessCode" style="font-size:12px">Cod de acces</label>
+          <input id="accessCode" type="text" placeholder="Introdu codul primit" autocomplete="off">
+          <button class="btn btn-gold full" id="accessButton" type="button">Accesează biblioteca →</button>
+          <p id="accessMessage" role="status"></p>
+          <p class="access-note">Codurile vor fi verificate securizat și vor permite vizionarea exclusiv a tutorialelor cumpărate.</p>
+        </div>
+        <div class="access-box reveal">
+          <span class="eyebrow">Lifetime learning</span>
+          <h3>One tutorial. Yours for life.</h3>
+          <p>Fiecare tutorial se achiziționează separat, cu o singură plată de 150 lei.</p>
+          <p>Nu există abonament lunar. Codul personal va oferi acces la tutorialul cumpărat, nu la întreaga colecție.</p>
+          <a href="#colectie" class="btn btn-gold">Alege un tutorial ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">NailMargin</div>
+        <p>ACADEMY · THE ART OF NAIL EDUCATION</p>
+      </div>
+      <div>
+        <p><a href="index.html">NailMargin — Pagina principală</a></p>
+        <p><a href="#colectie">Colecția de tutoriale</a></p>
+        <p><a href="#acces">Acces cursanți</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 NailMargin Academy. Toate drepturile rezervate.</div>
+  </div>
+</footer>
+
+<!-- PURCHASE MODAL -->
+<div class="modal" id="purchaseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-panel">
+    <button class="modal-close" id="closeModal" type="button" aria-label="Închide">×</button>
+    <span class="eyebrow muted">Exclusive nail art tutorial</span>
+    <h2 id="modalTitle">Tutorial</h2>
+    <p>Acces pe viață la tutorialul selectat · plată unică.</p>
+    <div class="modal-price">150 <span style="font-size:20px">LEI</span></div>
+
+    <div class="bank-detail">
+      <small>BENEFICIAR</small>
+      <strong id="bankHolder">De completat</strong>
+      <small>IBAN REVOLUT</small>
+      <strong id="bankIban">RO94 REVO 0000 1018 6401 9896</strong>
+      <button class="copy-btn" id="copyIban" type="button">Copiază IBAN</button>
+      <br>
+      <small>DETALII TRANSFER</small>
+      <strong id="paymentReference">NailMargin Academy</strong>
+      <button class="copy-btn" id="copyReference" type="button">Copiază detaliile</button>
+    </div>
+
+    <div class="modal-actions">
+      <a id="whatsappButton" class="btn btn-dark full" target="_blank" rel="noopener noreferrer">Trimite dovada pe WhatsApp ↗</a>
+      <button id="modalDone" class="btn btn-outline full" type="button">Închide</button>
+    </div>
+
+    <p class="warning">
+      După transfer, trimite dovada plății și numele tău pe WhatsApp.
+      Atașează manual captura sau documentul. Accesul se acordă după verificarea încasării.
+    </p>
+    <p class="warning" id="configurationNotice"></p>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/*
+  CONFIGURARE
+
+  Completează numele beneficiarului și numărul
+  WhatsApp înainte de a primi comenzi.
+
+  Numărul WhatsApp se scrie fără + și fără spații:
+  de exemplu 407XXXXXXXX.
+
+  Nu publica parole sau coduri secrete aici.
+*/
+const CONFIG = {
+  iban: "RO94REVO0000101864019896",
+  beneficiary: "",
+  whatsapp: "",
+  price: 150
+};
+
+/*
+  COLECȚIA DE TUTORIALE
+
+  Înlocuiește titlurile demonstrative cu
+  tutorialele tale reale.
+
+  Pentru fiecare tutorial nou, adaugă
+  un obiect cu id unic, title, category,
+  description, tag, symbol și visual.
+
+  Nu adăuga linkuri publice la videoclipurile
+  pe care dorești să le protejezi.
+*/
+const tutorials = [
+  {
+    id:"fine-line",
+    title:"Fine Line Art",
+    category:"art",
+    description:"Linii fine, detalii delicate și compoziții minimaliste pentru un design impecabil.",
+    tag:"NAIL ART",
+    symbol:"✧",
+    visual:"v1"
+  },
+  {
+    id:"chrome",
+    title:"Chrome & Mirror",
+    category:"effects",
+    description:"Efecte metalice, reflexii spectaculoase și tehnici moderne de aplicare.",
+    tag:"SPECIAL EFFECTS",
+    symbol:"◈",
+    visual:"v2"
+  },
+  {
+    id:"floral",
+    title:"Sculpted Florals",
+    category:"art",
+    description:"Flori tridimensionale, reliefuri elegante și detalii artistice.",
+    tag:"3D NAIL ART",
+    symbol:"✿",
+    visual:"v3"
+  },
+  {
+    id:"cat-eye",
+    title:"Magnetic Cat Eye",
+    category:"trends",
+    description:"Efecte magnetice, reflexii multidimensionale și combinații contemporane.",
+    tag:"TRENDING",
+    symbol:"✦",
+    visual:"v4"
+  },
+  {
+    id:"textures",
+    title:"Luxury Textures",
+    category:"effects",
+    description:"Texturi sofisticate, efecte de suprafață și contraste elegante.",
+    tag:"SPECIAL EFFECTS",
+    symbol:"❋",
+    visual:"v5"
+  },
+  {
+    id:"modern",
+    title:"Modern Abstract",
+    category:"trends",
+    description:"Forme abstracte, compoziții moderne și nail art inspirat de tendințe.",
+    tag:"TRENDING",
+    symbol:"◇",
+    visual:"v6"
+  }
+];
+
+const grid = document.getElementById("courseGrid");
+const modal = document.getElementById("purchaseModal");
+let selectedTutorial = null;
+let lastFocused = null;
+
+function renderTutorials(filter="all") {
+  const filtered = tutorials.filter(
+    item => filter === "all" || item.category === filter
+  );
+
+  grid.replaceChildren();
+
+  filtered.forEach(item => {
+    const article = document.createElement("article");
+    article.className = "course-card";
+
+    const visual = document.createElement("div");
+    visual.className = "course-visual " + item.visual;
+
+    const tag = document.createElement("span");
+    tag.className = "course-tag";
+    tag.textContent = item.tag;
+
+    const symbol = document.createElement("span");
+    symbol.className = "visual-symbol";
+    symbol.textContent = item.symbol;
+
+    visual.append(tag,symbol);
+
+    const content = document.createElement("div");
+    content.className = "course-content";
+
+    const meta = document.createElement("div");
+    meta.className = "course-meta";
+    meta.textContent = "VIDEO TUTORIAL · ACCES PE VIAȚĂ";
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.textContent = item.description;
+
+    const bottom = document.createElement("div");
+    bottom.className = "course-bottom";
+
+    const price = document.createElement("strong");
+    price.className = "course-price";
+    price.textContent = CONFIG.price + " lei";
+
+    const buy = document.createElement("button");
+    buy.type = "button";
+    buy.textContent = "Descoperă →";
+    buy.addEventListener("click",() => openPurchase(item.id));
+
+    bottom.append(price,buy);
+    content.append(meta,title,description,bottom);
+    article.append(visual,content);
+    grid.append(article);
+  });
+
+  document.getElementById("emptyState").style.display =
+    filtered.length ? "none" : "block";
+}
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click",() => {
+    document.querySelectorAll(".filter").forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-pressed","false");
+    });
+    button.classList.add("active");
+    button.setAttribute("aria-pressed","true");
+    renderTutorials(button.dataset.filter);
+  });
+});
+
+function openPurchase(id) {
+  const item = tutorials.find(t => t.id === id);
+  if (!item) return;
+
+  selectedTutorial = item;
+  lastFocused = document.activeElement;
+
+  document.getElementById("modalTitle").textContent = item.title;
+  document.getElementById("bankHolder").textContent =
+    CONFIG.beneficiary || "Beneficiar neconfigurat";
+
+  const reference = "NailMargin Academy - " + item.id;
+  document.getElementById("paymentReference").textContent = reference;
+
+  const whatsapp = document.getElementById("whatsappButton");
+  const notice = document.getElementById("configurationNotice");
+
+  const ready = Boolean(
+    CONFIG.beneficiary.trim() &&
+    /^40\d{9}$/.test(CONFIG.whatsapp)
+  );
+
+  if (ready) {
+    const message =
+      "Bună! Am efectuat plata de " + CONFIG.price +
+      " lei pentru tutorialul NailMargin Academy: " +
+      item.title + " (" + item.id + "). " +
+      "Doresc acces pe viață la acest tutorial. " +
+      "Îți trimit dovada plății pentru verificare.";
+
+    whatsapp.href =
+      "https://wa.me/" + CONFIG.whatsapp +
+      "?text=" + encodeURIComponent(message);
+
+    whatsapp.style.pointerEvents = "auto";
+    whatsapp.style.opacity = "1";
+    whatsapp.removeAttribute("aria-disabled");
+    notice.textContent = "";
+  } else {
+    whatsapp.removeAttribute("href");
+    whatsapp.style.pointerEvents = "none";
+    whatsapp.style.opacity = ".45";
+    whatsapp.setAttribute("aria-disabled","true");
+
+    notice.textContent =
+      "Plata nu este încă activă. Administratorul trebuie " +
+      "să completeze beneficiarul și numărul WhatsApp.";
+  }
+
+  modal.classList.add("open");
+  document.body.classList.add("modal-open");
+  document.getElementById("closeModal").focus();
+}
+
+function closePurchase() {
+  modal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+  selectedTutorial = null;
+  if (lastFocused && lastFocused.isConnected) lastFocused.focus();
+}
+
+document.getElementById("closeModal").addEventListener("click",closePurchase);
+document.getElementById("modalDone").addEventListener("click",closePurchase);
+
+modal.addEventListener("click",event => {
+  if (event.target === modal) closePurchase();
+});
+
+document.addEventListener("keydown",event => {
+  if (!modal.classList.contains("open")) return;
+  if (event.key === "Escape") closePurchase();
+  if (event.key === "Tab") {
+    const focusable = [...modal.querySelectorAll(
+      "button:not(:disabled),a[href],input:not(:disabled)"
+    )].filter(el => el.getClientRects().length);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length-1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+});
+
+function copyText(text,button) {
+  if (!navigator.clipboard) {
+    button.textContent = "Selectează și copiază manual";
+    return;
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    button.textContent = "Copiat ✓";
+    setTimeout(() => {
+      button.textContent = button.dataset.original;
+    },1800);
+  }).catch(() => {
+    button.textContent = "Copiere indisponibilă";
+  });
+}
+
+document.querySelectorAll(".copy-btn").forEach(button => {
+  button.dataset.original = button.textContent;
+});
+
+document.getElementById("copyIban").addEventListener("click",event => {
+  copyText(CONFIG.iban,event.currentTarget);
+});
+
+document.getElementById("copyReference").addEventListener("click",event => {
+  copyText(
+    document.getElementById("paymentReference").textContent,
+    event.currentTarget
+  );
+});
+
+document.getElementById("accessButton").addEventListener("click",() => {
+  document.getElementById("accessMessage").textContent =
+    "Zona privată nu este activată încă. " +
+    "Codurile vor funcționa după instalarea sistemului securizat.";
+});
+
+/* SCROLL REVEAL */
+const observer = "IntersectionObserver" in window
+  ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.08})
+  : null;
+
+function observeReveals() {
+  document.querySelectorAll(".reveal").forEach(el => {
+    if (observer) observer.observe(el);
+    else el.classList.add("visible");
+  });
+}
+
+/* CURSOR GLOW */
+const glow = document.getElementById("cursorGlow");
+if (window.matchMedia("(pointer:fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion:reduce)").matches) {
+  document.addEventListener("pointermove",event => {
+    glow.style.left = event.clientX + "px";
+    glow.style.top = event.clientY + "px";
+    glow.style.opacity = "1";
+  },{passive:true});
+  document.addEventListener("pointerleave",() => {
+    glow.style.opacity = "0";
+  });
+}
+
+/* START */
+renderTutorials();
+observeReveals();
+</script>
+</body>
+</html>
