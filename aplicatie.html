@@ -2,824 +2,887 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>NailMargin App — Your Studio, Beautifully Organized</title>
-
-<meta name="theme-color" content="#f7f1e9">
-<meta name="description" content="NailMargin App — calendar, cliente, servicii și statistici pentru nail artiști.">
-
-<link rel="icon" type="image/png" href="nailmargin-academy-icon.png">
-<link rel="apple-touch-icon" href="nailmargin-academy-icon.png">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --cream:#f7f1e9;
-  --paper:#fffdfa;
-  --espresso:#30221d;
-  --mocha:#765543;
-  --gold:#b58b67;
-  --champagne:#d8b899;
-  --muted:#87766a;
-  --line:#e2d5c7;
-  --ease:cubic-bezier(.22,1,.36,1);
-}
-
-* {
-  box-sizing:border-box;
-}
-
-html {
-  scroll-behavior:smooth;
-}
-
-body {
-  margin:0;
-  background:var(--cream);
-  color:var(--espresso);
-  font-family:Manrope,Arial,sans-serif;
-  overflow-x:hidden;
-}
-
-body.modal-open {
-  overflow:hidden;
-}
-
-a {
-  text-decoration:none;
-  color:inherit;
-}
-
-button {
-  font:inherit;
-  cursor:pointer;
-}
-
-h1,h2,h3,p {
-  margin-top:0;
-}
-
-h1,h2,h3 {
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-weight:500;
-}
-
-.container {
-  width:min(1180px,calc(100% - 40px));
-  margin:auto;
-}
-
-.eyebrow {
-  font-size:10px;
-  letter-spacing:.29em;
-  font-weight:800;
-  color:var(--mocha);
-  text-transform:uppercase;
-}
-
-/* HEADER */
-
-.header {
-  position:sticky;
-  top:0;
-  z-index:90;
-  background:#f7f1e9ee;
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
-  transition:box-shadow .3s;
-}
-
-.header.scrolled {
-  box-shadow:0 10px 35px #30221d12;
-}
-
-.nav {
-  min-height:82px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.brand {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.15em;
-}
-
-.brand img {
-  width:51px;
-  height:51px;
-  border-radius:12px;
-  object-fit:contain;
-  transition:transform .4s,filter .4s;
-}
-
-.brand:hover img {
-  transform:rotate(-8deg) scale(1.08);
-  filter:drop-shadow(0 8px 14px #b58b6770);
-}
-
-.navlinks {
-  display:flex;
-  gap:26px;
-}
-
-.navlinks a {
-  font-size:12px;
-  font-weight:700;
-  padding:8px 0;
-  border-bottom:1px solid transparent;
-  transition:color .3s,border-color .3s;
-}
-
-.navlinks a:hover,
-.navlinks a.active {
-  color:var(--mocha);
-  border-color:var(--gold);
-}
-
-/* HERO */
-
-.hero {
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(ellipse at 20% 0%,#e8d5c5,transparent 55%),
-    radial-gradient(ellipse at 90% 100%,#e4d1be,transparent 50%),
-    var(--cream);
-  padding:65px 0 85px;
-}
-
-.hero::before {
-  content:"";
-  position:absolute;
-  width:700px;
-  height:700px;
-  border:1px solid #b58b6736;
-  border-radius:50%;
-  right:-320px;
-  top:-340px;
-  animation:orbit 25s linear infinite;
-}
-
-.hero::after {
-  content:"";
-  position:absolute;
-  width:470px;
-  height:470px;
-  border:1px solid #b58b6730;
-  border-radius:50%;
-  left:-300px;
-  bottom:-200px;
-  animation:orbit 30s linear infinite reverse;
-}
-
-.hero-inner {
-  position:relative;
-  z-index:1;
-  text-align:center;
-}
-
-.hero-logo {
-  width:90px;
-  height:90px;
-  object-fit:contain;
-  border-radius:20px;
-  box-shadow:0 15px 35px #76554328;
-  animation:float 6s ease-in-out infinite;
-}
-
-.hero h1 {
-  font-size:clamp(52px,7.4vw,103px);
-  line-height:.94;
-  letter-spacing:-.045em;
-  margin:22px 0;
-  animation:appear 1s both;
-}
-
-.hero h1 em {
-  color:var(--mocha);
-  font-weight:400;
-}
-
-.hero-sub {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-  margin:18px auto 0;
-  max-width:550px;
-  animation:appear 1.2s .15s both;
-}
-
-/* GALLERY */
-
-.gallery-title {
-  margin:55px 0 28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:15px;
-}
-
-.gallery-title::before,
-.gallery-title::after {
-  content:"";
-  height:1px;
-  width:55px;
-  background:var(--champagne);
-}
-
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:26px;
-  align-items:start;
-  max-width:1050px;
-  margin:auto;
-}
-
-.screen {
-  display:block;
-  width:100%;
-  border:1px solid #ffffffbd;
-  background:#fffdfb;
-  border-radius:30px;
-  padding:9px;
-  box-shadow:0 18px 35px #60452e1c;
-  overflow:hidden;
-  transition:transform .55s var(--ease),box-shadow .55s;
-  cursor:zoom-in;
-  position:relative;
-  color:var(--espresso);
-  text-align:left;
-  animation:appear 1s both;
-}
-
-.screen:nth-child(2) {
-  animation-delay:.12s;
-}
-
-.screen:nth-child(3) {
-  animation-delay:.24s;
-}
-
-.screen:hover {
-  transform:translateY(-14px) rotate(-1deg);
-  box-shadow:0 28px 60px #60452e30;
-}
-
-.screen img {
-  display:block;
-  width:100%;
-  height:auto;
-  border-radius:22px;
-}
-
-.screen-label {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 5px 4px;
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.09em;
-}
-
-.screen-label span:last-child {
-  color:var(--gold);
-  font-size:15px;
-}
-
-.gallery-note {
-  margin:25px 0 0;
-  color:var(--muted);
-  font-size:11px;
-}
-
-/* MARQUEE */
-
-.marquee {
-  background:var(--espresso);
-  color:#e6d3bf;
-  overflow:hidden;
-  padding:19px 0;
-}
-
-.track {
-  display:flex;
-  width:max-content;
-  animation:marquee 35s linear infinite;
-}
-
-.track span {
-  white-space:nowrap;
-  font-size:10px;
-  letter-spacing:.26em;
-  margin-right:60px;
-}
-
-.track b {
-  color:var(--champagne);
-  margin-left:60px;
-}
-
-/* PRICING */
-
-.pricing {
-  padding:105px 0;
-}
-
-.heading {
-  text-align:center;
-  margin-bottom:38px;
-}
-
-.heading h2 {
-  font-size:clamp(51px,6vw,82px);
-  line-height:1;
-  margin:15px 0;
-}
-
-.heading h2 em {
-  color:var(--mocha);
-}
-
-.heading p {
-  font-size:13px;
-  color:var(--muted);
-}
-
-.plans {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:22px;
-  max-width:930px;
-  margin:auto;
-}
-
-.plan {
-  position:relative;
-  overflow:hidden;
-  background:var(--paper);
-  padding:42px;
-  border:1px solid var(--line);
-  transition:transform .4s,box-shadow .4s;
-}
-
-.plan::before {
-  content:"";
-  position:absolute;
-  width:280px;
-  height:280px;
-  border-radius:50%;
-  background:radial-gradient(circle,#d8b89945,transparent 70%);
-  top:-140px;
-  right:-140px;
-  pointer-events:none;
-  animation:glowMove 8s ease-in-out infinite;
-}
-
-.plan:hover {
-  transform:translateY(-9px);
-  box-shadow:0 22px 50px #30221d18;
-}
-
-.plan.pro {
-  background:var(--espresso);
-  color:white;
-  border-color:var(--espresso);
-}
-
-.plan > * {
-  position:relative;
-}
-
-.plan-label {
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.25em;
-}
-
-.plan h3 {
-  font-size:52px;
-  margin:18px 0 4px;
-}
-
-.price {
-  font-family:"Cormorant Garamond",serif;
-  font-size:64px;
-}
-
-.price small {
-  font:600 11px Manrope,sans-serif;
-}
-
-.plan ul {
-  list-style:none;
-  padding:0;
-  margin:22px 0 28px;
-}
-
-.plan li {
-  padding:12px 0;
-  border-bottom:1px solid #b58b6730;
-  font-size:12px;
-}
-
-.plan li::before {
-  content:"✧";
-  color:var(--gold);
-  margin-right:12px;
-}
-
-.plan.pro li::before {
-  color:var(--champagne);
-}
-
-.btn {
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:50px;
-  padding:14px 25px;
-  border:1px solid var(--espresso);
-  background:var(--espresso);
-  color:white;
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  overflow:hidden;
-  transition:transform .3s,background .3s;
-}
-
-.btn:hover {
-  transform:translateY(-4px);
-  background:var(--mocha);
-}
-
-.plan .btn {
-  width:100%;
-}
-
-.plan.pro .btn {
-  background:var(--champagne);
-  border-color:var(--champagne);
-  color:var(--espresso);
-}
-
-.disclaimer {
-  text-align:center;
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.8;
-  max-width:760px;
-  margin:25px auto 0;
-}
-
-/* CLOSING */
-
-.closing {
-  position:relative;
-  overflow:hidden;
-  background:var(--espresso);
-  color:white;
-  padding:85px 20px;
-  text-align:center;
-}
-
-.closing::before {
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  border:1px solid #d8b89944;
-  border-radius:50%;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  animation:closingPulse 8s ease-in-out infinite;
-}
-
-.closing-content {
-  position:relative;
-}
-
-.closing h2 {
-  font-size:clamp(55px,7vw,90px);
-  line-height:1;
-  margin:18px 0;
-}
-
-.closing h2 em {
-  color:var(--champagne);
-}
-
-.closing p {
-  font-size:13px;
-  color:#d7c5b7;
-  line-height:1.8;
-}
-
-.closing .btn {
-  background:var(--champagne);
-  color:var(--espresso);
-  border-color:var(--champagne);
-  margin-top:15px;
-}
-
-/* FOOTER */
-
-footer {
-  background:#211915;
-  color:#d9c5b3;
-  padding:50px 0 25px;
-}
-
-.footer-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:25px;
-  flex-wrap:wrap;
-}
-
-.footer-logo {
-  width:75px;
-  height:75px;
-  border-radius:17px;
-  transition:transform .4s;
-}
-
-.footer-logo:hover {
-  transform:rotate(5deg) scale(1.1);
-}
-
-.footer-links {
-  display:flex;
-  gap:25px;
-  flex-wrap:wrap;
-  font-size:11px;
-}
-
-.footer-links a:hover {
-  color:white;
-}
-
-.footer-bottom {
-  margin-top:35px;
-  border-top:1px solid #ffffff25;
-  padding-top:20px;
-  color:#b3a093;
-  font-size:10px;
-}
-
-/* LIGHTBOX */
-
-.lightbox {
-  position:fixed;
-  inset:0;
-  z-index:200;
-  background:#211915ed;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:40px 18px 20px;
-  backdrop-filter:blur(15px);
-}
-
-.lightbox.open {
-  display:flex;
-}
-
-.lightbox img {
-  display:block;
-  max-height:88vh;
-  max-width:90vw;
-  object-fit:contain;
-  border-radius:16px;
-  box-shadow:0 20px 90px #0007;
-}
-
-.lightbox-close {
-  position:absolute;
-  right:18px;
-  top:15px;
-  background:white;
-  border:0;
-  border-radius:50%;
-  width:43px;
-  height:43px;
-  font-size:23px;
-  z-index:1;
-}
-
-.lightbox-arrow {
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:#ffffffd9;
-  border:0;
-  border-radius:50%;
-  width:43px;
-  height:43px;
-  font-size:23px;
-}
-
-.lightbox-prev {
-  left:12px;
-}
-
-.lightbox-next {
-  right:12px;
-}
-
-/* REVEAL */
-
-.reveal {
-  opacity:0;
-  transform:translateY(35px);
-  transition:opacity .9s var(--ease),transform .9s var(--ease);
-}
-
-.reveal.visible {
-  opacity:1;
-  transform:none;
-}
-
-/* KEYFRAMES */
-
-@keyframes float {
-  50% {
-    transform:translateY(-10px);
-  }
-}
-
-@keyframes orbit {
-  to {
-    transform:rotate(360deg) scale(1.07);
-  }
-}
-
-@keyframes appear {
-  from {
-    opacity:0;
-    transform:translateY(35px);
-  }
-  to {
-    opacity:1;
-    transform:none;
-  }
-}
-
-@keyframes marquee {
-  to {
-    transform:translateX(-50%);
-  }
-}
-
-@keyframes glowMove {
-  50% {
-    transform:translate(-80px,80px) scale(1.2);
-  }
-}
-
-@keyframes closingPulse {
-  50% {
-    transform:translate(-50%,-50%) scale(1.3);
-  }
-}
-
-/* MOBILE */
-
-@media(max-width:800px) {
-  .gallery {
-    gap:13px;
-  }
-
-  .hero {
-    padding:55px 0 65px;
-  }
-
-  .screen {
-    border-radius:23px;
-  }
-
-  .screen img {
-    border-radius:16px;
-  }
-}
-
-@media(max-width:560px) {
-  .container {
-    width:calc(100% - 26px);
-  }
-
-  .nav {
-    min-height:70px;
-  }
-
-  .brand img {
-    width:40px;
-    height:40px;
-  }
-
-  .brand span {
-    display:none;
-  }
-
-  .navlinks {
-    gap:13px;
-  }
-
-  .navlinks a {
-    font-size:10px;
-  }
-
-  .hero h1 {
-    font-size:clamp(49px,12vw,70px);
-  }
-
-  .hero-logo {
-    width:70px;
-    height:70px;
-  }
-
-  .gallery {
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:7px;
-  }
-
-  .screen {
-    padding:4px;
-    border-radius:12px;
-  }
-
-  .screen img {
-    border-radius:8px;
-  }
-
-  .screen-label {
-    padding:8px 1px 2px;
-    font-size:7px;
-    letter-spacing:0;
-  }
-
-  .screen-label span:last-child {
-    font-size:11px;
-  }
-
-  .gallery-title {
-    margin-top:38px;
-  }
-
-  .plans {
-    grid-template-columns:1fr;
-  }
-
-  .plan {
-    padding:30px;
-  }
-
-  .pricing {
-    padding:70px 0;
-  }
-
-  .lightbox-arrow {
-    top:auto;
-    bottom:15px;
-    transform:none;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important;
-  }
-
-  .reveal {
-    opacity:1;
-    transform:none;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>NailMargin App — Your Studio, Beautifully Organized</title>
+
+  <meta name="description" content="NailMargin — aplicația pentru nail artiști. Calendar, programări, servicii și statistici într-un singur loc.">
+  <meta name="theme-color" content="#f7f1e9">
+
+  <link rel="icon" href="nailmargin-academy-icon.png">
+  <link rel="apple-touch-icon" href="nailmargin-academy-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:#f7f1e9;
+      --paper:#fffdfa;
+      --brown:#30221d;
+      --mocha:#765543;
+      --gold:#b58b67;
+      --champagne:#d8b899;
+      --muted:#87766a;
+      --line:#e2d5c7;
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      background:var(--cream);
+      color:var(--brown);
+      font-family:Manrope,Arial,sans-serif;
+      overflow-x:hidden;
+    }
+
+    body.no-scroll {
+      overflow:hidden;
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button {
+      font:inherit;
+      cursor:pointer;
+    }
+
+    img {
+      max-width:100%;
+    }
+
+    h1,h2,h3,p {
+      margin-top:0;
+    }
+
+    h1,h2,h3 {
+      font-family:"Cormorant Garamond",Georgia,serif;
+      font-weight:500;
+    }
+
+    .container {
+      width:min(1180px,calc(100% - 40px));
+      margin:auto;
+    }
+
+    .eyebrow {
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.27em;
+      text-transform:uppercase;
+      color:var(--mocha);
+    }
+
+    /* HEADER */
+
+    header {
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:#f7f1e9ef;
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
+      transition:box-shadow .3s;
+    }
+
+    header.scrolled {
+      box-shadow:0 10px 30px #30221d12;
+    }
+
+    .nav {
+      min-height:80px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.15em;
+    }
+
+    .brand img {
+      width:50px;
+      height:50px;
+      object-fit:contain;
+      border-radius:12px;
+      transition:transform .4s;
+    }
+
+    .brand:hover img {
+      transform:rotate(-8deg) scale(1.08);
+    }
+
+    .nav-links {
+      display:flex;
+      align-items:center;
+      gap:26px;
+    }
+
+    .nav-links a {
+      font-size:12px;
+      font-weight:700;
+      padding:8px 0;
+      border-bottom:1px solid transparent;
+      transition:.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color:var(--mocha);
+      border-color:var(--gold);
+    }
+
+    /* HERO */
+
+    .hero {
+      position:relative;
+      overflow:hidden;
+      padding:70px 0 95px;
+      text-align:center;
+      background:
+        radial-gradient(ellipse at 15% 0%,#e8d5c5,transparent 55%),
+        radial-gradient(ellipse at 90% 100%,#e4d1be,transparent 50%),
+        var(--cream);
+    }
+
+    .hero::before {
+      content:"";
+      position:absolute;
+      width:700px;
+      height:700px;
+      border:1px solid #b58b6730;
+      border-radius:50%;
+      right:-320px;
+      top:-340px;
+      animation:orbit 25s linear infinite;
+      pointer-events:none;
+    }
+
+    .hero-inner {
+      position:relative;
+      z-index:1;
+    }
+
+    .hero-logo {
+      width:92px;
+      height:92px;
+      object-fit:contain;
+      border-radius:20px;
+      box-shadow:0 15px 35px #76554328;
+      animation:float 6s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size:clamp(55px,8vw,105px);
+      line-height:.94;
+      letter-spacing:-.045em;
+      margin:24px 0;
+      animation:appear 1s both;
+    }
+
+    .hero h1 em {
+      color:var(--mocha);
+      font-weight:400;
+    }
+
+    .hero-sub {
+      font-size:13px;
+      line-height:1.9;
+      color:var(--muted);
+      max-width:580px;
+      margin:0 auto 30px;
+      animation:appear 1s .15s both;
+    }
+
+    /* BUTTONS */
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:13px;
+      min-height:55px;
+      padding:15px 30px;
+      background:var(--brown);
+      border:1px solid var(--brown);
+      color:white;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      transition:transform .3s,background .3s,box-shadow .3s;
+    }
+
+    .btn:hover {
+      background:var(--mocha);
+      transform:translateY(-4px);
+      box-shadow:0 14px 30px #30221d25;
+    }
+
+    .btn svg {
+      width:20px;
+      height:20px;
+      fill:currentColor;
+    }
+
+    .btn-light {
+      background:var(--champagne);
+      color:var(--brown);
+      border-color:var(--champagne);
+    }
+
+    .btn-light:hover {
+      background:#edcaaa;
+    }
+
+    .hero-actions {
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-small {
+      font-size:10px;
+      color:var(--muted);
+      margin-top:14px;
+    }
+
+    /* GALLERY */
+
+    .gallery-heading {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      margin:65px 0 28px;
+    }
+
+    .gallery-heading::before,
+    .gallery-heading::after {
+      content:"";
+      height:1px;
+      width:55px;
+      background:var(--champagne);
+    }
+
+    .gallery {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:24px;
+      max-width:1050px;
+      margin:auto;
+    }
+
+    .screen {
+      display:block;
+      width:100%;
+      text-align:left;
+      padding:9px;
+      border:1px solid #ffffffc9;
+      background:var(--paper);
+      color:var(--brown);
+      border-radius:29px;
+      box-shadow:0 18px 35px #60452e1c;
+      overflow:hidden;
+      cursor:zoom-in;
+      transition:transform .5s var(--ease),box-shadow .5s;
+      animation:appear 1s both;
+    }
+
+    .screen:nth-child(2) {
+      animation-delay:.12s;
+    }
+
+    .screen:nth-child(3) {
+      animation-delay:.24s;
+    }
+
+    .screen:hover {
+      transform:translateY(-13px);
+      box-shadow:0 28px 55px #60452e30;
+    }
+
+    .screen img {
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:21px;
+    }
+
+    .screen-label {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:15px 6px 5px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+
+    .screen-label span:last-child {
+      color:var(--gold);
+      font-size:18px;
+    }
+
+    .gallery-note {
+      margin:24px 0 0;
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    /* MARQUEE */
+
+    .marquee {
+      background:var(--brown);
+      color:#e6d3bf;
+      overflow:hidden;
+      padding:19px 0;
+    }
+
+    .track {
+      display:flex;
+      width:max-content;
+      animation:marquee 35s linear infinite;
+    }
+
+    .track span {
+      white-space:nowrap;
+      font-size:10px;
+      letter-spacing:.25em;
+      margin-right:65px;
+    }
+
+    .track b {
+      color:var(--champagne);
+      margin-left:65px;
+    }
+
+    /* FEATURES */
+
+    .features {
+      padding:105px 0 35px;
+    }
+
+    .section-heading {
+      text-align:center;
+      margin-bottom:43px;
+    }
+
+    .section-heading h2 {
+      font-size:clamp(50px,6vw,80px);
+      line-height:1;
+      margin:16px 0;
+    }
+
+    .section-heading h2 em {
+      color:var(--mocha);
+    }
+
+    .section-heading p {
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    .features-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .feature {
+      padding:35px 30px;
+      border:1px solid var(--line);
+      background:var(--paper);
+      transition:transform .35s,box-shadow .35s;
+    }
+
+    .feature:hover {
+      transform:translateY(-8px);
+      box-shadow:0 18px 35px #30221d14;
+    }
+
+    .feature-icon {
+      font-family:"Cormorant Garamond",serif;
+      font-size:43px;
+      color:var(--gold);
+      margin-bottom:15px;
+    }
+
+    .feature h3 {
+      font-size:32px;
+      margin:0 0 10px;
+    }
+
+    .feature p {
+      font-size:12px;
+      line-height:1.9;
+      color:var(--muted);
+      margin:0;
+    }
+
+    /* PRICING */
+
+    .pricing {
+      padding:105px 0;
+    }
+
+    .plans {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      max-width:940px;
+      margin:auto;
+    }
+
+    .plan {
+      position:relative;
+      overflow:hidden;
+      background:var(--paper);
+      border:1px solid var(--line);
+      padding:43px;
+      transition:transform .4s,box-shadow .4s;
+    }
+
+    .plan:hover {
+      transform:translateY(-9px);
+      box-shadow:0 22px 50px #30221d18;
+    }
+
+    .plan.pro {
+      background:var(--brown);
+      color:white;
+      border-color:var(--brown);
+    }
+
+    .plan-label {
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.24em;
+    }
+
+    .plan h3 {
+      font-size:51px;
+      margin:19px 0 4px;
+    }
+
+    .price {
+      font-family:"Cormorant Garamond",serif;
+      font-size:65px;
+    }
+
+    .price small {
+      font:600 11px Manrope,sans-serif;
+    }
+
+    .plan ul {
+      list-style:none;
+      padding:0;
+      margin:24px 0 30px;
+    }
+
+    .plan li {
+      padding:12px 0;
+      border-bottom:1px solid #b58b6730;
+      font-size:12px;
+    }
+
+    .plan li::before {
+      content:"✧";
+      color:var(--gold);
+      margin-right:12px;
+    }
+
+    .plan.pro li::before {
+      color:var(--champagne);
+    }
+
+    .plan .btn {
+      width:100%;
+    }
+
+    .plan.pro .btn {
+      background:var(--champagne);
+      color:var(--brown);
+      border-color:var(--champagne);
+    }
+
+    /* FINAL */
+
+    .closing {
+      position:relative;
+      overflow:hidden;
+      background:var(--brown);
+      color:white;
+      padding:100px 20px;
+      text-align:center;
+    }
+
+    .closing::before {
+      content:"";
+      position:absolute;
+      width:600px;
+      height:600px;
+      border:1px solid #d8b89930;
+      border-radius:50%;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      animation:pulse 8s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .closing-inner {
+      position:relative;
+      z-index:1;
+    }
+
+    .closing h2 {
+      font-size:clamp(55px,7vw,92px);
+      line-height:1;
+      margin:20px 0;
+    }
+
+    .closing h2 em {
+      color:var(--champagne);
+    }
+
+    .closing p {
+      font-size:13px;
+      color:#d7c5b7;
+      line-height:1.9;
+      margin-bottom:25px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background:#211915;
+      color:#d9c5b3;
+      padding:50px 0 25px;
+    }
+
+    .footer-row {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:25px;
+    }
+
+    .footer-logo {
+      width:75px;
+      height:75px;
+      border-radius:17px;
+    }
+
+    .footer-links {
+      display:flex;
+      flex-wrap:wrap;
+      gap:25px;
+      font-size:11px;
+    }
+
+    .footer-links a:hover {
+      color:white;
+    }
+
+    .footer-bottom {
+      border-top:1px solid #ffffff25;
+      padding-top:20px;
+      margin-top:35px;
+      font-size:10px;
+      color:#b3a093;
+    }
+
+    /* LIGHTBOX */
+
+    .lightbox {
+      position:fixed;
+      inset:0;
+      z-index:200;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:35px 15px;
+      background:#211915ed;
+      backdrop-filter:blur(15px);
+    }
+
+    .lightbox.open {
+      display:flex;
+    }
+
+    .lightbox img {
+      display:block;
+      max-width:90vw;
+      max-height:88vh;
+      object-fit:contain;
+      border-radius:16px;
+      box-shadow:0 20px 90px #0007;
+    }
+
+    .lightbox-close,
+    .lightbox-arrow {
+      position:absolute;
+      width:44px;
+      height:44px;
+      border:0;
+      border-radius:50%;
+      background:white;
+      color:var(--brown);
+      font-size:24px;
+    }
+
+    .lightbox-close {
+      right:18px;
+      top:15px;
+      z-index:2;
+    }
+
+    .lightbox-arrow {
+      top:50%;
+      transform:translateY(-50%);
+    }
+
+    .lightbox-prev {
+      left:12px;
+    }
+
+    .lightbox-next {
+      right:12px;
+    }
+
+    /* DOWNLOAD MESSAGE */
+
+    .notice {
+      position:fixed;
+      left:50%;
+      bottom:25px;
+      z-index:300;
+      transform:translate(-50%,25px);
+      width:min(460px,calc(100% - 30px));
+      padding:20px 24px;
+      background:var(--brown);
+      color:white;
+      box-shadow:0 20px 60px #0004;
+      opacity:0;
+      visibility:hidden;
+      transition:.35s;
+      text-align:center;
+      font-size:12px;
+      line-height:1.8;
+    }
+
+    .notice.show {
+      transform:translate(-50%,0);
+      opacity:1;
+      visibility:visible;
+    }
+
+    /* REVEAL */
+
+    .reveal {
+      opacity:0;
+      transform:translateY(35px);
+      transition:opacity .9s var(--ease),transform .9s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity:1;
+      transform:none;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes float {
+      50% {
+        transform:translateY(-10px);
+      }
+    }
+
+    @keyframes orbit {
+      to {
+        transform:rotate(360deg) scale(1.07);
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity:0;
+        transform:translateY(35px);
+      }
+      to {
+        opacity:1;
+        transform:none;
+      }
+    }
+
+    @keyframes marquee {
+      to {
+        transform:translateX(-50%);
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        transform:translate(-50%,-50%) scale(1.25);
+      }
+    }
+
+    /* MOBILE */
+
+    @media(max-width:850px) {
+      .features-grid {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .gallery {
+        gap:13px;
+      }
+    }
+
+    @media(max-width:600px) {
+      .container {
+        width:calc(100% - 26px);
+      }
+
+      .nav {
+        min-height:70px;
+      }
+
+      .brand img {
+        width:41px;
+        height:41px;
+      }
+
+      .brand span {
+        display:none;
+      }
+
+      .nav-links {
+        gap:13px;
+      }
+
+      .nav-links a {
+        font-size:10px;
+      }
+
+      .hero {
+        padding:55px 0 65px;
+      }
+
+      .hero-logo {
+        width:72px;
+        height:72px;
+      }
+
+      .hero h1 {
+        font-size:clamp(49px,12vw,70px);
+      }
+
+      .hero-actions {
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-actions .btn {
+        width:min(100%,320px);
+      }
+
+      .gallery {
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:7px;
+      }
+
+      .screen {
+        padding:4px;
+        border-radius:12px;
+      }
+
+      .screen img {
+        border-radius:8px;
+      }
+
+      .screen-label {
+        padding:8px 1px 2px;
+        font-size:7px;
+        letter-spacing:0;
+      }
+
+      .screen-label span:last-child {
+        font-size:11px;
+      }
+
+      .gallery-heading {
+        margin-top:45px;
+      }
+
+      .features {
+        padding:75px 0 15px;
+      }
+
+      .features-grid,
+      .plans {
+        grid-template-columns:1fr;
+      }
+
+      .pricing {
+        padding:75px 0;
+      }
+
+      .plan {
+        padding:32px;
+      }
+
+      .lightbox-arrow {
+        top:auto;
+        bottom:15px;
+        transform:none;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        animation:none!important;
+        transition:none!important;
+        scroll-behavior:auto!important;
+      }
+
+      .reveal {
+        opacity:1;
+        transform:none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="header" id="header">
+<!-- HEADER -->
+
+<header id="header">
   <div class="container nav">
 
     <a class="brand" href="index.html">
@@ -827,7 +890,7 @@ footer {
       <span>NAILMARGIN</span>
     </a>
 
-    <nav class="navlinks" aria-label="Meniu principal">
+    <nav class="nav-links" aria-label="Meniu principal">
       <a href="index.html">Calculator</a>
       <a href="aplicatie.html" class="active" aria-current="page">Aplicație</a>
       <a href="academy.html">Academy</a>
@@ -849,7 +912,7 @@ footer {
       alt="NailMargin App"
     >
 
-    <div style="margin-top:22px" class="eyebrow">
+    <div class="eyebrow" style="margin-top:24px">
       NAILMARGIN APP · FOR NAIL ARTISTS
     </div>
 
@@ -863,25 +926,47 @@ footer {
       Totul într-o singură aplicație, creată pentru tine.
     </p>
 
-    <!-- GALERIE CU 3 IMAGINI -->
+    <!-- DOWNLOAD BUTTON -->
 
-    <div class="gallery-title eyebrow">
+    <div class="hero-actions">
+
+      <a
+        class="btn ios-download"
+        href="#download"
+        aria-label="Descarcă NailMargin pentru iOS"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17.05 12.54c.02 2.16 1.9 2.88 1.92 2.89-.02.05-.3 1.03-.99 2.04-.59.87-1.2 1.73-2.16 1.75-.95.02-1.25-.56-2.34-.56-1.08 0-1.42.54-2.32.58-.93.03-1.64-.94-2.24-1.8-1.22-1.76-2.15-4.97-.9-7.14a3.48 3.48 0 0 1 2.93-1.78c.91-.02 1.77.62 2.33.62.55 0 1.6-.77 2.69-.66.46.02 1.74.19 2.57 1.39-.07.04-1.53.89-1.51 2.67ZM15.99 5.26A3.46 3.46 0 0 0 16.79 2a3.52 3.52 0 0 0-2.3 1.12 3.3 3.3 0 0 0-.83 2.54 2.94 2.94 0 0 0 2.33-.4Z"/>
+        </svg>
+        Descarcă pentru iOS
+      </a>
+
+    </div>
+
+    <p class="hero-small">
+      NailMargin pentru iPhone
+    </p>
+
+    <!-- 3 SCREENSHOTS -->
+
+    <div class="gallery-heading eyebrow">
       DESCOPERĂ APLICAȚIA
     </div>
 
-    <div class="gallery" id="gallery">
+    <div class="gallery">
 
       <button
         class="screen"
         type="button"
         data-index="0"
-        aria-label="Mărește captura Calendar"
+        aria-label="Mărește imaginea Calendar"
       >
         <img
           src="nailmargin-screen-1.webp"
-          alt="Calendarul NailMargin pe iPhone"
+          alt="Calendarul NailMargin"
           loading="eager"
         >
+
         <div class="screen-label">
           <span>01 · CALENDAR</span>
           <span>↗</span>
@@ -892,13 +977,14 @@ footer {
         class="screen"
         type="button"
         data-index="1"
-        aria-label="Mărește captura Servicii"
+        aria-label="Mărește imaginea Servicii"
       >
         <img
           src="nailmargin-screen-2.webp"
-          alt="Serviciile și tarifele din NailMargin"
+          alt="Serviciile NailMargin"
           loading="eager"
         >
+
         <div class="screen-label">
           <span>02 · SERVICII</span>
           <span>↗</span>
@@ -909,13 +995,14 @@ footer {
         class="screen"
         type="button"
         data-index="2"
-        aria-label="Mărește captura Statistici"
+        aria-label="Mărește imaginea Statistici"
       >
         <img
           src="nailmargin-screen-3.webp"
-          alt="Statistici NailMargin"
+          alt="Statisticile NailMargin"
           loading="eager"
         >
+
         <div class="screen-label">
           <span>03 · STATISTICI</span>
           <span>↗</span>
@@ -925,8 +1012,8 @@ footer {
     </div>
 
     <p class="gallery-note">
-      Capturi reale din versiunea iPhone testată prin TestFlight.
-      Apasă pe o imagine pentru a o mări.
+      Descoperă interfața NailMargin.
+      Apasă pe o imagine pentru a o explora.
     </p>
 
   </div>
@@ -945,12 +1032,62 @@ footer {
   </div>
 </div>
 
-<!-- ABONAMENTE -->
+<!-- FEATURES -->
+
+<section class="features">
+  <div class="container">
+
+    <div class="section-heading reveal">
+      <span class="eyebrow">EVERYTHING IN ONE PLACE</span>
+
+      <h2>
+        Made for <em>your business.</em>
+      </h2>
+
+      <p>
+        Instrumentele esențiale pentru organizarea studioului tău.
+      </p>
+    </div>
+
+    <div class="features-grid">
+
+      <article class="feature reveal">
+        <div class="feature-icon">01</div>
+        <h3>Calendar</h3>
+        <p>
+          Organizează programările și vizualizează-ți
+          activitatea într-un calendar intuitiv.
+        </p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">02</div>
+        <h3>Servicii</h3>
+        <p>
+          Gestionează serviciile, duratele și prețurile
+          într-un singur loc.
+        </p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">03</div>
+        <h3>Statistici</h3>
+        <p>
+          Urmărește veniturile, cheltuielile
+          și profitul studioului tău.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
 
 <section class="pricing" id="abonamente">
   <div class="container">
 
-    <div class="heading reveal">
+    <div class="section-heading reveal">
       <span class="eyebrow">SIMPLE & TRANSPARENT</span>
 
       <h2>
@@ -958,7 +1095,7 @@ footer {
       </h2>
 
       <p>
-        Două planuri. Un singur loc pentru business-ul tău.
+        Alege abonamentul potrivit pentru studioul tău.
       </p>
     </div>
 
@@ -983,8 +1120,8 @@ footer {
           <li>Organizare simplă</li>
         </ul>
 
-        <a href="#disponibilitate" class="btn">
-          Disponibilitate ↗
+        <a class="btn ios-download" href="#download">
+          Descarcă pentru iOS
         </a>
 
       </article>
@@ -1005,36 +1142,26 @@ footer {
           <li>Cliente nelimitate</li>
           <li>Calendar și programări</li>
           <li>Servicii și statistici</li>
-          <li>Funcționalități avansate planificate</li>
-          <li>Remindere SMS planificate</li>
+          <li>Gestionarea activității</li>
         </ul>
 
-        <a href="#disponibilitate" class="btn">
-          Disponibilitate ↗
+        <a class="btn ios-download" href="#download">
+          Descarcă pentru iOS
         </a>
 
       </article>
 
     </div>
-
-    <p class="disclaimer">
-      Aplicația este în testare prin TestFlight,
-      nu disponibilă încă public.
-      Prețurile și funcționalitățile abonamentelor
-      sunt propuse pentru lansare.
-      Condițiile finale vor fi comunicate ulterior.
-    </p>
-
   </div>
 </section>
 
-<!-- FINAL -->
+<!-- DOWNLOAD SECTION -->
 
-<section class="closing" id="disponibilitate">
-  <div class="closing-content">
+<section class="closing" id="download">
+  <div class="closing-inner">
 
     <span class="eyebrow" style="color:var(--champagne)">
-      COMING SOON
+      NAILMARGIN FOR IOS
     </span>
 
     <h2>
@@ -1043,12 +1170,15 @@ footer {
     </h2>
 
     <p>
-      NailMargin App este în testare pentru iPhone.<br>
-      Între timp, descoperă calculatorul gratuit de prețuri.
+      Mai multă organizare. Mai mult control.<br>
+      Un studio administrat cu eleganță.
     </p>
 
-    <a class="btn" href="index.html#calculator">
-      Încearcă calculatorul ↗
+    <a class="btn btn-light ios-download" href="#download">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17.05 12.54c.02 2.16 1.9 2.88 1.92 2.89-.02.05-.3 1.03-.99 2.04-.59.87-1.2 1.73-2.16 1.75-.95.02-1.25-.56-2.34-.56-1.08 0-1.42.54-2.32.58-.93.03-1.64-.94-2.24-1.8-1.22-1.76-2.15-4.97-.9-7.14a3.48 3.48 0 0 1 2.93-1.78c.91-.02 1.77.62 2.33.62.55 0 1.6-.77 2.69-.66.46.02 1.74.19 2.57 1.39-.07.04-1.53.89-1.51 2.67ZM15.99 5.26A3.46 3.46 0 0 0 16.79 2a3.52 3.52 0 0 0-2.3 1.12 3.3 3.3 0 0 0-.83 2.54 2.94 2.94 0 0 0 2.33-.4Z"/>
+      </svg>
+      Descarcă pentru iOS
     </a>
 
   </div>
@@ -1098,39 +1228,92 @@ footer {
   id="lightbox"
   role="dialog"
   aria-modal="true"
-  aria-label="Captură de ecran mărită"
+  aria-label="Imagine mărită"
   hidden
 >
-
   <button
-    type="button"
     class="lightbox-close"
+    type="button"
     aria-label="Închide"
   >×</button>
 
   <button
-    type="button"
     class="lightbox-arrow lightbox-prev"
+    type="button"
     aria-label="Imaginea precedentă"
   >‹</button>
 
-  <img
-    id="lightboxImage"
-    alt="Captură NailMargin mărită"
-  >
+  <img id="lightboxImage" alt="Imagine NailMargin mărită">
 
   <button
-    type="button"
     class="lightbox-arrow lightbox-next"
+    type="button"
     aria-label="Imaginea următoare"
   >›</button>
+</div>
 
+<!-- DOWNLOAD NOTICE -->
+
+<div
+  class="notice"
+  id="notice"
+  role="status"
+  aria-live="polite"
+>
+  Linkul public de descărcare pentru iOS
+  va fi disponibil aici după publicarea aplicației
+  în App Store.
 </div>
 
 <script>
 "use strict";
 
-/* GALERIE */
+/*
+  CONFIGURARE APP STORE
+
+  După publicarea aplicației, înlocuiește
+  textul gol de mai jos cu linkul ei real.
+
+  Exemplu de format:
+  https://apps.apple.com/ro/app/.../id...
+
+  Nu introduce un link inventat.
+*/
+
+const APP_STORE_URL = "";
+
+/* DOWNLOAD BUTTONS */
+
+const downloadButtons =
+  document.querySelectorAll(".ios-download");
+
+const notice =
+  document.getElementById("notice");
+
+let noticeTimer;
+
+downloadButtons.forEach(button=>{
+  button.addEventListener("click",event=>{
+
+    if(APP_STORE_URL.trim()){
+      event.preventDefault();
+      window.location.href = APP_STORE_URL;
+      return;
+    }
+
+    event.preventDefault();
+
+    notice.classList.add("show");
+
+    clearTimeout(noticeTimer);
+
+    noticeTimer = setTimeout(()=>{
+      notice.classList.remove("show");
+    },5000);
+  });
+});
+
+/* IMAGE GALLERY */
 
 const screens = [
   ...document.querySelectorAll(".screen")
@@ -1145,7 +1328,7 @@ const bigImage =
 let activeImage = 0;
 let returnFocus = null;
 
-function showImage(index) {
+function showImage(index){
   activeImage =
     (index + screens.length) % screens.length;
 
@@ -1156,27 +1339,28 @@ function showImage(index) {
   bigImage.alt = image.alt;
 }
 
-function openLightbox(index) {
+function openLightbox(index){
   returnFocus = document.activeElement;
 
   showImage(index);
 
   lightbox.hidden = false;
   lightbox.classList.add("open");
-  document.body.classList.add("modal-open");
+
+  document.body.classList.add("no-scroll");
 
   lightbox
     .querySelector(".lightbox-close")
     .focus();
 }
 
-function closeLightbox() {
+function closeLightbox(){
   lightbox.classList.remove("open");
   lightbox.hidden = true;
 
-  document.body.classList.remove("modal-open");
+  document.body.classList.remove("no-scroll");
 
-  if(returnFocus) {
+  if(returnFocus){
     returnFocus.focus();
   }
 }
@@ -1204,60 +1388,64 @@ lightbox
   });
 
 lightbox.addEventListener("click",event=>{
-  if(event.target === lightbox) {
+  if(event.target === lightbox){
     closeLightbox();
   }
 });
 
 document.addEventListener("keydown",event=>{
-  if(!lightbox.classList.contains("open")) {
+  if(!lightbox.classList.contains("open")){
     return;
   }
 
-  if(event.key === "Escape") {
+  if(event.key === "Escape"){
     closeLightbox();
   }
 
-  if(event.key === "ArrowLeft") {
+  if(event.key === "ArrowLeft"){
     showImage(activeImage-1);
   }
 
-  if(event.key === "ArrowRight") {
+  if(event.key === "ArrowRight"){
     showImage(activeImage+1);
   }
 });
 
 /* SCROLL ANIMATIONS */
 
+const revealElements =
+  document.querySelectorAll(".reveal");
+
 const reduceMotion =
   window.matchMedia(
     "(prefers-reduced-motion:reduce)"
   ).matches;
 
-const revealElements =
-  document.querySelectorAll(".reveal");
+if("IntersectionObserver" in window && !reduceMotion){
 
-if("IntersectionObserver" in window && !reduceMotion) {
   const observer =
     new IntersectionObserver(entries=>{
+
       entries.forEach(entry=>{
-        if(entry.isIntersecting) {
+        if(entry.isIntersecting){
           entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         }
       });
+
     },{threshold:.08});
 
   revealElements.forEach(element=>{
     observer.observe(element);
   });
-} else {
+
+}else{
   revealElements.forEach(element=>{
     element.classList.add("visible");
   });
 }
 
-/* HEADER SHADOW */
+/* HEADER */
 
 window.addEventListener("scroll",()=>{
   document.getElementById("header").classList.toggle(
@@ -1265,8 +1453,8 @@ window.addEventListener("scroll",()=>{
     window.scrollY > 30
   );
 },{passive:true});
-
 </script>
 
 </body>
 </html>
+
