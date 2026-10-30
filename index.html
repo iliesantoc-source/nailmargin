@@ -35,7 +35,7 @@ body {
   font-family:Manrope,Arial,sans-serif;
   overflow-x:hidden;
 }
-body::selection {background:var(--champagne)}
+::selection {background:var(--champagne)}
 a {text-decoration:none;color:inherit}
 button,input,select {font:inherit}
 button {cursor:pointer}
@@ -45,8 +45,14 @@ h1,h2,h3 {
   font-weight:500;
 }
 p {line-height:1.8}
-.container {width:min(1160px,calc(100% - 40px));margin:auto}
-:focus-visible {outline:2px solid var(--gold);outline-offset:4px}
+.container {
+  width:min(1160px,calc(100% - 40px));
+  margin:auto;
+}
+:focus-visible {
+  outline:2px solid var(--gold);
+  outline-offset:4px;
+}
 .eyebrow {
   font-size:10px;
   font-weight:800;
@@ -59,7 +65,10 @@ p {line-height:1.8}
   transform:translateY(35px);
   transition:opacity .9s var(--ease),transform .9s var(--ease);
 }
-.reveal.visible {opacity:1;transform:none}
+.reveal.visible {
+  opacity:1;
+  transform:none;
+}
 
 /* LIGHT & ATMOSPHERE */
 .ambient-light {
@@ -104,8 +113,15 @@ p {line-height:1.8}
   white-space:nowrap;
   transition:transform .4s var(--ease),color .4s;
 }
-.brand:hover {transform:translateY(-3px);color:var(--mocha)}
-.navlinks {display:flex;gap:34px;align-items:center}
+.brand:hover {
+  transform:translateY(-3px);
+  color:var(--mocha);
+}
+.navlinks {
+  display:flex;
+  gap:34px;
+  align-items:center;
+}
 .navlinks a {
   position:relative;
   font-size:12px;
@@ -113,7 +129,10 @@ p {line-height:1.8}
   padding:12px 0;
   transition:color .3s,letter-spacing .3s;
 }
-.navlinks a:hover {color:var(--gold);letter-spacing:.035em}
+.navlinks a:hover {
+  color:var(--gold);
+  letter-spacing:.035em;
+}
 .navlinks a::after {
   content:"";
   position:absolute;
@@ -124,7 +143,10 @@ p {line-height:1.8}
   background:var(--gold);
   transition:width .4s var(--ease);
 }
-.navlinks a:hover::after,.navlinks a.active::after {width:100%}
+.navlinks a:hover::after,
+.navlinks a.active::after {
+  width:100%;
+}
 
 /* BUTTONS */
 .btn {
@@ -141,12 +163,25 @@ p {line-height:1.8}
   font-weight:800;
   letter-spacing:.11em;
   text-transform:uppercase;
-  transition:transform .4s var(--ease),background .4s,color .4s,box-shadow .4s;
+  transition:
+    transform .4s var(--ease),
+    background .4s,
+    color .4s,
+    box-shadow .4s;
 }
-.btn:hover {transform:translateY(-4px);box-shadow:0 15px 30px #30221d20}
-.btn-dark {background:var(--espresso);color:white}
+.btn:hover {
+  transform:translateY(-4px);
+  box-shadow:0 15px 30px #30221d20;
+}
+.btn-dark {
+  background:var(--espresso);
+  color:white;
+}
 .btn-dark:hover {background:var(--mocha)}
-.btn-outline:hover {background:var(--espresso);color:white}
+.btn-outline:hover {
+  background:var(--espresso);
+  color:white;
+}
 .btn-arrow {transition:transform .35s}
 .btn:hover .btn-arrow {transform:translateX(6px)}
 
@@ -311,7 +346,11 @@ p {line-height:1.8}
   font-weight:500;
   display:block;
 }
-.floating-label span {font-size:9px;letter-spacing:.16em;color:var(--muted)}
+.floating-label span {
+  font-size:9px;
+  letter-spacing:.16em;
+  color:var(--muted);
+}
 .hero-bottom {
   position:absolute;
   bottom:25px;
@@ -341,29 +380,55 @@ p {line-height:1.8}
   letter-spacing:.28em;
   margin-right:55px;
 }
-.marquee-track b {margin-left:55px;color:var(--champagne)}
-@keyframes marquee {to {transform:translateX(-50%)}}
+.marquee-track b {
+  margin-left:55px;
+  color:var(--champagne);
+}
+@keyframes marquee {
+  to {transform:translateX(-50%)}
+}
 
 /* INTRO */
-.intro {padding:110px 0 90px;text-align:center}
+.intro {
+  padding:110px 0 90px;
+  text-align:center;
+}
 .intro h2 {
   font-size:clamp(52px,6vw,85px);
   line-height:1.02;
   max-width:850px;
   margin:22px auto;
 }
-.intro h2 em {color:var(--mocha);font-weight:400}
-.intro p {max-width:650px;margin:auto;color:var(--muted);font-size:14px}
+.intro h2 em {
+  color:var(--mocha);
+  font-weight:400;
+}
+.intro p {
+  max-width:650px;
+  margin:auto;
+  color:var(--muted);
+  font-size:14px;
+}
 
 /* CALCULATOR */
-.calc-section {padding:45px 0 120px;position:relative}
-.section-heading {text-align:center;max-width:770px;margin:0 auto 45px}
+.calc-section {
+  padding:45px 0 120px;
+  position:relative;
+}
+.section-heading {
+  text-align:center;
+  max-width:770px;
+  margin:0 auto 45px;
+}
 .section-heading h2 {
   font-size:clamp(52px,6vw,83px);
   line-height:1.05;
   margin:20px 0;
 }
-.section-heading p {color:var(--muted);font-size:14px}
+.section-heading p {
+  color:var(--muted);
+  font-size:14px;
+}
 .calculator {
   max-width:970px;
   margin:auto;
@@ -386,8 +451,14 @@ p {line-height:1.8}
   justify-content:space-between;
   gap:20px;
 }
-.calc-head h3 {font-size:45px;margin-bottom:7px}
-.calc-head p {font-size:12px;color:var(--muted)}
+.calc-head h3 {
+  font-size:45px;
+  margin-bottom:7px;
+}
+.calc-head p {
+  font-size:12px;
+  color:var(--muted);
+}
 .free-pill {
   border:1px solid var(--champagne);
   padding:11px 15px;
@@ -402,7 +473,11 @@ p {line-height:1.8}
   gap:19px;
   margin-top:30px;
 }
-label {font-size:12px;font-weight:800;display:block}
+label {
+  font-size:12px;
+  font-weight:800;
+  display:block;
+}
 input,select {
   width:100%;
   margin-top:9px;
@@ -424,7 +499,10 @@ input:focus,select:focus {
   padding-bottom:12px;
   border-bottom:1px solid var(--line);
 }
-.muted {color:var(--muted);font-size:12px}
+.muted {
+  color:var(--muted);
+  font-size:12px;
+}
 .note {
   background:#f5eee6;
   border-left:2px solid var(--gold);
@@ -453,7 +531,10 @@ input:focus,select:focus {
   font-size:11px;
   line-height:1.5;
 }
-.cost-row input {margin:0;text-align:right}
+.cost-row input {
+  margin:0;
+  text-align:right;
+}
 .subtotal,.breakdown-row {
   display:flex;
   justify-content:space-between;
@@ -496,15 +577,22 @@ input:focus,select:focus {
   font-weight:500;
   margin:10px 0;
 }
-.price-result span {position:relative;font-size:11px;color:#e5d3c0}
 details {
   margin-top:12px;
   padding:20px;
   background:var(--ivory);
   border:1px solid var(--line);
 }
-summary {cursor:pointer;font-size:12px;font-weight:800}
-details p {font-size:12px;color:var(--muted);margin:14px 0 0}
+summary {
+  cursor:pointer;
+  font-size:12px;
+  font-weight:800;
+}
+details p {
+  font-size:12px;
+  color:var(--muted);
+  margin:14px 0 0;
+}
 
 /* CLOSING */
 .closing {
@@ -533,9 +621,21 @@ details p {font-size:12px;color:var(--muted);margin:14px 0 0}
   line-height:1;
   margin:25px 0;
 }
-.closing h2 em {color:var(--champagne);font-weight:400}
-.closing p {font-size:13px;color:#d7c5b7;max-width:580px;margin:0 auto 30px}
-.closing .btn {border-color:var(--champagne);color:var(--espresso);background:var(--champagne)}
+.closing h2 em {
+  color:var(--champagne);
+  font-weight:400;
+}
+.closing p {
+  font-size:13px;
+  color:#d7c5b7;
+  max-width:580px;
+  margin:0 auto 30px;
+}
+.closing .btn {
+  border-color:var(--champagne);
+  color:var(--espresso);
+  background:var(--champagne);
+}
 .closing .btn:hover {background:#efd5b9}
 
 /* FOOTER */
@@ -550,10 +650,20 @@ footer {
   gap:30px;
   flex-wrap:wrap;
 }
-.footer-logo {font-family:WindSong,cursive;font-size:49px}
-footer p,footer a {font-size:11px;color:#c9b6a6}
+.footer-logo {
+  font-family:WindSong,cursive;
+  font-size:49px;
+}
+footer p,footer a {
+  font-size:11px;
+  color:#c9b6a6;
+}
 footer a:hover {color:white}
-.footer-links {display:flex;gap:25px;flex-wrap:wrap}
+.footer-links {
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+}
 .footer-bottom {
   border-top:1px solid #ffffff25;
   padding-top:23px;
@@ -775,7 +885,6 @@ footer a:hover {color:white}
         <div class="price-result" aria-live="polite">
           <small>PREȚ RECOMANDAT</small>
           <strong id="recommended">—</strong>
-          <span>Estimare rotunjită în sus la 5 lei</span>
         </div>
 
         <div class="note" id="insight" aria-live="polite"></div>
@@ -1032,7 +1141,9 @@ function calculate() {
   const subtotal = materialCost+fixedPerClient+labor;
   const reserveAmount = subtotal*numeric("reserve")/100;
   const estimatedTotal = subtotal+reserveAmount;
-  const recommended = Math.ceil(estimatedTotal/5)*5;
+
+  /* Rotunjire la cel mai apropiat leu */
+  const recommended = Math.round(estimatedTotal);
 
   $("materialsTotal").textContent = money(materialCost);
   $("monthlyFixedTotal").textContent = money(monthlyFixed);
