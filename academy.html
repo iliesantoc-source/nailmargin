@@ -2,1800 +2,1450 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f8f3ed">
-
-<title>NailMargin Academy | The Art of Nails</title>
-
-<meta name="description"
-content="NailMargin Academy — tutoriale video exclusive pentru artiștii pasionați de nail art.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=WindSong:wght@400;500&display=swap" rel="stylesheet">
-
-<style>
-
-/* =========================
-   DESIGN SYSTEM
-========================= */
-
-:root {
-  --bg: #f8f3ed;
-  --paper: #fffdfa;
-  --cream: #efe4d8;
-  --dark: #30231f;
-  --brown: #614a3d;
-  --muted: #917e71;
-  --gold: #c9a687;
-  --rose: #d6ae9e;
-  --line: #e6d8ca;
-  --shadow: 0 25px 80px rgba(65,39,26,.10);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--dark);
-  font-family: "DM Sans", sans-serif;
-  overflow-x: hidden;
-}
-
-body.modal-open {
-  overflow: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: .65;
-}
-
-:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 4px;
-}
-
-::selection {
-  background: #d6ae9e;
-  color: #30231f;
-}
-
-.container {
-  width: min(1180px, calc(100% - 36px));
-  margin: auto;
-}
-
-h1, h2, h3 {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
-}
-
-.eyebrow {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .27em;
-  text-transform: uppercase;
-  color: #a27f66;
-}
-
-/* =========================
-   CURSOR GLOW
-========================= */
-
-.cursor-glow {
-  position: fixed;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(
-    circle,
-    rgba(219,170,143,.17),
-    transparent 65%
-  );
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity .4s ease;
-}
-
-/* =========================
-   BACKGROUND PARTICLES
-========================= */
-
-.particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #c9a687;
-  opacity: .25;
-  animation: particleFloat linear infinite;
-}
-
-@keyframes particleFloat {
-  0% {
-    transform: translateY(110vh) scale(.4);
-    opacity: 0;
-  }
-
-  20% {
-    opacity: .35;
-  }
-
-  80% {
-    opacity: .25;
-  }
-
-  100% {
-    transform: translateY(-20vh) scale(1.2);
-    opacity: 0;
-  }
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(248,243,237,.89);
-  backdrop-filter: blur(22px);
-  border-bottom: 1px solid var(--line);
-}
-
-.nav {
-  min-height: 82px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 18px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.header-logo {
-  display: block;
-  width: 145px;
-  height: auto;
-  object-fit: contain;
-  transition: transform .5s ease, filter .5s ease;
-}
-
-.brand:hover .header-logo {
-  transform: scale(1.07) rotate(-1deg);
-  filter: drop-shadow(0 0 12px #d6ae9e88);
-}
-
-.brand-label {
-  font-size: 10px;
-  letter-spacing: .25em;
-  font-weight: 700;
-  color: var(--brown);
-}
-
-.nav-links {
-  display: flex;
-  gap: 25px;
-  align-items: center;
-}
-
-.nav-links a {
-  position: relative;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 10px 0;
-}
-
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  height: 1px;
-  left: 0;
-  right: 100%;
-  bottom: 4px;
-  background: var(--gold);
-  transition: right .3s ease;
-}
-
-.nav-links a:hover::after {
-  right: 0;
-}
-
-/* =========================
-   PAGE INTRO
-========================= */
-
-.page-intro {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 75px 0 48px;
-}
-
-.page-intro h1 {
-  font-size: clamp(64px, 10vw, 115px);
-  line-height: .9;
-  margin: 22px 0;
-  letter-spacing: -.04em;
-}
-
-.page-intro h1 em {
-  color: #b68f75;
-  font-weight: 400;
-}
-
-.intro-line {
-  width: 70px;
-  height: 1px;
-  margin: 28px auto;
-  background: var(--gold);
-  animation: lineExpand 2s ease both;
-}
-
-@keyframes lineExpand {
-  from { width: 0; }
-  to { width: 70px; }
-}
-
-.page-intro p {
-  max-width: 580px;
-  margin: auto;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.9;
-}
-
-/* =========================
-   VIDEO GALLERY
-========================= */
-
-.gallery-section {
-  position: relative;
-  z-index: 1;
-  padding-bottom: 110px;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  gap: 30px;
-}
-
-.video-card {
-  width: min(100%, 760px);
-  position: relative;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow: var(--shadow);
-  transform-style: preserve-3d;
-  transition:
-    transform .2s ease-out,
-    box-shadow .5s ease;
-  will-change: transform;
-}
-
-.video-card:hover {
-  box-shadow:
-    0 35px 100px rgba(65,39,26,.17),
-    0 0 35px rgba(214,174,158,.18);
-}
-
-.video-frame {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 13px;
-  background:
-    radial-gradient(
-      ellipse at 65% 30%,
-      rgba(255,210,222,.7),
-      transparent 36%
-    ),
-    radial-gradient(
-      ellipse at 25% 80%,
-      rgba(111,66,100,.8),
-      transparent 48%
-    ),
-    linear-gradient(
-      135deg,
-      #2e2431,
-      #8e6a86 50%,
-      #302331
-    );
-}
-
-.video-frame::before {
-  content: "";
-  position: absolute;
-  inset: -100%;
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    rgba(255,245,226,.16),
-    transparent,
-    rgba(240,182,201,.15),
-    transparent
-  );
-  animation: videoAura 15s linear infinite;
-}
-
-@keyframes videoAura {
-  to { transform: rotate(360deg); }
-}
-
-.video-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 50%,
-    rgba(25,16,26,.6)
-  );
-  pointer-events: none;
-}
-
-.video-visual {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  transition: transform .6s ease;
-}
-
-.video-card:hover .video-visual {
-  transform: scale(1.07);
-}
-
-/* MAGNETIC CAT EYE ART */
-
-.cat-eye-nail {
-  position: relative;
-  width: 145px;
-  height: 250px;
-  border-radius: 85px 85px 42px 42px;
-  transform: rotate(-22deg);
-  background: linear-gradient(
-    115deg,
-    #19121f 6%,
-    #4b354d 23%,
-    #a77e9c 38%,
-    #ffe5e5 47%,
-    #fff5e8 50%,
-    #c795b4 56%,
-    #51354c 75%,
-    #1c1525 95%
-  );
-  box-shadow:
-    inset 10px 0 25px #ffffff35,
-    inset -15px 0 25px #00000075,
-    20px 30px 60px #00000055;
-  animation: nailFloat 6s ease-in-out infinite;
-}
-
-.cat-eye-nail::before {
-  content: "";
-  position: absolute;
-  width: 25px;
-  height: 200px;
-  top: 24px;
-  left: 65px;
-  border-radius: 50%;
-  background: #fff4e4d9;
-  filter: blur(13px);
-  transform: rotate(12deg);
-  animation: catEyeShine 4s ease-in-out infinite alternate;
-}
-
-@keyframes nailFloat {
-  0%, 100% {
-    transform: translateY(0) rotate(-22deg);
-  }
-
-  50% {
-    transform: translateY(-15px) rotate(-17deg);
-  }
-}
-
-@keyframes catEyeShine {
-  to {
-    left: 84px;
-    opacity: .55;
-  }
-}
-
-/* MOVING LIGHT */
-
-.video-light {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 3;
-  background: radial-gradient(
-    circle,
-    rgba(255,255,255,.22),
-    transparent 70%
-  );
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity .3s;
-}
-
-.video-card:hover .video-light {
-  opacity: 1;
-}
-
-.video-top-label {
-  position: absolute;
-  z-index: 5;
-  top: 22px;
-  left: 22px;
-  padding: 10px 15px;
-  background: rgba(255,252,248,.92);
-  backdrop-filter: blur(8px);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .15em;
-}
-
-.video-overlay-title {
-  position: absolute;
-  z-index: 5;
-  left: 28px;
-  bottom: 23px;
-  color: white;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(38px, 6vw, 62px);
-  letter-spacing: .04em;
-}
-
-.preview-icon {
-  position: absolute;
-  z-index: 5;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75px;
-  height: 75px;
-  border: 1px solid #ffffff99;
-  border-radius: 50%;
-  background: #ffffff24;
-  backdrop-filter: blur(12px);
-  color: white;
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-  animation: playPulse 3s ease-in-out infinite;
-}
-
-@keyframes playPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 #ffffff40;
-  }
-
-  50% {
-    box-shadow: 0 0 0 18px #ffffff00;
-  }
-}
-
-.video-content {
-  padding: 26px 20px 20px;
-}
-
-.video-meta {
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: .18em;
-}
-
-.video-title {
-  font-size: clamp(40px, 6vw, 56px);
-  margin: 10px 0 12px;
-}
-
-.video-description {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.8;
-  max-width: 620px;
-}
-
-.video-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border-top: 1px solid var(--line);
-  margin-top: 24px;
-  padding-top: 22px;
-}
-
-.price {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 40px;
-  font-weight: 600;
-}
-
-.price small {
-  display: block;
-  font-family: "DM Sans", sans-serif;
-  font-size: 10px;
-  font-weight: 400;
-  color: var(--muted);
-}
-
-/* =========================
-   BUTTON ANIMATIONS
-========================= */
-
-.btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 54px;
-  padding: 16px 28px;
-  border: 1px solid var(--dark);
-  border-radius: 7px;
-  background: var(--dark);
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  overflow: hidden;
-  isolation: isolate;
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease,
-    background .3s ease;
-}
-
-.btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    110deg,
-    transparent 20%,
-    rgba(255,255,255,.3) 48%,
-    transparent 75%
-  );
-  transform: translateX(-150%);
-  transition: transform .7s ease;
-}
-
-.btn:hover::before {
-  transform: translateX(150%);
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px #30231e35;
-}
-
-.btn:active {
-  transform: scale(.96);
-}
-
-.btn-gold {
-  background: var(--gold);
-  color: var(--dark);
-  border-color: var(--gold);
-}
-
-.btn-green {
-  background: #245b43;
-  border-color: #245b43;
-}
-
-.btn-full {
-  width: 100%;
-}
-
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,.4);
-  transform: scale(0);
-  animation: ripple .65s linear;
-  pointer-events: none;
-}
-
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-/* =========================
-   ACCESS SECTION
-========================= */
-
-.access-section {
-  position: relative;
-  z-index: 1;
-  padding: 95px 0 120px;
-  background: #efe5da;
-  overflow: hidden;
-}
-
-.access-section::before {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  right: -200px;
-  top: -300px;
-  background: radial-gradient(
-    circle,
-    #d6ae9e45,
-    transparent 70%
-  );
-  animation: backgroundBreath 9s ease-in-out infinite;
-}
-
-@keyframes backgroundBreath {
-  50% {
-    transform: scale(1.3) translate(-35px, 35px);
-  }
-}
-
-.access-grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 75px;
-  align-items: center;
-}
-
-.access-box {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 45px;
-  box-shadow: var(--shadow);
-  transition: transform .5s ease, box-shadow .5s ease;
-}
-
-.access-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 35px 90px #30231e20;
-}
-
-.access-box h2 {
-  font-size: clamp(45px, 6vw, 66px);
-  margin: 15px 0;
-  line-height: 1;
-}
-
-.access-box p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.access-input {
-  width: 100%;
-  min-height: 58px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: var(--bg);
-  padding: 15px;
-  margin: 15px 0;
-  text-align: center;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--dark);
-  transition: border .3s, box-shadow .3s;
-}
-
-.access-input:focus {
-  outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 5px #d6ae9e25;
-}
-
-.access-message {
-  min-height: 20px;
-  margin-top: 15px;
-  font-size: 12px;
-  color: #9a5c4c;
-}
-
-.instructions h2 {
-  font-size: clamp(55px, 7vw, 80px);
-  line-height: 1;
-  margin: 18px 0 30px;
-}
-
-.instruction {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 22px 0;
-  border-bottom: 1px solid #d5c4b4;
-  transition: transform .3s ease;
-}
-
-.instruction:hover {
-  transform: translateX(8px);
-}
-
-.instruction-number {
-  flex-shrink: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 47px;
-  color: #a9876e;
-  line-height: 1;
-}
-
-.instruction h3 {
-  font-size: 27px;
-  margin: 0 0 7px;
-}
-
-.instruction p {
-  font-size: 12px;
-  line-height: 1.8;
-  color: var(--muted);
-  margin: 0;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 500;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  background: rgba(27,18,15,.75);
-  backdrop-filter: blur(12px);
-}
-
-.modal.open {
-  display: flex;
-  animation: modalFade .3s ease;
-}
-
-@keyframes modalFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal-panel {
-  position: relative;
-  width: min(100%, 530px);
-  max-height: 90vh;
-  overflow-y: auto;
-  padding: 42px;
-  background: var(--paper);
-  border-radius: 16px;
-  box-shadow: 0 35px 110px #00000050;
-  animation: modalUp .45s cubic-bezier(.2,.8,.2,1);
-}
-
-@keyframes modalUp {
-  from {
-    opacity: 0;
-    transform: translateY(35px) scale(.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: transparent;
-  font-size: 24px;
-  transition: transform .3s, background .3s;
-}
-
-.modal-close:hover {
-  transform: rotate(90deg);
-  background: var(--cream);
-}
-
-.modal-panel h2 {
-  font-size: 52px;
-  margin: 12px 0;
-}
-
-.modal-price {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 70px;
-  margin: 15px 0;
-}
-
-.payment-note {
-  font-size: 12px;
-  line-height: 1.8;
-  color: var(--muted);
-}
-
-.bank-detail {
-  padding: 23px;
-  margin: 20px 0;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  border-radius: 10px;
-}
-
-.bank-detail small {
-  display: block;
-  font-size: 10px;
-  letter-spacing: .12em;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
-.bank-detail strong {
-  display: block;
-  font-size: 14px;
-  overflow-wrap: anywhere;
-  margin-bottom: 13px;
-}
-
-.copy-btn {
-  padding: 9px 13px;
-  margin-bottom: 22px;
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  font-size: 11px;
-  transition: background .3s, transform .3s;
-}
-
-.copy-btn:hover {
-  background: var(--cream);
-  transform: translateY(-2px);
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer {
-  position: relative;
-  z-index: 1;
-  background: var(--dark);
-  color: #ead9c9;
-  text-align: center;
-  padding: 65px 20px 30px;
-}
-
-.footer-brand {
-  font-family: "WindSong", cursive;
-  font-size: 48px;
-}
-
-.footer p {
-  font-size: 11px;
-  letter-spacing: .13em;
-  color: #c7b5a7;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 25px;
-  margin: 25px 0;
-}
-
-.footer-links a {
-  font-size: 11px;
-  transition: color .3s;
-}
-
-.footer-links a:hover {
-  color: var(--gold);
-}
-
-.footer-bottom {
-  border-top: 1px solid #ffffff25;
-  padding-top: 25px;
-  margin-top: 35px;
-  font-size: 10px;
-  color: #a99585;
-}
-
-/* =========================
-   SCROLL REVEAL
-========================= */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(45px);
-  transition:
-    opacity 1s ease,
-    transform 1s cubic-bezier(.2,.8,.2,1);
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 850px) {
-  .access-grid {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-}
-
-@media (max-width: 600px) {
-  .nav {
-    min-height: 70px;
-  }
-
-  .header-logo {
-    width: 94px;
-  }
-
-  .brand {
-    gap: 6px;
-  }
-
-  .brand-label {
-    font-size: 8px;
-    letter-spacing: .1em;
-  }
-
-  .nav-links {
-    gap: 12px;
-  }
-
-  .nav-links a {
-    font-size: 10px;
-  }
-
-  .nav-links a:nth-child(2) {
-    display: none;
-  }
-
-  .page-intro {
-    padding: 60px 0 40px;
-  }
-
-  .page-intro h1 {
-    font-size: 65px;
-  }
-
-  .gallery-section {
-    padding-bottom: 70px;
-  }
-
-  .video-card {
-    padding: 7px;
-    border-radius: 13px;
-  }
-
-  .video-frame {
-    border-radius: 9px;
-  }
-
-  .cat-eye-nail {
-    transform: scale(.65) rotate(-22deg);
-    animation: none;
-  }
-
-  .video-overlay-title {
-    font-size: 34px;
-    left: 15px;
-    bottom: 14px;
-  }
-
-  .video-top-label {
-    top: 12px;
-    left: 12px;
-    font-size: 8px;
-  }
-
-  .preview-icon {
-    width: 55px;
-    height: 55px;
-    font-size: 18px;
-  }
-
-  .video-content {
-    padding: 22px 15px;
-  }
-
-  .video-bottom {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .video-bottom .btn {
-    width: 100%;
-  }
-
-  .access-section {
-    padding: 70px 0;
-  }
-
-  .access-box {
-    padding: 25px;
-  }
-
-  .modal-panel {
-    padding: 27px;
-  }
-
-  .modal-panel h2 {
-    font-size: 42px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f3ed">
+  <meta name="description" content="NailMargin Academy — tutoriale video exclusive de nail art.">
+
+  <title>NailMargin Academy | The Art of Nails</title>
+
+  <!-- LOGO -->
+  <link rel="icon" type="image/png" href="nailmargin-academy-icon.png">
+  <link rel="apple-touch-icon" href="nailmargin-academy-icon.png">
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f8f3ed;
+      --paper: #fffdfa;
+      --cream: #efe4d8;
+      --dark: #30231f;
+      --brown: #614a3d;
+      --muted: #917e71;
+      --gold: #c9a687;
+      --rose: #d6ae9e;
+      --line: #e6d8ca;
+      --shadow: 0 25px 80px rgba(65,39,26,.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--dark);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
+
+    body.modal-open { overflow: hidden; }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 36px));
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: #a27f66;
+    }
+
+    /* CURSOR LIGHT */
+
+    .cursor-glow {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle, rgba(219,170,143,.17), transparent 65%);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+
+    /* PARTICLES */
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: .25;
+      animation: particleFloat linear infinite;
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(110vh) scale(.4); opacity: 0; }
+      20% { opacity: .35; }
+      80% { opacity: .25; }
+      100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+    }
+
+    /* HEADER */
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(248,243,237,.90);
+      backdrop-filter: blur(22px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 82px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .header-logo {
+      width: 50px;
+      height: 50px;
+      display: block;
+      object-fit: contain;
+      border-radius: 12px;
+      transition: transform .45s ease, filter .45s ease;
+    }
+
+    .brand:hover .header-logo {
+      transform: scale(1.12) rotate(-5deg);
+      filter: drop-shadow(0 6px 14px rgba(201,166,135,.55));
+    }
+
+    .brand-label {
+      font-size: 11px;
+      letter-spacing: .26em;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 10px 0;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 4px;
+      height: 1px;
+      background: var(--gold);
+      transition: right .3s ease;
+    }
+
+    .nav-links a:hover::after { right: 0; }
+
+    /* INTRO */
+
+    .page-intro {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 75px 0 48px;
+    }
+
+    .page-intro h1 {
+      font-size: clamp(64px, 10vw, 115px);
+      line-height: .9;
+      margin: 22px 0;
+      letter-spacing: -.04em;
+    }
+
+    .page-intro h1 em {
+      color: #b68f75;
+      font-weight: 400;
+    }
+
+    .intro-line {
+      width: 70px;
+      height: 1px;
+      margin: 28px auto;
+      background: var(--gold);
+      animation: lineExpand 2s ease both;
+    }
+
+    @keyframes lineExpand {
+      from { width: 0; }
+      to { width: 70px; }
+    }
+
+    .page-intro p {
+      max-width: 580px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    /* VIDEO CARD */
+
+    .gallery-section {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 100px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+    }
+
+    .video-card {
+      width: min(100%, 760px);
+      position: relative;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+      transform-style: preserve-3d;
+      transition: transform .2s ease-out, box-shadow .5s ease;
+      will-change: transform;
+    }
+
+    .video-card:hover {
+      box-shadow: 0 35px 100px rgba(65,39,26,.17),
+                  0 0 35px rgba(214,174,158,.18);
+    }
+
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 13px;
+      background:
+        radial-gradient(ellipse at 65% 30%, rgba(255,210,222,.7), transparent 36%),
+        radial-gradient(ellipse at 25% 80%, rgba(111,66,100,.8), transparent 48%),
+        linear-gradient(135deg, #2e2431, #8e6a86 50%, #302331);
+    }
+
+    .video-frame::before {
+      content: "";
+      position: absolute;
+      inset: -100%;
+      background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255,245,226,.16),
+        transparent,
+        rgba(240,182,201,.15),
+        transparent
+      );
+      animation: videoAura 15s linear infinite;
+    }
+
+    @keyframes videoAura {
+      to { transform: rotate(360deg); }
+    }
+
+    .video-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(25,16,26,.6));
+      pointer-events: none;
+    }
+
+    .video-visual {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      transition: transform .6s ease;
+    }
+
+    .video-card:hover .video-visual {
+      transform: scale(1.07);
+    }
+
+    /* ANIMATED CAT EYE NAIL */
+
+    .cat-eye-nail {
+      position: relative;
+      width: 145px;
+      height: 250px;
+      border-radius: 85px 85px 42px 42px;
+      background: linear-gradient(
+        115deg,
+        #19121f 6%,
+        #4b354d 23%,
+        #a77e9c 38%,
+        #ffe5e5 47%,
+        #fff5e8 50%,
+        #c795b4 56%,
+        #51354c 75%,
+        #1c1525 95%
+      );
+      box-shadow:
+        inset 10px 0 25px #ffffff35,
+        inset -15px 0 25px #00000075,
+        20px 30px 60px #00000055;
+      animation: nailFloat 6s ease-in-out infinite;
+    }
+
+    .cat-eye-nail::before {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 200px;
+      top: 24px;
+      left: 65px;
+      border-radius: 50%;
+      background: #fff4e4d9;
+      filter: blur(13px);
+      transform: rotate(12deg);
+      animation: catEyeShine 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes nailFloat {
+      0%, 100% { transform: translateY(0) rotate(-22deg); }
+      50% { transform: translateY(-15px) rotate(-17deg); }
+    }
+
+    @keyframes catEyeShine {
+      to { left: 84px; opacity: .55; }
+    }
+
+    .video-light {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 3;
+      background: radial-gradient(circle, rgba(255,255,255,.22), transparent 70%);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .video-card:hover .video-light { opacity: 1; }
+
+    .video-top-label {
+      position: absolute;
+      z-index: 5;
+      top: 22px;
+      left: 22px;
+      padding: 10px 15px;
+      background: rgba(255,252,248,.92);
+      backdrop-filter: blur(8px);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .15em;
+    }
+
+    .video-overlay-title {
+      position: absolute;
+      z-index: 5;
+      left: 28px;
+      bottom: 23px;
+      color: white;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(38px, 6vw, 62px);
+      letter-spacing: .04em;
+    }
+
+    .preview-icon {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 75px;
+      height: 75px;
+      border: 1px solid #ffffff99;
+      border-radius: 50%;
+      background: #ffffff24;
+      backdrop-filter: blur(12px);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      animation: playPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes playPulse {
+      0%, 100% { box-shadow: 0 0 0 0 #ffffff40; }
+      50% { box-shadow: 0 0 0 18px #ffffff00; }
+    }
+
+    .video-content { padding: 26px 20px 20px; }
+
+    .video-meta {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .18em;
+    }
+
+    .video-title {
+      font-size: clamp(40px, 6vw, 56px);
+      margin: 10px 0 12px;
+    }
+
+    .video-description {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    .video-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      margin-top: 24px;
+      padding-top: 22px;
+    }
+
+    .price {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 40px;
+      font-weight: 600;
+    }
+
+    .price small {
+      display: block;
+      font-family: "DM Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    /* BUTTONS */
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 16px 28px;
+      border: 1px solid var(--dark);
+      border-radius: 7px;
+      background: var(--dark);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        110deg,
+        transparent 20%,
+        rgba(255,255,255,.3) 48%,
+        transparent 75%
+      );
+      transform: translateX(-150%);
+      transition: transform .7s ease;
+    }
+
+    .btn:hover::before { transform: translateX(150%); }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px #30231e35;
+    }
+
+    .btn:active { transform: scale(.96); }
+
+    .btn-green {
+      background: #245b43;
+      border-color: #245b43;
+    }
+
+    .btn-full { width: 100%; }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      transform: scale(0);
+      animation: ripple .65s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* ACCESS */
+
+    .access-section {
+      position: relative;
+      z-index: 1;
+      padding: 95px 0 120px;
+      background: #efe5da;
+      overflow: hidden;
+    }
+
+    .access-section::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      right: -200px;
+      top: -300px;
+      background: radial-gradient(circle, #d6ae9e45, transparent 70%);
+      animation: backgroundBreath 9s ease-in-out infinite;
+    }
+
+    @keyframes backgroundBreath {
+      50% { transform: scale(1.3) translate(-35px, 35px); }
+    }
+
+    .access-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 75px;
+      align-items: center;
+    }
+
+    .access-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 45px;
+      box-shadow: var(--shadow);
+      transition: transform .5s ease, box-shadow .5s ease;
+    }
+
+    .access-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 35px 90px #30231e20;
+    }
+
+    .access-box h2 {
+      font-size: clamp(45px, 6vw, 66px);
+      margin: 15px 0;
+      line-height: 1;
+    }
+
+    .access-box p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .access-input {
+      width: 100%;
+      min-height: 58px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--bg);
+      padding: 15px;
+      margin: 15px 0;
+      text-align: center;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--dark);
+      transition: border .3s, box-shadow .3s;
+    }
+
+    .access-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 5px #d6ae9e25;
+    }
+
+    .access-message {
+      min-height: 20px;
+      margin-top: 15px;
+      font-size: 12px;
+      color: #9a5c4c;
+    }
+
+    .instructions h2 {
+      font-size: clamp(55px, 7vw, 80px);
+      line-height: 1;
+      margin: 18px 0 30px;
+    }
+
+    .instruction {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid #d5c4b4;
+      transition: transform .3s ease;
+    }
+
+    .instruction:hover { transform: translateX(8px); }
+
+    .instruction-number {
+      flex-shrink: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 47px;
+      color: #a9876e;
+      line-height: 1;
+    }
+
+    .instruction h3 {
+      font-size: 27px;
+      margin: 0 0 7px;
+    }
+
+    .instruction p {
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: rgba(27,18,15,.75);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal.open {
+      display: flex;
+      animation: modalFade .3s ease;
+    }
+
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-panel {
+      position: relative;
+      width: min(100%, 530px);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 42px;
+      background: var(--paper);
+      border-radius: 16px;
+      box-shadow: 0 35px 110px #00000050;
+      animation: modalUp .45s cubic-bezier(.2,.8,.2,1);
+    }
+
+    @keyframes modalUp {
+      from { opacity: 0; transform: translateY(35px) scale(.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      font-size: 24px;
+      transition: transform .3s, background .3s;
+    }
+
+    .modal-close:hover {
+      transform: rotate(90deg);
+      background: var(--cream);
+    }
+
+    .modal-panel h2 {
+      font-size: 52px;
+      margin: 12px 0;
+    }
+
+    .modal-price {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 70px;
+      margin: 15px 0;
+    }
+
+    .payment-note {
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .bank-detail {
+      padding: 23px;
+      margin: 20px 0;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      border-radius: 10px;
+    }
+
+    .bank-detail small {
+      display: block;
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .bank-detail strong {
+      display: block;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+      margin-bottom: 13px;
+    }
+
+    .copy-btn {
+      padding: 9px 13px;
+      margin-bottom: 22px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      font-size: 11px;
+      transition: background .3s, transform .3s;
+    }
+
+    .copy-btn:hover {
+      background: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      position: relative;
+      z-index: 1;
+      background: var(--dark);
+      color: #ead9c9;
+      text-align: center;
+      padding: 65px 20px 30px;
+    }
+
+    .footer-brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 18px;
+      transition: transform .5s ease, filter .5s ease;
+    }
+
+    .footer-logo:hover {
+      transform: scale(1.12) rotate(5deg);
+      filter: drop-shadow(0 8px 18px rgba(201,166,135,.45));
+    }
+
+    .footer p {
+      font-size: 11px;
+      letter-spacing: .13em;
+      color: #c7b5a7;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 25px 0;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      transition: color .3s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid #ffffff25;
+      padding-top: 25px;
+      margin-top: 35px;
+      font-size: 10px;
+      color: #a99585;
+    }
+
+    /* SCROLL REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(45px);
+      transition: opacity 1s ease, transform 1s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+      .access-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav { min-height: 70px; }
+      .header-logo { width: 40px; height: 40px; border-radius: 10px; }
+      .brand { gap: 7px; }
+      .brand-label { font-size: 8px; letter-spacing: .12em; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 10px; }
+      .nav-links a:nth-child(2) { display: none; }
+
+      .page-intro { padding: 60px 0 40px; }
+      .page-intro h1 { font-size: 65px; }
+      .gallery-section { padding-bottom: 70px; }
+
+      .video-card { padding: 7px; border-radius: 13px; }
+      .video-frame { border-radius: 9px; }
+
+      .cat-eye-nail {
+        transform: scale(.65) rotate(-22deg);
+        animation: none;
+      }
+
+      .video-overlay-title { font-size: 34px; left: 15px; bottom: 14px; }
+      .video-top-label { top: 12px; left: 12px; font-size: 8px; }
+      .preview-icon { width: 55px; height: 55px; font-size: 18px; }
+      .video-content { padding: 22px 15px; }
+
+      .video-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .video-bottom .btn { width: 100%; }
+      .access-section { padding: 70px 0; }
+      .access-box { padding: 25px; }
+      .modal-panel { padding: 27px; }
+      .modal-panel h2 { font-size: 42px; }
+      .footer-logo { width: 65px; height: 65px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- CURSOR EFFECT -->
-<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <!-- EFFECTS -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="particles" id="particles" aria-hidden="true"></div>
 
-<!-- PARTICLES -->
-<div class="particles" id="particles" aria-hidden="true"></div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav">
 
-<!-- HEADER -->
+      <a href="index.html" class="brand">
+        <img
+          src="nailmargin-academy-icon.png"
+          alt="NailMargin Academy"
+          class="header-logo"
+        >
+        <span class="brand-label">ACADEMY</span>
+      </a>
 
-<header class="header">
-  <div class="container nav">
+      <nav class="nav-links" aria-label="Navigare">
+        <a href="index.html">Acasă</a>
+        <a href="#tutoriale">Tutoriale</a>
+        <a href="#acces">Acces</a>
+      </nav>
 
-    <a href="index.html" class="brand">
+    </div>
+  </header>
 
-      <img
-        src="nailmargin-logo.webp"
-        alt="NailMargin"
-        class="header-logo"
-      >
+  <main>
 
-      <span class="brand-label">ACADEMY</span>
-
-    </a>
-
-    <nav class="nav-links" aria-label="Navigare">
-      <a href="index.html">Acasă</a>
-      <a href="#tutoriale">Tutoriale</a>
-      <a href="#acces">Acces</a>
-    </nav>
-
-  </div>
-</header>
-
-<main>
-
-<!-- INTRO -->
-
-<section class="page-intro">
-  <div class="container reveal">
-
-    <span class="eyebrow">
-      NAILMARGIN ACADEMY · VIDEO TUTORIALS
-    </span>
-
-    <h1>
-      The Art <em>of Nails.</em>
-    </h1>
-
-    <div class="intro-line"></div>
-
-    <p>
-      Tutoriale video exclusive.
-      Descoperă tehnici speciale, detalii și inspirație
-      pentru creații extraordinare.
-    </p>
-
-  </div>
-</section>
-
-<!-- VIDEO GALLERY -->
-
-<section class="gallery-section" id="tutoriale">
-  <div class="container gallery-grid">
-
-    <article class="video-card reveal" id="magicCard">
-
-      <div class="video-frame" id="magicFrame">
-
-        <div class="video-visual">
-          <div class="cat-eye-nail"></div>
-        </div>
-
-        <div class="video-light" id="videoLight"></div>
-
-        <span class="video-top-label">
-          EXCLUSIVE VIDEO TUTORIAL
-        </span>
-
-        <span class="preview-icon" aria-hidden="true">
-          ▶
-        </span>
-
-        <span class="video-overlay-title">
-          MAGIC CAT EYE
-        </span>
-
-      </div>
-
-      <div class="video-content">
-
-        <span class="video-meta">
-          NAIL ART · PREMIUM TUTORIAL
-        </span>
-
-        <h2 class="video-title">
-          MAGIC CAT EYE
-        </h2>
-
-        <p class="video-description">
-          Descoperă tehnica Magic Cat Eye și învață
-          să creezi reflexii magnetice spectaculoase,
-          efecte luminoase și profunzime elegantă.
-          Tutorial explicat pas cu pas.
+    <!-- INTRO -->
+    <section class="page-intro">
+      <div class="container reveal">
+        <span class="eyebrow">NAILMARGIN ACADEMY · VIDEO TUTORIALS</span>
+        <h1>The Art <em>of Nails.</em></h1>
+        <div class="intro-line"></div>
+        <p>
+          Tutoriale video exclusive. Descoperă tehnici speciale,
+          detalii și inspirație pentru creații extraordinare.
         </p>
+      </div>
+    </section>
 
-        <div class="video-bottom">
+    <!-- TUTORIAL -->
+    <section class="gallery-section" id="tutoriale">
+      <div class="container gallery-grid">
 
-          <div class="price">
-            150 lei
-            <small>Acces permanent după activare</small>
+        <article class="video-card reveal" id="magicCard">
+
+          <div class="video-frame" id="magicFrame">
+
+            <div class="video-visual">
+              <div class="cat-eye-nail"></div>
+            </div>
+
+            <div class="video-light" id="videoLight" aria-hidden="true"></div>
+
+            <span class="video-top-label">EXCLUSIVE VIDEO TUTORIAL</span>
+            <span class="preview-icon" aria-hidden="true">▶</span>
+            <span class="video-overlay-title">MAGIC CAT EYE</span>
+
           </div>
 
-          <button class="btn" id="buyButton" type="button">
-            Cumpără tutorialul ↗
+          <div class="video-content">
+            <span class="video-meta">NAIL ART · PREMIUM TUTORIAL</span>
+
+            <h2 class="video-title">MAGIC CAT EYE</h2>
+
+            <p class="video-description">
+              Descoperă tehnica Magic Cat Eye și învață să creezi
+              reflexii magnetice spectaculoase, efecte luminoase
+              și profunzime elegantă. Tutorial explicat pas cu pas.
+            </p>
+
+            <div class="video-bottom">
+              <div class="price">
+                150 lei
+                <small>Acces permanent după activare</small>
+              </div>
+
+              <button class="btn" id="buyButton" type="button">
+                Cumpără tutorialul ↗
+              </button>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ACCESS -->
+    <section class="access-section" id="acces">
+      <div class="container access-grid">
+
+        <div class="access-box reveal">
+          <span class="eyebrow">PRIVATE VIDEO ACCESS</span>
+
+          <h2>Ai deja <em>un cod?</em></h2>
+
+          <p>
+            Introdu codul personal primit după confirmarea plății
+            pentru a accesa tutorialul cumpărat.
+          </p>
+
+          <label for="accessCode" class="eyebrow">COD DE ACCES</label>
+
+          <input
+            id="accessCode"
+            class="access-input"
+            type="text"
+            placeholder="NMA-XXXX-XXXX"
+            autocomplete="off"
+            maxlength="40"
+            spellcheck="false"
+          >
+
+          <button class="btn btn-full" id="accessButton" type="button">
+            Accesează tutorialul ↗
           </button>
 
+          <div
+            class="access-message"
+            id="accessMessage"
+            role="status"
+            aria-live="polite"
+          ></div>
         </div>
 
+        <div class="instructions reveal">
+          <span class="eyebrow">HOW IT WORKS</span>
+          <h2>Cum <em>funcționează?</em></h2>
+
+          <div class="instruction">
+            <span class="instruction-number">01</span>
+            <div>
+              <h3>Alegi tutorialul</h3>
+              <p>
+                Selectezi MAGIC CAT EYE și efectuezi plata
+                de 150 lei prin transfer bancar sau Revolut.
+              </p>
+            </div>
+          </div>
+
+          <div class="instruction">
+            <span class="instruction-number">02</span>
+            <div>
+              <h3>Confirmi plata</h3>
+              <p>
+                Trimiți dovada plății pe WhatsApp.
+                După verificarea transferului, primești confirmarea.
+              </p>
+            </div>
+          </div>
+
+          <div class="instruction">
+            <span class="instruction-number">03</span>
+            <div>
+              <h3>Primești codul</h3>
+              <p>
+                Primești codul personal de acces.
+                Îl introduci în chenarul alăturat
+                pentru a viziona tutorialul.
+              </p>
+            </div>
+          </div>
+
+        </div>
       </div>
+    </section>
 
-    </article>
+  </main>
 
-  </div>
-</section>
+  <!-- FOOTER -->
+  <footer class="footer">
 
-<!-- ACCESS + INSTRUCTIONS -->
+    <div class="footer-brand">
+      <img
+        src="nailmargin-academy-icon.png"
+        alt="NailMargin Academy"
+        class="footer-logo"
+      >
+    </div>
 
-<section class="access-section" id="acces">
-  <div class="container access-grid">
+    <p>ACADEMY · THE ART OF NAIL EDUCATION</p>
 
-    <!-- ACCESS BOX -->
+    <div class="footer-links">
+      <a href="index.html">Calculator</a>
+      <a href="aplicatie.html">Aplicație</a>
+      <a href="academy.html">Academy</a>
+    </div>
 
-    <div class="access-box reveal">
+    <div class="footer-bottom">
+      © 2026 NailMargin Academy. All rights reserved.
+    </div>
 
-      <span class="eyebrow">
-        PRIVATE VIDEO ACCESS
-      </span>
+  </footer>
 
-      <h2>
-        Ai deja <em>un cod?</em>
-      </h2>
+  <!-- PAYMENT MODAL -->
+  <div
+    class="modal"
+    id="purchaseModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="purchaseTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-panel">
 
-      <p>
-        Introdu codul personal primit după
-        confirmarea plății pentru a accesa
-        tutorialul cumpărat.
+      <button
+        class="modal-close"
+        id="closeModal"
+        type="button"
+        aria-label="Închide"
+      >×</button>
+
+      <span class="eyebrow">NAILMARGIN ACADEMY</span>
+      <h2 id="purchaseTitle">MAGIC CAT EYE</h2>
+
+      <p class="payment-note">Tutorial video exclusiv</p>
+      <div class="modal-price">150 lei</div>
+
+      <p class="payment-note">
+        Poți achita prin transfer bancar folosind IBAN-ul
+        sau prin Revolut RevTag. După plată,
+        trimite dovada pe WhatsApp.
       </p>
 
-      <label for="accessCode" class="eyebrow">
-        COD DE ACCES
-      </label>
+      <div class="bank-detail">
 
-      <input
-        id="accessCode"
-        class="access-input"
-        type="text"
-        placeholder="NMA-XXXX-XXXX"
-        autocomplete="off"
-        maxlength="40"
-        spellcheck="false"
-      >
+        <small>BENEFICIAR</small>
+        <strong>ANTONIA CARINA ILIES</strong>
+        <button
+          type="button"
+          class="copy-btn"
+          data-copy="ANTONIA CARINA ILIES"
+        >Copiază beneficiarul</button>
 
-      <button
-        class="btn btn-full"
-        id="accessButton"
-        type="button"
-      >
-        Accesează tutorialul ↗
-      </button>
+        <small>IBAN REVOLUT</small>
+        <strong>RO94REVO0000101864019896</strong>
+        <button
+          type="button"
+          class="copy-btn"
+          data-copy="RO94REVO0000101864019896"
+        >Copiază IBAN</button>
 
-      <div
-        class="access-message"
-        id="accessMessage"
-        role="status"
-        aria-live="polite"
-      ></div>
+        <small>REVOLUT REVTag</small>
+        <strong>@iliesanto</strong>
+        <button
+          type="button"
+          class="copy-btn"
+          data-copy="@iliesanto"
+        >Copiază RevTag</button>
 
-    </div>
+        <small>SUMĂ</small>
+        <strong>150 RON</strong>
 
-    <!-- INSTRUCTIONS -->
+        <small>REFERINȚĂ PLATĂ</small>
+        <strong>MAGIC CAT EYE</strong>
+        <button
+          type="button"
+          class="copy-btn"
+          data-copy="MAGIC CAT EYE"
+        >Copiază referința</button>
 
-    <div class="instructions reveal">
-
-      <span class="eyebrow">
-        HOW IT WORKS
-      </span>
-
-      <h2>
-        Cum <em>funcționează?</em>
-      </h2>
-
-      <div class="instruction">
-        <span class="instruction-number">01</span>
-
-        <div>
-          <h3>Alegi tutorialul</h3>
-          <p>
-            Selectezi MAGIC CAT EYE și efectuezi
-            plata de 150 lei prin transfer bancar
-            sau Revolut.
-          </p>
-        </div>
       </div>
 
-      <div class="instruction">
-        <span class="instruction-number">02</span>
+      <a
+        class="btn btn-green btn-full"
+        id="whatsappButton"
+        href="https://wa.me/40754601789"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Trimite dovada pe WhatsApp ↗
+      </a>
 
-        <div>
-          <h3>Confirmi plata</h3>
-          <p>
-            Trimiți dovada plății pe WhatsApp.
-            După verificarea transferului,
-            primești confirmarea.
-          </p>
-        </div>
-      </div>
-
-      <div class="instruction">
-        <span class="instruction-number">03</span>
-
-        <div>
-          <h3>Primești codul</h3>
-          <p>
-            Primești codul personal de acces.
-            Îl introduci în chenarul alăturat
-            pentru a viziona tutorialul.
-          </p>
-        </div>
-      </div>
-
+      <p class="payment-note">WhatsApp: +40 754 601 789</p>
     </div>
-
-  </div>
-</section>
-
-</main>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-  <div class="footer-brand">
-    NailMargin
   </div>
 
-  <p>ACADEMY · THE ART OF NAIL EDUCATION</p>
+  <script>
+    "use strict";
 
-  <div class="footer-links">
-    <a href="index.html">Calculator</a>
-    <a href="aplicatie.html">Aplicație</a>
-    <a href="academy.html">Academy</a>
-  </div>
+    const CONFIG = {
+      whatsapp: "40754601789",
+      tutorial: "MAGIC CAT EYE",
+      price: 150
+    };
 
-  <div class="footer-bottom">
-    © 2026 NailMargin Academy. All rights reserved.
-  </div>
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-</footer>
+    /* WHATSAPP */
 
-<!-- PAYMENT MODAL -->
+    const whatsappMessage =
+      "Bună! Doresc să cumpăr tutorialul MAGIC CAT EYE " +
+      "de pe NailMargin Academy, la prețul de 150 lei. " +
+      "Te contactez pentru confirmarea plății.";
 
-<div
-  class="modal"
-  id="purchaseModal"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="purchaseTitle"
-  aria-hidden="true"
->
+    document.getElementById("whatsappButton").href =
+      "https://wa.me/" +
+      CONFIG.whatsapp +
+      "?text=" +
+      encodeURIComponent(whatsappMessage);
 
-  <div class="modal-panel">
+    /* CURSOR GLOW */
 
-    <button
-      class="modal-close"
-      id="closeModal"
-      type="button"
-      aria-label="Închide"
-    >
-      ×
-    </button>
+    const cursorGlow = document.getElementById("cursorGlow");
 
-    <span class="eyebrow">
-      NAILMARGIN ACADEMY
-    </span>
-
-    <h2 id="purchaseTitle">
-      MAGIC CAT EYE
-    </h2>
-
-    <p class="payment-note">
-      Tutorial video exclusiv
-    </p>
-
-    <div class="modal-price">
-      150 lei
-    </div>
-
-    <p class="payment-note">
-      Poți achita prin transfer bancar folosind
-      IBAN-ul sau prin Revolut RevTag.
-      După plată, trimite dovada pe WhatsApp.
-    </p>
-
-    <div class="bank-detail">
-
-      <small>BENEFICIAR</small>
-      <strong>ANTONIA CARINA ILIES</strong>
-
-      <button
-        type="button"
-        class="copy-btn"
-        data-copy="ANTONIA CARINA ILIES"
-      >
-        Copiază beneficiarul
-      </button>
-
-      <small>IBAN REVOLUT</small>
-      <strong>RO94REVO0000101864019896</strong>
-
-      <button
-        type="button"
-        class="copy-btn"
-        data-copy="RO94REVO0000101864019896"
-      >
-        Copiază IBAN
-      </button>
-
-      <small>REVOLUT REVTag</small>
-      <strong>@iliesanto</strong>
-
-      <button
-        type="button"
-        class="copy-btn"
-        data-copy="@iliesanto"
-      >
-        Copiază RevTag
-      </button>
-
-      <small>SUMĂ</small>
-      <strong>150 RON</strong>
-
-      <small>REFERINȚĂ PLATĂ</small>
-      <strong>MAGIC CAT EYE</strong>
-
-      <button
-        type="button"
-        class="copy-btn"
-        data-copy="MAGIC CAT EYE"
-      >
-        Copiază referința
-      </button>
-
-    </div>
-
-    <a
-      class="btn btn-green btn-full"
-      id="whatsappButton"
-      href="https://wa.me/40754601789"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Trimite dovada pe WhatsApp ↗
-    </a>
-
-    <p class="payment-note">
-      WhatsApp: +40 754 601 789
-    </p>
-
-  </div>
-</div>
-
-<script>
-"use strict";
-
-/* =========================
-   CONFIG
-========================= */
-
-const CONFIG = {
-  whatsapp: "40754601789",
-  tutorial: "MAGIC CAT EYE",
-  price: 150
-};
-
-const reduceMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches;
-
-/* =========================
-   WHATSAPP MESSAGE
-========================= */
-
-const whatsappMessage =
-  "Bună! Doresc să cumpăr tutorialul MAGIC CAT EYE " +
-  "de pe NailMargin Academy, la prețul de 150 lei. " +
-  "Te contactez pentru confirmarea plății.";
-
-document.getElementById("whatsappButton").href =
-  "https://wa.me/" +
-  CONFIG.whatsapp +
-  "?text=" +
-  encodeURIComponent(whatsappMessage);
-
-/* =========================
-   CURSOR GLOW
-========================= */
-
-const cursorGlow = document.getElementById("cursorGlow");
-
-if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
-  document.addEventListener("pointermove", function(event) {
-    cursorGlow.style.left = event.clientX + "px";
-    cursorGlow.style.top = event.clientY + "px";
-    cursorGlow.style.opacity = "1";
-  });
-
-  document.addEventListener("pointerleave", function() {
-    cursorGlow.style.opacity = "0";
-  });
-}
-
-/* =========================
-   PARTICLES
-========================= */
-
-const particles = document.getElementById("particles");
-
-if (!reduceMotion) {
-  for (let i = 0; i < 24; i++) {
-    const particle = document.createElement("span");
-    particle.className = "particle";
-
-    particle.style.left = Math.random() * 100 + "%";
-    particle.style.animationDuration =
-      12 + Math.random() * 18 + "s";
-    particle.style.animationDelay =
-      -Math.random() * 25 + "s";
-
-    particles.appendChild(particle);
-  }
-}
-
-/* =========================
-   VIDEO CARD 3D TILT
-========================= */
-
-const magicCard = document.getElementById("magicCard");
-const magicFrame = document.getElementById("magicFrame");
-const videoLight = document.getElementById("videoLight");
-
-if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
-  magicCard.addEventListener("pointermove", function(event) {
-    const rect = magicCard.getBoundingClientRect();
-
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateY = ((x - centerX) / centerX) * 5;
-    const rotateX = -((y - centerY) / centerY) * 5;
-
-    magicCard.style.transform =
-      "perspective(1100px) rotateX(" +
-      rotateX +
-      "deg) rotateY(" +
-      rotateY +
-      "deg) translateY(-6px)";
-
-    const frameRect = magicFrame.getBoundingClientRect();
-
-    videoLight.style.left =
-      event.clientX - frameRect.left + "px";
-
-    videoLight.style.top =
-      event.clientY - frameRect.top + "px";
-  });
-
-  magicCard.addEventListener("pointerleave", function() {
-    magicCard.style.transform =
-      "perspective(1100px) rotateX(0deg) rotateY(0deg)";
-  });
-}
-
-/* =========================
-   BUTTON RIPPLE
-========================= */
-
-if (!reduceMotion) {
-  document.querySelectorAll(".btn").forEach(function(button) {
-    button.addEventListener("click", function(event) {
-      const rect = button.getBoundingClientRect();
-
-      const ripple = document.createElement("span");
-      ripple.className = "ripple";
-
-      const size = Math.max(rect.width, rect.height);
-
-      ripple.style.width = size + "px";
-      ripple.style.height = size + "px";
-      ripple.style.left =
-        event.clientX - rect.left - size / 2 + "px";
-      ripple.style.top =
-        event.clientY - rect.top - size / 2 + "px";
-
-      button.appendChild(ripple);
-
-      ripple.addEventListener("animationend", function() {
-        ripple.remove();
+    if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+      document.addEventListener("pointermove", function(event) {
+        cursorGlow.style.left = event.clientX + "px";
+        cursorGlow.style.top = event.clientY + "px";
+        cursorGlow.style.opacity = "1";
       });
-    });
-  });
-}
 
-/* =========================
-   PURCHASE MODAL
-========================= */
-
-const modal = document.getElementById("purchaseModal");
-const buyButton = document.getElementById("buyButton");
-const closeModalButton = document.getElementById("closeModal");
-
-let previousFocus = null;
-
-function openModal() {
-  previousFocus = document.activeElement;
-
-  modal.classList.add("open");
-  modal.setAttribute("aria-hidden", "false");
-  document.body.classList.add("modal-open");
-
-  closeModalButton.focus();
-}
-
-function closeModal() {
-  modal.classList.remove("open");
-  modal.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("modal-open");
-
-  if (previousFocus && previousFocus.isConnected) {
-    previousFocus.focus();
-  }
-}
-
-buyButton.addEventListener("click", openModal);
-closeModalButton.addEventListener("click", closeModal);
-
-modal.addEventListener("click", function(event) {
-  if (event.target === modal) {
-    closeModal();
-  }
-});
-
-document.addEventListener("keydown", function(event) {
-  if (!modal.classList.contains("open")) return;
-
-  if (event.key === "Escape") {
-    closeModal();
-  }
-
-  if (event.key === "Tab") {
-    const focusable = [
-      ...modal.querySelectorAll(
-        'button:not(:disabled), a[href], input:not(:disabled)'
-      )
-    ].filter(function(element) {
-      return element.getClientRects().length > 0;
-    });
-
-    if (!focusable.length) return;
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (
-      !event.shiftKey &&
-      document.activeElement === last
-    ) {
-      event.preventDefault();
-      first.focus();
+      document.addEventListener("pointerleave", function() {
+        cursorGlow.style.opacity = "0";
+      });
     }
-  }
-});
 
-/* =========================
-   COPY PAYMENT DETAILS
-========================= */
+    /* PARTICLES */
 
-document.querySelectorAll("[data-copy]").forEach(function(button) {
-  const originalText = button.textContent.trim();
+    const particles = document.getElementById("particles");
 
-  button.addEventListener("click", async function() {
-    const value = button.dataset.copy;
+    if (!reduceMotion) {
+      for (let i = 0; i < 24; i++) {
+        const particle = document.createElement("span");
+        particle.className = "particle";
 
-    try {
-      await navigator.clipboard.writeText(value);
+        particle.style.left = Math.random() * 100 + "%";
+        particle.style.animationDuration = 12 + Math.random() * 18 + "s";
+        particle.style.animationDelay = -Math.random() * 25 + "s";
 
-      button.textContent = "Copiat ✓";
-
-      setTimeout(function() {
-        button.textContent = originalText;
-      }, 1600);
-
-    } catch (error) {
-      button.textContent = "Copiază manual";
-
-      setTimeout(function() {
-        button.textContent = originalText;
-      }, 1800);
+        particles.appendChild(particle);
+      }
     }
-  });
-});
 
-/* =========================
-   ACCESS CODE
-========================= */
+    /* VIDEO 3D */
 
-const accessButton = document.getElementById("accessButton");
-const accessCode = document.getElementById("accessCode");
-const accessMessage = document.getElementById("accessMessage");
+    const magicCard = document.getElementById("magicCard");
+    const magicFrame = document.getElementById("magicFrame");
+    const videoLight = document.getElementById("videoLight");
 
-function checkAccess() {
-  const code = accessCode.value.trim();
+    if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+      magicCard.addEventListener("pointermove", function(event) {
+        const rect = magicCard.getBoundingClientRect();
 
-  if (!code) {
-    accessMessage.textContent =
-      "Introdu codul de acces primit.";
-    return;
-  }
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
 
-  /*
-    IMPORTANT:
-    Codurile trebuie verificate de un backend securizat.
-    Nu adăuga codurile reale în acest fișier public.
-    Nu pune videoclipurile private în GitHub Pages.
-  */
+        const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 5;
+        const rotateX = -((y - rect.height / 2) / (rect.height / 2)) * 5;
 
-  accessMessage.textContent =
-    "Codul nu a putut fi verificat. " +
-    "Contactează NailMargin Academy pe WhatsApp.";
-}
+        magicCard.style.transform =
+          "perspective(1100px) rotateX(" +
+          rotateX + "deg) rotateY(" +
+          rotateY + "deg) translateY(-6px)";
 
-accessButton.addEventListener("click", checkAccess);
+        const frameRect = magicFrame.getBoundingClientRect();
 
-accessCode.addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    checkAccess();
-  }
-});
+        videoLight.style.left =
+          event.clientX - frameRect.left + "px";
 
-/* =========================
-   SCROLL ANIMATIONS
-========================= */
+        videoLight.style.top =
+          event.clientY - frameRect.top + "px";
+      });
 
-const revealElements = document.querySelectorAll(".reveal");
+      magicCard.addEventListener("pointerleave", function() {
+        magicCard.style.transform =
+          "perspective(1100px) rotateX(0deg) rotateY(0deg)";
+      });
+    }
 
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
+    /* BUTTON RIPPLE */
+
+    if (!reduceMotion) {
+      document.querySelectorAll(".btn").forEach(function(button) {
+        button.addEventListener("click", function(event) {
+          const rect = button.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const ripple = document.createElement("span");
+
+          ripple.className = "ripple";
+          ripple.style.width = size + "px";
+          ripple.style.height = size + "px";
+          ripple.style.left =
+            event.clientX - rect.left - size / 2 + "px";
+          ripple.style.top =
+            event.clientY - rect.top - size / 2 + "px";
+
+          button.appendChild(ripple);
+          ripple.addEventListener("animationend", function() {
+            ripple.remove();
+          });
+        });
+      });
+    }
+
+    /* PURCHASE MODAL */
+
+    const modal = document.getElementById("purchaseModal");
+    const buyButton = document.getElementById("buyButton");
+    const closeModalButton = document.getElementById("closeModal");
+
+    let previousFocus = null;
+
+    function openModal() {
+      previousFocus = document.activeElement;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeModalButton.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+
+      if (previousFocus && previousFocus.isConnected) {
+        previousFocus.focus();
+      }
+    }
+
+    buyButton.addEventListener("click", openModal);
+    closeModalButton.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", function(event) {
+      if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (!modal.classList.contains("open")) return;
+
+      if (event.key === "Escape") closeModal();
+
+      if (event.key === "Tab") {
+        const focusable = [
+          ...modal.querySelectorAll(
+            'button:not(:disabled), a[href], input:not(:disabled)'
+          )
+        ].filter(function(element) {
+          return element.getClientRects().length > 0;
+        });
+
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === last
+        ) {
+          event.preventDefault();
+          first.focus();
         }
+      }
+    });
+
+    /* COPY PAYMENT DETAILS */
+
+    document.querySelectorAll("[data-copy]").forEach(function(button) {
+      const originalText = button.textContent.trim();
+
+      button.addEventListener("click", async function() {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy);
+          button.textContent = "Copiat ✓";
+        } catch (error) {
+          button.textContent = "Copiază manual";
+        }
+
+        setTimeout(function() {
+          button.textContent = originalText;
+        }, 1600);
       });
-    },
-    { threshold: 0.08 }
-  );
+    });
 
-  revealElements.forEach(function(element) {
-    observer.observe(element);
-  });
+    /* ACCESS CODE */
 
-} else {
-  revealElements.forEach(function(element) {
-    element.classList.add("visible");
-  });
-}
+    const accessButton = document.getElementById("accessButton");
+    const accessCode = document.getElementById("accessCode");
+    const accessMessage = document.getElementById("accessMessage");
 
-</script>
+    function checkAccess() {
+      const code = accessCode.value.trim();
+
+      if (!code) {
+        accessMessage.textContent =
+          "Introdu codul de acces primit.";
+        return;
+      }
+
+      /*
+        IMPORTANT:
+        Validarea codurilor necesită un backend securizat.
+        Nu introduce coduri reale în acest fișier HTML public.
+        Nu încărca videoclipurile private în GitHub Pages.
+      */
+
+      accessMessage.textContent =
+        "Codul nu a putut fi verificat. " +
+        "Contactează NailMargin Academy pe WhatsApp.";
+    }
+
+    accessButton.addEventListener("click", checkAccess);
+
+    accessCode.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") checkAccess();
+    });
+
+    /* SCROLL REVEAL */
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      revealElements.forEach(function(element) {
+        observer.observe(element);
+      });
+    } else {
+      revealElements.forEach(function(element) {
+        element.classList.add("visible");
+      });
+    }
+  </script>
 
 </body>
 </html>
