@@ -6,7 +6,8 @@ const player=$('tutorialPlayer');
 const titleTranslations={'Cuticula Perfecta':{ro:'Cuticula Perfecta',en:'Perfect Cuticle',es:'Cutícula Perfecta',ru:'Идеальная кутикула'}};
 function currentLanguage(){return ['ro','en','es','ru'].includes(document.documentElement.lang)?document.documentElement.lang:'ro';}
 function translatedTitle(t){return titleTranslations[t.title]?.[currentLanguage()]||t.title;}
-function updateTutorialTitles(){gallery.querySelectorAll('.video-card').forEach((card,i)=>{const t=tutorials[i];if(t){const label=card.querySelector('.video-overlay-title');if(label)label.textContent=translatedTitle(t);}});}
+function updateLockCaptions(){const words={ro:'Disponibil după cumpărare',en:'Available after purchase',es:'Disponible tras la compra',ru:'Доступно после покупки'};gallery.querySelectorAll('.locked-caption').forEach(el=>{el.textContent=words[currentLanguage()]||words.ro;});}
+function updateTutorialTitles(){updateLockCaptions();gallery.querySelectorAll('.video-card').forEach((card,i)=>{const t=tutorials[i];if(t){const label=card.querySelector('.video-overlay-title');if(label)label.textContent=translatedTitle(t);}});}
 window.addEventListener('nailmargin:languagechange',updateTutorialTitles);
 
 function setSubtitleTracks(tutorial){player.querySelectorAll('track').forEach(track=>track.remove());const labels={ro:'Română',en:'English',es:'Español',ru:'Русский'};for(const [lang,label] of Object.entries(labels)){const url=tutorial?.subtitles?.[lang];if(typeof url!=='string'||!url.startsWith('https://'))continue;const track=document.createElement('track');track.kind='subtitles';track.label=label;track.srclang=lang;track.src=url;player.appendChild(track);}}
