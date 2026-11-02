@@ -914,7 +914,25 @@
 
       .reveal { opacity: 1; transform: none; }
     }
-  </style>
+  /* Compact tutorial gallery; preserve existing hover, light and nail animations. */
+.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;justify-items:stretch;gap:24px}
+.gallery-grid .video-card{width:100%;max-width:none;padding:9px;border-radius:17px}
+.gallery-grid .video-frame{border-radius:11px}
+.gallery-grid .video-content{padding:17px 14px 15px}
+.gallery-grid .video-title{font-size:clamp(27px,3vw,38px);margin:7px 0}
+.gallery-grid .video-description{font-size:12px;line-height:1.65}
+.gallery-grid .video-bottom{margin-top:14px;padding-top:14px;gap:10px}
+.gallery-grid .price{font-size:29px}
+.gallery-grid .video-top-label{top:13px;left:13px;padding:8px 10px;font-size:9px}
+.gallery-grid .video-overlay-title{font-size:clamp(26px,3vw,40px);left:18px;bottom:14px}
+.gallery-grid .preview-icon{width:58px;height:58px;font-size:20px}
+.gallery-grid .cat-eye-nail{scale:.72}
+#playerSection{width:min(1380px,calc(100% - 28px));padding:26px!important;margin:24px auto 55px;background:var(--paper);border:1px solid var(--gold);border-radius:22px;box-shadow:0 30px 90px rgba(48,35,31,.19);animation:academyPlayerReveal .5s ease both}
+#playerSection h2{font-size:clamp(32px,4vw,52px);margin:0 0 15px}
+#tutorialPlayer{display:block;width:100%;max-height:82vh!important;aspect-ratio:16/9;object-fit:contain}
+@keyframes academyPlayerReveal{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:720px){.gallery-grid{grid-template-columns:1fr;gap:18px}.gallery-grid .video-card{max-width:510px;margin:auto}.gallery-grid .video-content{padding:15px}.gallery-grid .video-title{font-size:32px}#playerSection{padding:13px!important;border-radius:14px}}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Tutoriale nail art online","description":"Descoperă NailMargin Academy: tutoriale video de nail art și tehnici de manichiură, inclusiv MAGIC CAT EYE. Informații despre achiziție și acces.","inLanguage":"ro-RO","url":"https://nailmargin.ro/academy.html","isPartOf":{"@type":"WebSite","name":"NailMargin","url":"https://nailmargin.ro/"}}</script>
 </head>
 
