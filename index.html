@@ -931,11 +931,7 @@ footer a:hover{color:white}
 
       <div class="note">
         <strong>Cum împărțim costurile fixe?</strong>
-        <p>
-          Dacă salonul are cheltuieli de 2.700 lei și lucrezi cu
-          80 de cliente lunar, fiecare serviciu contribuie cu
-          33,75 lei la acoperirea costurilor fixe.
-        </p>
+        <p id="fixedCostExample"></p>
       </div>
 
       <h3 class="calc-title">03. Calculul prețului final</h3>
@@ -1339,6 +1335,16 @@ function calculate() {
   $("materialsTotal").textContent = money(materialCost);
   $("monthlyFixedTotal").textContent = money(monthlyFixed);
   $("fixedPerClient").textContent = money(fixedPerClient);
+  const selectedLang = (()=>{try{return localStorage.getItem("nailmargin-language")||"ro"}catch(e){return "ro"}})();
+  const clientCount = Math.max(1,numeric("clients"));
+  const fixedExample = {
+    ro: `Dacă salonul are cheltuieli lunare de ${money(monthlyFixed)} și lucrezi cu ${clientCount} cliente lunar, fiecare serviciu contribuie cu ${money(fixedPerClient)} la acoperirea costurilor fixe.`,
+    en: `With monthly salon expenses of ${money(monthlyFixed)} and ${clientCount} clients per month, each service contributes ${money(fixedPerClient)} toward fixed costs.`,
+    es: `Si el salón tiene gastos mensuales de ${money(monthlyFixed)} y atiendes a ${clientCount} clientas al mes, cada servicio aporta ${money(fixedPerClient)} para cubrir los costes fijos.`,
+    ru: `Если ежемесячные расходы салона составляют ${money(monthlyFixed)}, а вы обслуживаете ${clientCount} клиентов в месяц, каждая услуга покрывает ${money(fixedPerClient)} постоянных расходов.`
+  };
+  $("fixedCostExample").textContent = fixedExample[selectedLang] || fixedExample.ro;
+
 
   $("breakdown").innerHTML = [
     ["Materiale și consumabile",materialCost],
@@ -1407,6 +1413,7 @@ $("service").addEventListener("change",() => {
 
 renderFixed();
 renderMaterials();
+window.addEventListener("nailmargin:languagechange",calculate);
 $("currency").addEventListener("change",e=>switchCurrency(e.target.value));
 try {const saved=localStorage.getItem("nailmargin-currency");if(saved&&currencyRates[saved]){$("currency").value=saved;switchCurrency(saved)}}catch(e){}
 
