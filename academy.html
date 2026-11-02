@@ -603,6 +603,9 @@
       line-height: 1.8;
     }
 
+    [hidden] { display: none !important; }
+    .gallery-grid { gap: 28px; }
+    #accessCode { text-transform: none; letter-spacing: .03em; }
     .access-input {
       width: 100%;
       min-height: 58px;
@@ -961,9 +964,9 @@
     <!-- TUTORIAL -->
     <section class="gallery-section" id="tutoriale">
       <p style="max-width:760px;margin:0 auto 28px;text-align:center;line-height:1.8;color:var(--muted);padding:0 18px">Explorează tutoriale online de nail art și tehnici de manichiură în NailMargin Academy. Descoperă tutorialul MAGIC CAT EYE și informații despre cumpărare și accesul la lecțiile video.</p>
-      <div class="container gallery-grid">
+      <div class="container"><p id="catalogStatus" class="payment-note" role="status">Se încarcă tutorialele…</p><button id="catalogRetry" class="copy-btn" type="button" hidden>Reîncearcă</button></div><div class="container gallery-grid">
 
-        <article class="video-card reveal" id="magicCard">
+        <article class="video-card reveal" id="magicCard" hidden>
 
           <div class="video-frame" id="magicFrame">
 
@@ -996,7 +999,7 @@
                 <small>Acces permanent după activare</small>
               </div>
 
-              <button class="btn" id="buyButton" type="button">
+              <button class="btn" id="buyButton" type="button" disabled>
                 Cumpără tutorialul ↗
               </button>
             </div>
@@ -1007,7 +1010,8 @@
       </div>
     </section>
 
-    <!-- ACCESS -->
+    <section id="playerSection" class="container" hidden style="padding-bottom:50px"><h2 id="playerTitle"></h2><video id="tutorialPlayer" controls playsinline preload="metadata" controlslist="nodownload" style="width:100%;max-height:75vh;background:#211b1b;border-radius:15px"></video><p id="playerStatus" class="payment-note" role="status"></p><button id="resumeVideo" type="button" class="copy-btn" hidden>Reîncearcă redarea</button><button id="closePlayer" type="button" class="copy-btn">Închide videoclipul</button></section>
+  <!-- ACCESS -->
     <section class="access-section" id="acces">
       <div class="container access-grid">
 
@@ -1018,18 +1022,18 @@
 
           <p>
             Introdu codul personal primit după confirmarea plății
-            pentru a accesa tutorialul cumpărat.
+            pentru a accesa tutorialul cumpărat. Folosește același browser la fiecare vizionare și evită modul privat. Dacă schimbi dispozitivul sau ștergi datele browserului, contactează-ne pentru resetarea accesului.
           </p>
 
-          <label for="accessCode" class="eyebrow">COD DE ACCES</label>
+          <label for="tutorialSelect" class="eyebrow">TUTORIALUL CUMPĂRAT</label><select id="tutorialSelect" class="access-input" aria-label="Tutorialul cumpărat"><option value="">Se încarcă tutorialele…</option></select><label for="accessCode" class="eyebrow">COD DE ACCES</label>
 
           <input
             id="accessCode"
             class="access-input"
             type="text"
-            placeholder="NMA-XXXX-XXXX"
+            placeholder="Lipește codul primit"
             autocomplete="off"
-            maxlength="40"
+            maxlength="64"
             spellcheck="false"
           >
 
@@ -1054,8 +1058,7 @@
             <div>
               <h3>Alegi tutorialul</h3>
               <p>
-                Selectezi MAGIC CAT EYE și efectuezi plata
-                de 150 lei prin transfer bancar sau Revolut.
+                Alegi tutorialul și efectuezi plata sumei afișate prin transfer bancar sau Revolut.
               </p>
             </div>
           </div>
@@ -1100,7 +1103,7 @@
       >
     </div>
 
-    <p>ACADEMY · THE ART OF NAIL EDUCATION</p>
+    <p>CREATIVITY HAS NO LIMITS</p>
 
     <div class="footer-links">
       <a href="index.html">Calculator</a>
@@ -1343,7 +1346,7 @@
       }
     }
 
-    buyButton.addEventListener("click", openModal);
+
     closeModalButton.addEventListener("click", closeModal);
 
     modal.addEventListener("click", function(event) {
@@ -1401,39 +1404,6 @@
       });
     });
 
-    /* ACCESS CODE */
-
-    const accessButton = document.getElementById("accessButton");
-    const accessCode = document.getElementById("accessCode");
-    const accessMessage = document.getElementById("accessMessage");
-
-    function checkAccess() {
-      const code = accessCode.value.trim();
-
-      if (!code) {
-        accessMessage.textContent =
-          "Introdu codul de acces primit.";
-        return;
-      }
-
-      /*
-        IMPORTANT:
-        Validarea codurilor necesită un backend securizat.
-        Nu introduce coduri reale în acest fișier HTML public.
-        Nu încărca videoclipurile private în GitHub Pages.
-      */
-
-      accessMessage.textContent =
-        "Codul nu a putut fi verificat. " +
-        "Contactează NailMargin Academy pe WhatsApp.";
-    }
-
-    accessButton.addEventListener("click", checkAccess);
-
-    accessCode.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") checkAccess();
-    });
-
     /* SCROLL REVEAL */
 
     const revealElements = document.querySelectorAll(".reveal");
@@ -1459,5 +1429,7 @@
   </script>
 
 <script src="language-switcher.js" defer></script>
+<script type="module" src="academy-public.js"></script>
 </body>
 </html>
+
