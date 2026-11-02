@@ -1215,6 +1215,15 @@ function escapeHTML(text) {
     .replace(/"/g,"&quot;");
 }
 
+function formatMaterialNote(note) {
+  // Notes are authored in RON. Convert their example prices to the selected currency.
+  const currency = currentCurrency || "RON";
+  const symbol = {RON:"lei",EUR:"€",USD:"$",RUB:"₽"}[currency] || "lei";
+  return String(note).replace(/(\d+(?:[,.]\d+)?)\s*lei\b/g, (_, raw) => {
+    const amount = Number(raw.replace(",", ".")) * (currencyRates[currency] || 1);
+    return amount.toLocaleString({RON:"ro-RO",EUR:"de-DE",USD:"en-US",RUB:"ru-RU"}[currency], {maximumFractionDigits:2}) + " " + symbol;
+  });
+}
 function renderMaterials() {
   const service = $("service").value;
   const rows = materials[service];
@@ -1227,7 +1236,7 @@ function renderMaterials() {
       <div class="cost-row">
         <div>
           <strong>${escapeHTML(item[0])}</strong>
-          <small>${escapeHTML(item[2])}</small>
+          <small>${escapeHTML(formatMaterialNote(item[2]))}</small>
         </div>
         <input
           type="number"
