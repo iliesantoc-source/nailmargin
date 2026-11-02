@@ -12,9 +12,7 @@ function applyPayment(payment){
  if(!/^[A-Z]{2}[0-9A-Z]{13,32}$/.test(iban)||!/^[a-zA-Z0-9._-]+$/.test(tag))throw new Error('Date de plată invalide.');
  const modal=$('purchaseModal'),values=modal.querySelectorAll('.bank-detail strong'),buttons=modal.querySelectorAll('.bank-detail [data-copy]');
  [payment.beneficiary,iban,'@'+tag].forEach((value,i)=>{values[i].textContent=value;buttons[i].dataset.copy=value;});
- $('publicBeneficiary').textContent=payment.beneficiary;$('publicIban').textContent=iban;$('publicRevtag').textContent='@'+tag;$('copyPublicIban').dataset.copy=iban;$('copyPublicRevtag').dataset.copy='@'+tag;$('publicRevolutLink').href='https://revolut.me/'+encodeURIComponent(tag);
  const number=String(payment.whatsapp_number||'');if(/^[0-9]{8,15}$/.test(number)){$('whatsappButton').href='https://wa.me/'+number;const note=$('whatsappButton').parentElement.querySelector('p:last-child');if(note)note.textContent='WhatsApp: +'+number;}
- $('publicPayment').hidden=false;
 }
 function purchase(t){selected=t;const modal=$('purchaseModal');$('purchaseTitle').textContent=t.title;modal.querySelector('.modal-price').textContent=Number(t.price_ron).toLocaleString('ro-RO')+' lei';const details=modal.querySelectorAll('.bank-detail strong');details[3].textContent=t.price_ron+' RON';details[4].textContent=t.title;const ref=modal.querySelector('[data-copy="MAGIC CAT EYE"]')||modal.querySelector('[data-reference]');if(ref){ref.dataset.reference='true';ref.dataset.copy=t.title;}const text='Bună! Doresc să cumpăr tutorialul '+t.title+' de pe NailMargin Academy, la prețul de '+t.price_ron+' lei. Te contactez pentru confirmarea plății.';const contact=new URL($('whatsappButton').href);contact.searchParams.set('text',text);$('whatsappButton').href=contact.href;window.openModal();}
 async function catalog(){
