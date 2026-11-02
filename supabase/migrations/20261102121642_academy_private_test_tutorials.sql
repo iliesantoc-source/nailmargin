@@ -1,0 +1,1 @@
+alter table public.academy_tutorials add column is_test boolean not null default false;

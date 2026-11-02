@@ -11,7 +11,7 @@ Deno.serve(async(req:Request)=>{
  try{
  if(req.method==="GET"){
  const [{data,error},{data:payment,error:paymentError}]=await Promise.all([
- client.from("academy_tutorials").select("id,title,description,price_ron,cover_path").eq("published",true).order("created_at"),
+ client.from("academy_tutorials").select("id,title,description,price_ron,cover_path").eq("published",true).eq("is_test",false).order("created_at"),
  client.from("academy_settings").select("beneficiary,bank_iban,revolut_tag,whatsapp_number").eq("id",true).single()
  ]);
  if(error||paymentError)return reply({error:"Catalog unavailable"},503);
