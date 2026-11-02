@@ -1,0 +1,59 @@
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2.57.4';
+import {Upload} from 'https://esm.sh/tus-js-client@4.3.1';
+import {SUPABASE_URL,SUPABASE_KEY} from './academy-config.js';
+const db=createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let tutorials=[],currentUser=null,settings={},issuedMessage='',loading=false;
+function status(text,error=false){$('status').textContent=text;$('status').className='status '+(error?'error':'success');}
+function tab(id){document.querySelectorAll('.panel').forEach(p=>{if(p.id!=='login')p.classList.toggle('active',p.id===id)});document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===id)));}
+async function run(form,fn){const buttons=[...form.querySelectorAll('button')];buttons.forEach(b=>b.disabled=true);try{await fn()}catch(e){status(e.message||'Operațiunea nu a reușit. Încearcă din nou.',true)}finally{buttons.forEach(b=>b.disabled=false)}}
+function checked(r){if(r.error)throw r.error;return r.data;}
+function resetEditor(){ $('tutorial-form').reset();$('tutorial-id').value='';$('price').value='150';$('editor-title').textContent='Adaugă tutorial';$('video-current').textContent='Încarcă videoclipul înainte de publicare.';$('upload-progress').hidden=true;}
+function edit(t){resetEditor();$('tutorial-id').value=t.id;$('title').value=t.title;$('description').value=t.description;$('price').value=t.price_ron;$('cover').value=t.cover_path||'';$('published').checked=t.published;$('editor-title').textContent='Editează tutorialul';$('video-current').textContent=t.video_path?'Video privat încărcat. Poți selecta alt fișier pentru înlocuire.':'Încarcă videoclipul înainte de publicare.';tab('editor');}
+async function load(){
+ tutorials=checked(await db.from('academy_tutorials').select('*').order('created_at'));
+ settings=checked(await db.from('academy_settings').select('*').eq('id',true).single());
+ $('tutorial-list').innerHTML=tutorials.map(t=>`<article class="item"><span class="pill">${t.published?'Publicat':'Ciornă'}</span><h3>${esc(t.title)}</h3><p>${Number(t.price_ron).toLocaleString('ro-RO')} lei · ${t.video_path?'Video încărcat':'Video de încărcat'}</p><button class="btn" data-edit="${t.id}">Editează</button></article>`).join('')||'<p class="empty">Adaugă primul tutorial.</p>';
+ $('sale-tutorial').innerHTML='<option value="">Alege tutorialul</option>'+tutorials.filter(t=>t.published&&t.video_path).map(t=>`<option value="${t.id}">${esc(t.title)} · ${t.price_ron} lei</option>`).join('');
+ for(const [id,k] of Object.entries({beneficiary:'beneficiary',iban:'bank_iban',revolut:'revolut_tag',whatsapp:'whatsapp_number'}))$(id).value=settings[k]||'';
+ await purchases();
+}
+async function purchases(){
+ const rows=checked(await db.from('academy_purchases').select('id,amount_ron,payment_status,created_at,academy_customers(full_name,contact),academy_tutorials(title),academy_access_codes(id,device_hash,revoked_at,redeemed_at)').order('created_at',{ascending:false}).limit(200));
+ $('purchase-list').innerHTML='<table><thead><tr><th>Clientă</th><th>Tutorial / plată</th><th>Acces</th><th>Acțiuni</th></tr></thead><tbody>'+rows.map(p=>{const code=Array.isArray(p.academy_access_codes)?p.academy_access_codes[0]:p.academy_access_codes;return `<tr><td>${esc(p.academy_customers?.full_name)}<br>${esc(p.academy_customers?.contact)}<br>${new Date(p.created_at).toLocaleDateString('ro-RO')}</td><td>${esc(p.academy_tutorials?.title)}<br>${p.amount_ron} lei · ${esc(p.payment_status)}</td><td>${!code?'Fără cod':code.revoked_at?'Revocat':code.device_hash?'Activat · browser asociat':'Neactivat'}</td><td>${code?`<button data-code="${code.id}" data-action="${code.revoked_at?'restore':'revoke'}">${code.revoked_at?'Reactivează':'Revocă'}</button> <button data-code="${code.id}" data-action="reset">Resetează dispozitivul</button>`:''}</td></tr>`}).join('')+'</tbody></table>'+(rows.length?'':'<p class="empty">Nu există încă achiziții.</p>');
+}
+async function enter(){if(loading)return;loading=true;try{
+ const {data:{session}}=await db.auth.getSession();
+ if(!session){$('login').hidden=false;$('dashboard').hidden=true;status('Conectează-te pentru administrare.');return;}
+ const user=checked(await db.auth.getUser()).user;
+ const member=checked(await db.from('academy_admins').select('user_id').eq('user_id',user.id).maybeSingle());
+ if(!member){await db.auth.signOut();throw new Error('Acest cont nu are drepturi de administrator.');}
+ currentUser=user;$('login').hidden=true;$('dashboard').hidden=false;$('identity').textContent=user.email;await load();status('Conectată. Datele sunt salvate în siguranță.');
+ }catch(e){$('login').hidden=false;$('dashboard').hidden=true;status(e.message,true)}finally{loading=false}}
+$('login-form').addEventListener('submit',e=>{e.preventDefault();run(e.currentTarget,async()=>{if(!$('password').value)throw new Error('Introdu parola sau folosește linkul pe e-mail.');checked(await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value}));$('password').value='';await enter();})});
+$('magic-link').onclick=()=>run($('login-form'),async()=>{if(!$('email').checkValidity())throw new Error('Introdu adresa de e-mail.');checked(await db.auth.signInWithOtp({email:$('email').value.trim(),options:{shouldCreateUser:false,emailRedirectTo:new URL('admin.html',location.href).href}}));status('Linkul de conectare a fost trimis. Verifică Inbox și Spam.');});
+$('logout').onclick=async()=>{checked(await db.auth.signOut());currentUser=null;location.reload();};
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{if(b.dataset.tab==='editor')resetEditor();tab(b.dataset.tab)});
+$('tutorial-list').onclick=e=>{const b=e.target.closest('[data-edit]');if(b)edit(tutorials.find(t=>t.id===b.dataset.edit));};
+$('new-tutorial').onclick=resetEditor;
+$('sale-tutorial').onchange=()=>{const t=tutorials.find(t=>t.id===$('sale-tutorial').value);if(t)$('amount').value=t.price_ron;};
+function upload(file,path,token){return new Promise((resolve,reject)=>{let upload=new Upload(file,{endpoint:SUPABASE_URL+'/storage/v1/upload/resumable',retryDelays:[0,1000,3000,5000],headers:{authorization:'Bearer '+token,apikey:SUPABASE_KEY,'x-upsert':'false'},uploadDataDuringCreation:true,removeFingerprintOnSuccess:true,chunkSize:6*1024*1024,metadata:{bucketName:'academy-videos',objectName:path,contentType:file.type||'video/mp4',cacheControl:'3600'},onError:e=>reject(new Error('Încărcarea nu a reușit: '+e.message+'. Verifică limita fișierelor din proiectul Supabase.')),onProgress:(a,b)=>{$('upload-progress').value=Math.round(a/b*100)},onSuccess:resolve});upload.start();})}
+$('tutorial-form').onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{
+ const id=$('tutorial-id').value||crypto.randomUUID(),old=tutorials.find(t=>t.id===id);let path=old?.video_path||null;const file=$('video').files[0];
+ if(file){if(!['video/mp4','video/quicktime','video/webm'].includes(file.type))throw new Error('Alege un video MP4, MOV sau WebM.');status('Se încarcă videoclipul. Păstrează pagina deschisă.');$('upload-progress').hidden=false;const {data:{session}}=await db.auth.getSession();if(!session)throw new Error('Sesiunea a expirat. Reconectează-te.');path=id+'/'+crypto.randomUUID()+'.'+(file.type==='video/quicktime'?'mov':file.type==='video/webm'?'webm':'mp4');await upload(file,path,session.access_token);}
+ if($('published').checked&&!path)throw new Error('Încarcă video înainte de publicare.');const cover=$('cover').value.trim();if(cover&&!cover.startsWith('https://'))throw new Error('Coperta trebuie să aibă adresă HTTPS.');
+ checked(await db.from('academy_tutorials').upsert({id,title:$('title').value.trim(),description:$('description').value.trim(),price_ron:Number($('price').value),cover_path:cover||null,video_path:path,published:$('published').checked}));await load();tab('videos');status('Tutorialul a fost salvat.');resetEditor();
+ })};
+$('sale-form').onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{
+ $('issued').hidden=true;const t=tutorials.find(t=>t.id===$('sale-tutorial').value);if(!t||!$('payment-confirmed').checked)throw new Error('Alege tutorialul și confirmă încasarea.');
+ const result=checked(await db.rpc('academy_confirm_purchase',{p_tutorial_id:t.id,p_full_name:$('customer-name').value.trim(),p_contact:$('customer-contact').value.trim(),p_amount:Number($('amount').value)}));const code=result[0].access_code;
+ $('issued-code').textContent=code;issuedMessage='Bună! Tutorialul '+t.title+' este deblocat pentru tine.\nIntră pe https://nailmargin.ro/academy.html#acces și selectează tutorialul.\nCodul tău: '+code+'\nPăstrează codul. Prima activare îl asociază cu browserul folosit; utilizează același browser și evită modul privat.';$('issued').hidden=false;$('sale-form').reset();await purchases();status('Plata este confirmată. Copiază codul și trimite-l clientei.');
+ })};
+$('copy-code').onclick=async()=>{try{await navigator.clipboard.writeText(issuedMessage);status('Mesajul pentru clientă a fost copiat.')}catch{status('Selectează și copiază manual codul.',true)}};
+$('purchase-list').onclick=e=>{const b=e.target.closest('[data-code]');if(!b)return;run($('codes'),async()=>{const action=b.dataset.action;if(!confirm(action==='reset'?'Permiți o nouă asociere a acestui cod cu un browser?':action==='revoke'?'Revoci accesul acestui cod?':'Reactivezi acest cod?'))return;const change=action==='reset'?{device_hash:null,redeemed_at:null}:{revoked_at:action==='revoke'?new Date().toISOString():null};checked(await db.from('academy_access_codes').update(change).eq('id',b.dataset.code));await purchases();status('Accesul a fost actualizat.');})};
+$('refresh').onclick=()=>run($('codes'),purchases);
+$('settings-form').onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{const iban=$('iban').value.replace(/\s/g,'').toUpperCase();let expanded=(iban.slice(4)+iban.slice(0,4)).replace(/[A-Z]/g,c=>String(c.charCodeAt(0)-55));if(!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)||BigInt(expanded)%97n!==1n)throw new Error('IBAN invalid. Verifică toate caracterele.');checked(await db.from('academy_settings').update({beneficiary:$('beneficiary').value.trim(),bank_iban:iban,revolut_tag:$('revolut').value.trim().replace(/^@/,''),whatsapp_number:$('whatsapp').value,updated_at:new Date().toISOString()}).eq('id',true));await load();status('Metodele de plată au fost actualizate.');})};
+$('password-form').onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{if($('new-password').value!==$('repeat-password').value)throw new Error('Parolele nu coincid.');checked(await db.auth.updateUser({password:$('new-password').value}));$('password-form').reset();status('Parola a fost salvată. Te poți conecta cu e-mail și parolă.');})};
+await enter();
+db.auth.onAuthStateChange(event=>{if(['SIGNED_IN','PASSWORD_RECOVERY','SIGNED_OUT'].includes(event))setTimeout(enter,0)});

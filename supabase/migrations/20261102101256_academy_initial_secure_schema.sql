@@ -1,0 +1,35 @@
+
+create table public.academy_admins(user_id uuid primary key references auth.users(id) on delete cascade,created_at timestamptz not null default now());
+create table public.academy_tutorials(id uuid primary key default gen_random_uuid(),title text not null,description text not null default '',price_ron numeric(10,2) not null default 150 check(price_ron>=0),cover_path text,video_path text,published boolean not null default false,created_at timestamptz not null default now(),updated_at timestamptz not null default now());
+create table public.academy_customers(id uuid primary key default gen_random_uuid(),full_name text not null,contact text,created_at timestamptz not null default now());
+create table public.academy_purchases(id uuid primary key default gen_random_uuid(),customer_id uuid not null references public.academy_customers(id),tutorial_id uuid not null references public.academy_tutorials(id),amount_ron numeric(10,2) not null check(amount_ron>=0),payment_status text not null default 'pending' check(payment_status in ('pending','confirmed','rejected','refunded')),confirmed_at timestamptz,created_at timestamptz not null default now());
+create table public.academy_access_codes(id uuid primary key default gen_random_uuid(),purchase_id uuid not null unique references public.academy_purchases(id),code_hash text not null unique check(code_hash ~ '^[a-f0-9]{64}$'),device_hash text check(device_hash ~ '^[a-f0-9]{64}$'),revoked_at timestamptz,redeemed_at timestamptz,created_at timestamptz not null default now());
+create table public.academy_settings(id boolean primary key default true check(id),beneficiary text not null default 'ANTONIA CARINA ILIES',revolut_tag text not null default 'iliesanto',bank_iban text,whatsapp_number text,updated_at timestamptz not null default now());
+create index on public.academy_purchases(customer_id);
+create index on public.academy_purchases(tutorial_id);
+alter table public.academy_admins enable row level security;
+alter table public.academy_tutorials enable row level security;
+alter table public.academy_customers enable row level security;
+alter table public.academy_purchases enable row level security;
+alter table public.academy_access_codes enable row level security;
+alter table public.academy_settings enable row level security;
+revoke all on public.academy_admins,public.academy_tutorials,public.academy_customers,public.academy_purchases,public.academy_access_codes,public.academy_settings from anon,authenticated;
+grant select on public.academy_admins to authenticated;
+create policy academy_admin_self_read on public.academy_admins for select to authenticated using(user_id=(select auth.uid()));
+create function public.is_academy_admin() returns boolean language sql stable security invoker set search_path='' as $$ select auth.uid() is not null and exists(select 1 from public.academy_admins where user_id=(select auth.uid())); $$;
+revoke all on function public.is_academy_admin() from public,anon;
+grant execute on function public.is_academy_admin() to authenticated;
+grant select,insert,update,delete on public.academy_tutorials,public.academy_customers,public.academy_purchases,public.academy_access_codes,public.academy_settings to authenticated;
+create policy academy_tutorials_admin_all on public.academy_tutorials for all to authenticated using((select public.is_academy_admin())) with check((select public.is_academy_admin()));
+create policy academy_customers_admin_all on public.academy_customers for all to authenticated using((select public.is_academy_admin())) with check((select public.is_academy_admin()));
+create policy academy_purchases_admin_all on public.academy_purchases for all to authenticated using((select public.is_academy_admin())) with check((select public.is_academy_admin()));
+create policy academy_codes_admin_all on public.academy_access_codes for all to authenticated using((select public.is_academy_admin())) with check((select public.is_academy_admin()));
+create policy academy_settings_admin_all on public.academy_settings for all to authenticated using((select public.is_academy_admin())) with check((select public.is_academy_admin()));
+insert into storage.buckets(id,name,public) values('academy-videos','academy-videos',false);
+create policy academy_video_admin_read on storage.objects for select to authenticated using(bucket_id='academy-videos' and (select public.is_academy_admin()));
+create policy academy_video_admin_insert on storage.objects for insert to authenticated with check(bucket_id='academy-videos' and (select public.is_academy_admin()));
+create policy academy_video_admin_update on storage.objects for update to authenticated using(bucket_id='academy-videos' and (select public.is_academy_admin())) with check(bucket_id='academy-videos' and (select public.is_academy_admin()));
+create policy academy_video_admin_delete on storage.objects for delete to authenticated using(bucket_id='academy-videos' and (select public.is_academy_admin()));
+insert into public.academy_tutorials(title,description,price_ron) values('MAGIC CAT EYE','Tutorial NailMargin Academy',150);
+insert into public.academy_settings(id) values(true);
+
