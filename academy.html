@@ -981,6 +981,10 @@ body.academy-video-open{overflow:hidden}
 /* Tutorial title is displayed only on the cover, not repeated below it. */
 .gallery-grid .video-content{padding-top:9px}
 .gallery-grid .video-bottom{margin-top:0;padding-top:0;border-top:0}
+/* Private Academy lessons show a clear purchase lock on their covers. */
+.gallery-grid .locked-preview{font-size:22px;background:rgba(42,28,25,.42);border-color:rgba(255,246,235,.7);text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.gallery-grid .locked-caption{position:absolute;z-index:6;top:calc(50% + 36px);left:50%;transform:translateX(-50%);width:max-content;max-width:90%;padding:6px 12px;border-radius:999px;background:rgba(42,28,25,.7);border:1px solid rgba(255,245,229,.4);color:#fff9f2;font-size:clamp(9px,1vw,12px);letter-spacing:.03em;text-align:center;backdrop-filter:blur(8px);pointer-events:none}
+@media(max-width:650px){.gallery-grid .locked-caption{font-size:9px;top:calc(50% + 27px);padding:5px 8px}.gallery-grid .locked-preview{font-size:17px}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Tutoriale nail art online","description":"Descoperă NailMargin Academy: tutoriale video de nail art și tehnici de manichiură, inclusiv MAGIC CAT EYE. Informații despre achiziție și acces.","inLanguage":"ro-RO","url":"https://nailmargin.ro/academy.html","isPartOf":{"@type":"WebSite","name":"NailMargin","url":"https://nailmargin.ro/"}}</script>
 </head>
@@ -1043,7 +1047,7 @@ body.academy-video-open{overflow:hidden}
             <div class="video-light" id="videoLight" aria-hidden="true"></div>
 
             <span class="video-top-label">EXCLUSIVE VIDEO TUTORIAL</span>
-            <span class="preview-icon" aria-hidden="true">▶</span>
+            <span class="preview-icon locked-preview" aria-hidden="true">🔒</span><span class="locked-caption" data-no-translate>Disponibil după cumpărare</span>
             <span class="video-overlay-title" data-no-translate>MAGIC CAT EYE</span>
 
           </div>
