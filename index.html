@@ -943,21 +943,12 @@ footer a:hover{color:white}
 
       <details>
         <summary>De unde provin costurile materialelor?</summary>
-        <p>
-          Sunt estimări de consum pentru produse profesionale.
-          De exemplu, un gel builder de 50 g la 160 lei înseamnă
-          aproximativ 3,20 lei pentru fiecare gram.
-          Introdu propriile costuri pentru un calcul personalizat.
-        </p>
+        <p id="materialCostExplanation"></p>
       </details>
 
       <details>
         <summary>Ce reprezintă prețul recomandat?</summary>
-        <p>
-          Suma include materialele, cheltuielile fixe, remunerația muncii
-          și rezerva de business. Nu reprezintă profit net după taxe
-          și nu include automat TVA, CAS, CASS sau alte obligații fiscale.
-        </p>
+        <p id="suggestedPriceExplanation"></p>
       </details>
 
     </div>
@@ -1350,6 +1341,22 @@ function calculate() {
     ru:`Калькулятор использует ориентировочные почасовые ставки: ${beginnerRate} для начинающих, ${mediumRate} для среднего уровня и ${advancedRate} для опытных специалистов. Вы можете вручную изменить ставку и продолжительность.`
   };
   $("experienceExplanation").textContent=experienceExample[selectedLang]||experienceExample.ro;
+  const gelPackage=money(160*currencyRates[currentCurrency]);
+  const gelPerGram=money(3.2*currencyRates[currentCurrency]);
+  const materialExamples={
+    ro:`Sunt estimări de consum pentru produse profesionale. De exemplu, un gel builder de 50 g la ${gelPackage} înseamnă aproximativ ${gelPerGram} pentru fiecare gram. Introdu propriile costuri pentru un calcul personalizat.`,
+    en:`These are estimated amounts used for professional products. For example, a 50 g builder gel costing ${gelPackage} works out to approximately ${gelPerGram} per gram. Enter your own costs for a personalized calculation.`,
+    es:`Son estimaciones de consumo de productos profesionales. Por ejemplo, un gel constructor de 50 g que cuesta ${gelPackage} equivale a aproximadamente ${gelPerGram} por gramo. Introduce tus propios costes para personalizar el cálculo.`,
+    ru:`Это примерные расходы профессиональных материалов. Например, моделирующий гель весом 50 г за ${gelPackage} стоит примерно ${gelPerGram} за грамм. Введите свои расходы для индивидуального расчёта.`
+  };
+  $("materialCostExplanation").textContent=materialExamples[selectedLang]||materialExamples.ro;
+  const priceExplanations={
+    ro:"Suma include materialele, cheltuielile fixe, remunerația muncii și rezerva de business. Nu reprezintă profit net după taxe și nu include automat TVA, CAS, CASS sau alte obligații fiscale.",
+    en:"The amount includes materials, fixed expenses, compensation for your work and a business reserve. It is not net profit after tax and does not automatically include VAT, social contributions or other tax obligations.",
+    es:"El importe incluye materiales, gastos fijos, remuneración del trabajo y una reserva para el negocio. No representa el beneficio neto después de impuestos ni incluye automáticamente el IVA, las cotizaciones sociales u otras obligaciones fiscales.",
+    ru:"Сумма включает материалы, постоянные расходы, оплату труда и резерв бизнеса. Это не чистая прибыль после налогов; НДС, социальные взносы и другие обязательные платежи автоматически не учитываются."
+  };
+  $("suggestedPriceExplanation").textContent=priceExplanations[selectedLang]||priceExplanations.ro;
 
 
   $("breakdown").innerHTML = [
