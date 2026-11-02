@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://nailmargin.ro/</loc></url>
   <url><loc>https://nailmargin.ro/aplicatie.html</loc></url>
   <url><loc>https://nailmargin.ro/academy.html</loc></url>
   <url><loc>https://nailmargin.ro/cum-calculez-pretul-unei-manichiuri.html</loc></url>
   <url><loc>https://nailmargin.ro/cum-calculez-profitul-unui-salon.html</loc></url>
-  <url><loc>https://nailmargin.ro/community.html</loc></url>
+  <url><loc>https://nailmargin.ro/community.html</loc><xhtml:link rel="alternate" hreflang="ro" href="https://nailmargin.ro/community.html"/><xhtml:link rel="alternate" hreflang="en" href="https://nailmargin.ro/en/nail-community.html"/><xhtml:link rel="alternate" hreflang="es" href="https://nailmargin.ro/es/comunidad-manicura.html"/><xhtml:link rel="alternate" hreflang="ru" href="https://nailmargin.ro/ru/soobshchestvo-manikyura.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://nailmargin.ro/community.html"/></url>
+  <url><loc>https://nailmargin.ro/en/nail-community.html</loc><xhtml:link rel="alternate" hreflang="ro" href="https://nailmargin.ro/community.html"/><xhtml:link rel="alternate" hreflang="en" href="https://nailmargin.ro/en/nail-community.html"/><xhtml:link rel="alternate" hreflang="es" href="https://nailmargin.ro/es/comunidad-manicura.html"/><xhtml:link rel="alternate" hreflang="ru" href="https://nailmargin.ro/ru/soobshchestvo-manikyura.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://nailmargin.ro/community.html"/></url>
+  <url><loc>https://nailmargin.ro/es/comunidad-manicura.html</loc><xhtml:link rel="alternate" hreflang="ro" href="https://nailmargin.ro/community.html"/><xhtml:link rel="alternate" hreflang="en" href="https://nailmargin.ro/en/nail-community.html"/><xhtml:link rel="alternate" hreflang="es" href="https://nailmargin.ro/es/comunidad-manicura.html"/><xhtml:link rel="alternate" hreflang="ru" href="https://nailmargin.ro/ru/soobshchestvo-manikyura.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://nailmargin.ro/community.html"/></url>
+  <url><loc>https://nailmargin.ro/ru/soobshchestvo-manikyura.html</loc><xhtml:link rel="alternate" hreflang="ro" href="https://nailmargin.ro/community.html"/><xhtml:link rel="alternate" hreflang="en" href="https://nailmargin.ro/en/nail-community.html"/><xhtml:link rel="alternate" hreflang="es" href="https://nailmargin.ro/es/comunidad-manicura.html"/><xhtml:link rel="alternate" hreflang="ru" href="https://nailmargin.ro/ru/soobshchestvo-manikyura.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://nailmargin.ro/community.html"/></url>
   <url><loc>https://nailmargin.ro/ghid-nailmargin</loc></url>
   <url><loc>https://nailmargin.ro/en/nail-business</loc></url>
   <url><loc>https://nailmargin.ro/es/negocio-manicura</loc></url>
