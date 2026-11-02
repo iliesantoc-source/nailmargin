@@ -985,7 +985,22 @@ body.academy-video-open{overflow:hidden}
 .gallery-grid .locked-preview{font-size:22px;background:rgba(42,28,25,.42);border-color:rgba(255,246,235,.7);text-shadow:0 1px 8px rgba(0,0,0,.35)}
 .gallery-grid .locked-caption{position:absolute;z-index:6;top:calc(50% + 36px);left:50%;transform:translateX(-50%);width:max-content;max-width:90%;padding:6px 12px;border-radius:999px;background:rgba(42,28,25,.7);border:1px solid rgba(255,245,229,.4);color:#fff9f2;font-size:clamp(9px,1vw,12px);letter-spacing:.03em;text-align:center;backdrop-filter:blur(8px);pointer-events:none}
 @media(max-width:650px){.gallery-grid .locked-caption{font-size:9px;top:calc(50% + 27px);padding:5px 8px}.gallery-grid .locked-preview{font-size:17px}}
-.checkout-conversions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:8px 0 5px}.checkout-conversions .fx-item{padding:12px 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);min-width:0}.checkout-conversions .fx-item small{display:block;font-size:10px;letter-spacing:.1em;color:var(--muted)}.checkout-conversions .fx-item strong{display:block;font-size:clamp(17px,2.1vw,24px);overflow-wrap:anywhere}.checkout-conversions p{grid-column:1/-1;font-size:12px;color:var(--muted)}#checkoutFxNote{font-size:11px;margin:6px 0 18px}.modal-panel .modal-price{margin:6px 0;font-size:clamp(42px,5vw,65px)}@media(max-width:540px){.checkout-conversions{grid-template-columns:1fr 1fr}.checkout-conversions .fx-item{padding:8px}.checkout-conversions .fx-item strong{font-size:18px}}</style>
+.checkout-conversions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:8px 0 5px}.checkout-conversions .fx-item{padding:12px 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);min-width:0}.checkout-conversions .fx-item small{display:block;font-size:10px;letter-spacing:.1em;color:var(--muted)}.checkout-conversions .fx-item strong{display:block;font-size:clamp(17px,2.1vw,24px);overflow-wrap:anywhere}.checkout-conversions p{grid-column:1/-1;font-size:12px;color:var(--muted)}#checkoutFxNote{font-size:11px;margin:6px 0 18px}.modal-panel .modal-price{margin:6px 0;font-size:clamp(42px,5vw,65px)}@media(max-width:540px){.checkout-conversions{grid-template-columns:1fr 1fr}.checkout-conversions .fx-item{padding:8px}.checkout-conversions .fx-item strong{font-size:18px}}/* Compact purchase popup: retain every payment field while reducing vertical space. */
+#purchaseModal .modal-panel{width:min(94vw,640px);padding:26px 28px 22px;max-height:92dvh}
+#purchaseModal .eyebrow{font-size:10px;letter-spacing:.17em}
+#purchaseModal #purchaseTitle{font-size:clamp(32px,4.3vw,47px);line-height:1.03;margin:8px 46px 8px 0}
+#purchaseModal .modal-price{font-size:clamp(38px,4.5vw,53px);line-height:1;margin:8px 0 12px}
+#purchaseModal .checkout-conversions{gap:8px;margin:6px 0 3px}
+#purchaseModal .checkout-conversions .fx-item{padding:10px 9px;min-width:0}
+#purchaseModal .checkout-conversions .fx-item strong{font-size:clamp(15px,2vw,21px);line-height:1.25;overflow-wrap:normal;word-break:normal}
+#purchaseModal .payment-note{line-height:1.45;margin:10px 0;font-size:12px}
+#purchaseModal #checkoutFxNote{font-size:10px;line-height:1.4;margin:5px 0 10px}
+#purchaseModal .bank-detail{padding:16px 18px;margin:13px 0}
+#purchaseModal .bank-detail small{margin-bottom:4px}
+#purchaseModal .bank-detail strong{margin-bottom:8px}
+#purchaseModal .copy-btn{margin-bottom:12px;padding:8px 11px}
+@media(max-width:540px){#purchaseModal .modal-panel{width:96vw;padding:19px 15px 16px}#purchaseModal #purchaseTitle{font-size:clamp(29px,8vw,39px)}#purchaseModal .checkout-conversions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}#purchaseModal .checkout-conversions .fx-item{padding:8px 5px}#purchaseModal .checkout-conversions .fx-item strong{font-size:clamp(11px,3vw,15px)}#purchaseModal .checkout-conversions .fx-item small{font-size:9px}#purchaseModal .bank-detail{padding:12px}}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Tutoriale nail art online","description":"Descoperă NailMargin Academy: tutoriale video de nail art și tehnici de manichiură, inclusiv MAGIC CAT EYE. Informații despre achiziție și acces.","inLanguage":"ro-RO","url":"https://nailmargin.ro/academy.html","isPartOf":{"@type":"WebSite","name":"NailMargin","url":"https://nailmargin.ro/"}}</script>
 </head>
 
@@ -1199,7 +1214,7 @@ body.academy-video-open{overflow:hidden}
       <span class="eyebrow">NAILMARGIN ACADEMY</span>
       <h2 id="purchaseTitle">MAGIC CAT EYE</h2>
 
-      <p class="payment-note" data-pay-i18n="exclusive">Tutorial video exclusiv</p>
+      
       <div class="modal-price" id="checkoutPrice">150 lei</div><div id="checkoutConversions" class="checkout-conversions" aria-live="polite"><p data-pay-i18n="fxLoading">Se calculează echivalentele valutare…</p></div><p id="checkoutFxNote" class="payment-note" data-pay-i18n="fxDisclaimer">Conversiile sunt orientative. Plata se confirmă în RON; banca poate aplica un alt curs.</p>
 
       <p class="payment-note" data-pay-i18n="instructions">
