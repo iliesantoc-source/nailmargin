@@ -5,7 +5,7 @@ Static GitHub Pages frontend with a separate Supabase Academy project. No servic
 ## Pages
 
 - `academy.html`: published catalog, purchase information, private video playback by purchase code.
-- `admin.html`: authenticated, RLS-protected administration; uploads via resumable TUS, tutorial prices/publication, manual payment confirmation, one-time code display, revocation and device reset.
+- `admin.html`: authenticated, RLS-protected administration; uploads via resumable TUS, tutorial prices/publication, manual payment confirmation, one-time code display, revocation, lost-code replacement and device reset.
 - `academy-config.js`: public project URL and publishable key only.
 - `supabase/functions/academy-api/index.ts`: deployed catalog and video authorization endpoint. Public GET returns tutorial metadata only. POST authenticates a high-entropy purchase code, binds the first browser token atomically, and issues a five-minute storage URL.
 - `supabase/migrations`: actual applied migration history. Private administrator membership and payment settings are not source-controlled.
@@ -15,6 +15,8 @@ Static GitHub Pages frontend with a separate Supabase Academy project. No servic
 In Supabase Authentication → URL Configuration, set Site URL to `https://nailmargin.ro/admin.html` and allow the exact redirect URL `https://nailmargin.ro/admin.html` (and the www equivalent only if used). Email links must return to the admin page, where Supabase JS consumes the session fragment. Without these settings, default redirects may go to localhost. Supabase dashboard browser authentication is required to modify settings not exposed by the connected tools.
 
 Sign in through the email link, then set a personal password in Settings. Email confirmation does not itself establish a session on the Academy domain. Only rows in `academy_admins` grant administration rights. No public signup in the dashboard.
+
+Public HTML integration is prepared locally but pending approval to retain the pre-existing publicly visible payment/contact details in the updated source. The backend and admin dashboard are deployed.
 
 ## Videos and activation
 
