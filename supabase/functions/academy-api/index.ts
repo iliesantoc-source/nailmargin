@@ -10,9 +10,13 @@ Deno.serve(async(req:Request)=>{
  if(req.method==="OPTIONS")return new Response(null,{status:204,headers});
  try{
  if(req.method==="GET"){
- const {data,error}=await client.from("academy_tutorials").select("id,title,description,price_ron,cover_path").eq("published",true).order("created_at");
- if(error)return reply({error:"Catalog unavailable"},503);
- return reply({tutorials:data});
+ const [{data,error},{data:payment,error:paymentError}]=await Promise.all([
+ client.from("academy_tutorials").select("id,title,description,price_ron,cover_path").eq("published",true).order("created_at"),
+ client.from("academy_settings").select("beneficiary,bank_iban,revolut_tag,whatsapp_number").eq("id",true).single()
+ ]);
+ if(error||paymentError)return reply({error:"Catalog unavailable"},503);
+ // The owner explicitly approved public API disclosure for client payments.
+ return reply({tutorials:data,payment});
  }
  if(req.method!=="POST")return reply({error:"Method not allowed"},405);
  if(Number(req.headers.get("content-length")||0)>2048)return reply({error:"Request too large"},413);

@@ -24,7 +24,7 @@ Upload the real video from the admin editor, then publish. Database guard requir
 
 After manually verifying payment, confirm it in the panel. Customer, confirmed purchase, and hashed code are created in one database transaction. Copy the full code immediately; plaintext codes are not retained. Codes never expire; playback URLs do. A second browser is rejected after first activation. Reset permits a replacement browser. This binds browser storage, not hardware; users who share their browser token can circumvent it. It is not DRM and cannot prevent screen recording. Revocation stops new playback links; an existing signed URL may work until its five-minute expiry.
 
-Payment details on the public purchase page retain the pre-existing static site values. Changing private payment settings in the dashboard does not publish them. The public API returns tutorial metadata only; payment data remains in the existing public page.
+The owner explicitly approved public API disclosure of beneficiary, IBAN, Revolut RevTag and WhatsApp for client payments on 2026-11-02. The catalog API selects only these payment fields. The public page refreshes both the purchase modal and a copyable payment-details panel from these settings; Admin edits therefore appear on the next page load. No customer, purchase, access-code or administrator records are returned by the public catalog API.
 
 ## Validation
 
@@ -33,3 +33,4 @@ Payment details on the public purchase page retain the pre-existing static site 
 - All database test data rolled back.
 - Live catalog, CORS and invalid-code HTTP checks; unauthenticated dashboard browser checks.
 - Full signed-in upload/purchase/playback QA requires browser sign-in and the real video.
+

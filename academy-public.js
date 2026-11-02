@@ -5,10 +5,20 @@ let tutorials=[],selected=null,credential=null,renewing=false,lastRenew=0;
 const player=$('tutorialPlayer');
 function msg(text){$('accessMessage').textContent=text;}
 async function request(options){const response=await fetch(API,{...options,signal:AbortSignal.timeout(20000)});const data=await response.json();if(!response.ok){if(response.status===403)throw new Error('Cod invalid, acces revocat sau cod activat într-un alt browser. Verifică tutorialul ales sau contactează-ne pe WhatsApp.');throw new Error('Serviciul nu este disponibil momentan. Încearcă din nou.')}return data;}
+function applyPayment(payment){
+ if(!payment||typeof payment.bank_iban!=='string'||typeof payment.revolut_tag!=='string')throw new Error('Date de plată indisponibile.');
+ const iban=payment.bank_iban.replace(/\s/g,'').toUpperCase(),tag=payment.revolut_tag.replace(/^@/,'');
+ if(!/^[A-Z]{2}[0-9A-Z]{13,32}$/.test(iban)||!/^[a-zA-Z0-9._-]+$/.test(tag))throw new Error('Date de plată invalide.');
+ const modal=$('purchaseModal'),values=modal.querySelectorAll('.bank-detail strong'),buttons=modal.querySelectorAll('.bank-detail [data-copy]');
+ [payment.beneficiary,iban,'@'+tag].forEach((value,i)=>{values[i].textContent=value;buttons[i].dataset.copy=value;});
+ $('publicBeneficiary').textContent=payment.beneficiary;$('publicIban').textContent=iban;$('publicRevtag').textContent='@'+tag;$('copyPublicIban').dataset.copy=iban;$('copyPublicRevtag').dataset.copy='@'+tag;$('publicRevolutLink').href='https://revolut.me/'+encodeURIComponent(tag);
+ const number=String(payment.whatsapp_number||'');if(/^[0-9]{8,15}$/.test(number)){$('whatsappButton').href='https://wa.me/'+number;const note=$('whatsappButton').parentElement.querySelector('p:last-child');if(note)note.textContent='WhatsApp: +'+number;}
+ $('publicPayment').hidden=false;
+}
 function purchase(t){selected=t;const modal=$('purchaseModal');$('purchaseTitle').textContent=t.title;modal.querySelector('.modal-price').textContent=Number(t.price_ron).toLocaleString('ro-RO')+' lei';const details=modal.querySelectorAll('.bank-detail strong');details[3].textContent=t.price_ron+' RON';details[4].textContent=t.title;const ref=modal.querySelector('[data-copy="MAGIC CAT EYE"]')||modal.querySelector('[data-reference]');if(ref){ref.dataset.reference='true';ref.dataset.copy=t.title;}const text='Bună! Doresc să cumpăr tutorialul '+t.title+' de pe NailMargin Academy, la prețul de '+t.price_ron+' lei. Te contactez pentru confirmarea plății.';const contact=new URL($('whatsappButton').href);contact.searchParams.set('text',text);$('whatsappButton').href=contact.href;window.openModal();}
 async function catalog(){
  $('catalogRetry').hidden=true;$('catalogStatus').textContent='Se încarcă tutorialele…';
- try{const data=await request();tutorials=data.tutorials;gallery.querySelectorAll('.video-card').forEach(c=>{if(c!==original)c.remove()});original.hidden=true;
+ try{const data=await request();applyPayment(data.payment);tutorials=data.tutorials;gallery.querySelectorAll('.video-card').forEach(c=>{if(c!==original)c.remove()});original.hidden=true;
  $('tutorialSelect').replaceChildren(new Option(tutorials.length?'Alege tutorialul':'Nu există încă tutoriale publicate',''));
  tutorials.forEach((t,i)=>{const card=i===0?original:template.cloneNode(true);if(i!==0){card.removeAttribute('id');card.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));gallery.append(card);}card.hidden=false;card.classList.add('visible');card.querySelector('.video-overlay-title').textContent=t.title;card.querySelector('.video-title').textContent=t.title;card.querySelector('.video-description').textContent=t.description;const price=card.querySelector('.price');price.replaceChildren(document.createTextNode(Number(t.price_ron).toLocaleString('ro-RO')+' lei'));const small=document.createElement('small');small.textContent='Acces permanent după activare';price.append(small);const cover=t.cover_path;if(cover&&/^https:\/\//.test(cover)){const img=document.createElement('img');img.src=cover;img.alt=t.title;img.referrerPolicy='no-referrer';img.style.cssText='width:100%;height:100%;object-fit:cover';card.querySelector('.video-visual').replaceChildren(img);}const buy=card.querySelector('button');buy.disabled=false;buy.onclick=()=>purchase(t);$('tutorialSelect').add(new Option(t.title,t.id));});
  if(tutorials.length===1)$('tutorialSelect').value=tutorials[0].id;
@@ -25,3 +35,4 @@ player.addEventListener('play',()=>{if(credential&&Date.now()-lastRenew>240000)r
 $('resumeVideo').onclick=renew;$('closePlayer').onclick=()=>{credential=null;player.pause();player.removeAttribute('src');player.load();$('playerSection').hidden=true;};
 $('accessButton').onclick=openVideo;$('accessCode').addEventListener('keydown',e=>{if(e.key==='Enter')openVideo()});$('catalogRetry').onclick=catalog;
 await catalog();
+
