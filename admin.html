@@ -10,8 +10,13 @@
 (function(){
 const message=document.getElementById('status'),retry=document.getElementById('retry-auth');
 retry.onclick=function(){location.reload()};
-let timer=setTimeout(function(){if(!window.academyAdminStarted){message.textContent='Nu s-a putut încărca autentificarea. Verifică internetul și apasă Reîncearcă verificarea.';message.className='status error';}},20000);
-import('./academy-admin.js?v=auth-recovery-20261102').then(function(){clearTimeout(timer)}).catch(function(){clearTimeout(timer);message.textContent='Autentificarea nu s-a putut încărca. Apasă Reîncearcă verificarea. Nu solicita alt e-mail.';message.className='status error';});
+function failed(text){message.textContent=text;message.className='status error';}
+let timer=setTimeout(function(){if(message.textContent==='Se verifică autentificarea…')failed('Verificarea nu s-a încheiat. Închide celelalte file NailMargin Admin și apasă Reîncearcă verificarea.');},20000);
+const sdk=document.createElement('script');sdk.src='./vendor/supabase-2.57.4.js';
+sdk.onerror=function(){clearTimeout(timer);failed('Biblioteca de autentificare nu s-a încărcat. Verifică internetul și apasă Reîncearcă verificarea.');};
+sdk.onload=function(){import('./academy-admin.js?v=local-auth-20261102').then(function(){clearTimeout(timer)}).catch(function(){clearTimeout(timer);failed('Autentificarea nu s-a putut încărca. Apasă Reîncearcă verificarea. Nu solicita alt e-mail.');});};
+document.head.appendChild(sdk);
 })();
 </script></body></html>
+
 

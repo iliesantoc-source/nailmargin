@@ -1,7 +1,8 @@
-import {createClient} from 'https://esm.sh/@supabase/supabase-js@2.57.4';
+const {createClient,navigatorLock,processLock}=window.supabase;
+function authLock(name,timeout,fn){return (globalThis.navigator?.locks?navigatorLock:processLock)(name,timeout<0?8000:Math.min(timeout,8000),fn);}
 import {SUPABASE_URL,SUPABASE_KEY} from './academy-config.js';
 function bounded(promise,ms=18000){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Conexiunea durează prea mult. Apasă Reîncearcă verificarea. Nu este nevoie să soliciți alt e-mail.')),ms);Promise.resolve(promise).then(value=>{clearTimeout(timer);resolve(value)},error=>{clearTimeout(timer);reject(error)});});}
-const db=createClient(SUPABASE_URL,SUPABASE_KEY,{global:{fetch:(url,options={})=>fetch(url,{...options,signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}});
+const db=createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{lock:authLock},global:{fetch:(url,options={})=>fetch(url,{...options,signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}});
 window.academyAdminStarted=true;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -31,7 +32,7 @@ async function enter(){if(loading)return;loading=true;try{
  const member=checked(await bounded(db.from('academy_admins').select('user_id').eq('user_id',user.id).maybeSingle()));
  if(!member){await db.auth.signOut();throw new Error('Acest cont nu are drepturi de administrator.');}
  currentUser=user;$('login').hidden=true;$('dashboard').hidden=false;$('identity').textContent=user.email;await bounded(load());status('Conectată. Datele sunt salvate în siguranță.');
- }catch(e){$('login').hidden=false;$('dashboard').hidden=true;status(e.message,true)}finally{loading=false}}
+ }catch(e){$('login').hidden=false;$('dashboard').hidden=true;status(e.isAcquireTimeout?'Sesiunea este ocupată într-o altă filă. Închide celelalte file NailMargin Admin și apasă Reîncearcă verificarea.':e.message,true)}finally{loading=false}}
 $('login-form').addEventListener('submit',e=>{e.preventDefault();run(e.currentTarget,async()=>{if(!$('password').value)throw new Error('Introdu parola sau folosește linkul pe e-mail.');checked(await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value}));$('password').value='';await enter();})});
 $('magic-link').onclick=()=>run($('login-form'),async()=>{if(!$('email').checkValidity())throw new Error('Introdu adresa de e-mail.');checked(await db.auth.signInWithOtp({email:$('email').value.trim(),options:{shouldCreateUser:false,emailRedirectTo:new URL('admin.html',location.href).href}}));status('Linkul de conectare a fost trimis. Verifică Inbox și Spam.');});
 $('retry-auth').onclick=()=>location.reload();
@@ -59,4 +60,5 @@ $('settings-form').onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>
 $('password-form').onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{if($('new-password').value!==$('repeat-password').value)throw new Error('Parolele nu coincid.');checked(await db.auth.updateUser({password:$('new-password').value}));$('password-form').reset();status('Parola a fost salvată. Te poți conecta cu e-mail și parolă.');})};
 db.auth.onAuthStateChange(event=>{if(['SIGNED_IN','PASSWORD_RECOVERY','SIGNED_OUT'].includes(event))setTimeout(enter,0)});
 await enter();
+
 
