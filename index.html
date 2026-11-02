@@ -861,11 +861,14 @@ footer a:hover{color:white}
           </select>
         </label>
 
+        <label>Moneda calculatorului
+          <select id="currency" aria-label="Alege moneda"><option value="RON">RON — Leu (lei)</option><option value="EUR">EUR — Euro (€)</option><option value="USD">USD — Dolar ($)</option><option value="RUB">RUB — Rublă (₽)</option></select>
+        </label>
         <label>Durata serviciului (minute)
           <input id="minutes" type="number" min="15" value="130">
         </label>
 
-        <label>Valoarea muncii tale / oră (lei)
+        <label>Valoarea muncii tale / oră (<span class="currency-unit">RON</span>)
           <input id="hourRate" type="number" min="0" value="55">
         </label>
 
@@ -877,7 +880,7 @@ footer a:hover{color:white}
           <input id="reserve" type="number" min="0" value="15">
         </label>
 
-        <label>Prețul tău actual (lei) · opțional
+        <label>Prețul tău actual (<span class="currency-unit">RON</span>) · opțional
           <input
             id="actualPrice"
             type="number"
@@ -1100,12 +1103,29 @@ function numeric(id) {
   return Math.max(0, Number($(id).value) || 0);
 }
 
+const currencyRates = {RON:1,EUR:1/5,USD:1/4.6,RUB:1/0.052}; // Exemplu orientativ, nu curs live.
+let currentCurrency = "RON";
 function money(value) {
-  return value.toLocaleString("ro-RO", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }) + " lei";
+  const locale = {RON:"ro-RO",EUR:"de-DE",USD:"en-US",RUB:"ru-RU"}[currentCurrency];
+  return new Intl.NumberFormat(locale,{style:"currency",currency:currentCurrency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
 }
+function switchCurrency(next){
+  if(!currencyRates[next]||next===currentCurrency)return;
+  const factor=currencyRates[next]/currencyRates[currentCurrency];
+  document.querySelectorAll('#hourRate,#actualPrice,#materialRows input,#fixedRows input').forEach(input=>{
+    if(input.value.trim()!=="")input.value=(Number(input.value)*factor).toFixed(2);
+  });
+  levels.beginner.rate*=factor;levels.medium.rate*=factor;levels.advanced.rate*=factor;
+  for(const items of Object.values(materials))for(const item of items)item[1]*=factor;
+  for(const item of fixedCosts)item[1]*=factor;
+  for(const overrides of Object.values(materialOverrides))for(const k of Object.keys(overrides))overrides[k]*=factor;
+  for(const k of Object.keys(fixedOverrides))fixedOverrides[k]*=factor;
+  currentCurrency=next;
+  try{localStorage.setItem("nailmargin-currency",next)}catch(e){}
+  document.querySelectorAll('.currency-unit').forEach(el=>el.textContent=next);
+  calculate();
+}
+
 
 const levels = {
   beginner: {
@@ -1305,7 +1325,7 @@ function calculate() {
     subtotal + reserveAmount;
 
   const recommended =
-    Math.round(estimatedTotal);
+    Math.round(estimatedTotal * 100) / 100;
 
   $("materialsTotal").textContent = money(materialCost);
   $("monthlyFixedTotal").textContent = money(monthlyFixed);
@@ -1324,7 +1344,7 @@ function calculate() {
   `).join("");
 
   $("recommended").textContent =
-    recommended.toLocaleString("ro-RO") + " lei";
+    money(recommended);
 
   if (previousPrice !== null && previousPrice !== recommended) {
     const result = $("priceResult");
@@ -1378,6 +1398,9 @@ $("service").addEventListener("change",() => {
 
 renderFixed();
 renderMaterials();
+$("currency").addEventListener("change",e=>switchCurrency(e.target.value));
+try {const saved=localStorage.getItem("nailmargin-currency");if(saved&&currencyRates[saved]){$("currency").value=saved;switchCurrency(saved)}}catch(e){}
+
 
 /* ==========================================
    ANIMATIONS
