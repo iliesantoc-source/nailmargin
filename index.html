@@ -893,11 +893,7 @@ footer a:hover{color:white}
 
       <div class="note">
         <strong>Cum influențează experiența prețul?</strong>
-        <p>
-          Calculatorul folosește orientativ 35 lei/oră pentru începător,
-          55 lei/oră pentru nivel mediu și 80 lei/oră pentru nivel avansat.
-          Poți modifica manual tariful și durata.
-        </p>
+        <p id="experienceExplanation"></p>
       </div>
 
       <h3 class="calc-title">01. Materiale și consumabile</h3>
@@ -1344,6 +1340,16 @@ function calculate() {
     ru: `Если ежемесячные расходы салона составляют ${money(monthlyFixed)}, а вы обслуживаете ${clientCount} клиентов в месяц, каждая услуга покрывает ${money(fixedPerClient)} постоянных расходов.`
   };
   $("fixedCostExample").textContent = fixedExample[selectedLang] || fixedExample.ro;
+  const beginnerRate=money(levels.beginner.rate);
+  const mediumRate=money(levels.medium.rate);
+  const advancedRate=money(levels.advanced.rate);
+  const experienceExample={
+    ro:`Calculatorul folosește orientativ ${beginnerRate}/oră pentru începător, ${mediumRate}/oră pentru nivel mediu și ${advancedRate}/oră pentru nivel avansat. Poți modifica manual tariful și durata.`,
+    en:`The calculator uses indicative hourly rates of ${beginnerRate} for beginners, ${mediumRate} for intermediate professionals and ${advancedRate} for advanced professionals. You can adjust the rate and duration manually.`,
+    es:`La calculadora utiliza tarifas orientativas de ${beginnerRate} por hora para principiantes, ${mediumRate} para nivel intermedio y ${advancedRate} para nivel avanzado. Puedes modificar la tarifa y la duración manualmente.`,
+    ru:`Калькулятор использует ориентировочные почасовые ставки: ${beginnerRate} для начинающих, ${mediumRate} для среднего уровня и ${advancedRate} для опытных специалистов. Вы можете вручную изменить ставку и продолжительность.`
+  };
+  $("experienceExplanation").textContent=experienceExample[selectedLang]||experienceExample.ro;
 
 
   $("breakdown").innerHTML = [
