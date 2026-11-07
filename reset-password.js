@@ -30,6 +30,6 @@
  try{await api('/logout?scope=global',undefined,access);}catch{}
  access=refresh=tokenHash=null;show('');
  }catch(e){show(failure(e));}finally{busy=false;render();}});
- $('email-form').addEventListener('submit',async event=>{event.preventDefault();if(busy)return;const email=$('email').value.trim();if(!$('email').checkValidity()){$('email').reportValidity();return;}const last=Number(sessionStorage.getItem('nm.reset.last')||0);if(Date.now()-last<60000){show('limited');return;}busy=true;show('wait');render();try{await api('/recover',{email,redirect_to:'https://nailmargin.ro/reset-password.html?lang='+lang});sessionStorage.setItem('nm.reset.last',String(Date.now()));show('sent');}catch(e){if(e.status===429)sessionStorage.setItem('nm.reset.last',String(Date.now()));show(failure(e));}finally{busy=false;render();}});
+ $('email-form').addEventListener('submit',async event=>{event.preventDefault();if(busy)return;const email=$('email').value.trim();if(!$('email').checkValidity()){$('email').reportValidity();return;}const last=Number(sessionStorage.getItem('nm.reset.last')||0);if(Date.now()-last<60000){show('limited');return;}busy=true;show('wait');render();try{await api('/recover?redirect_to='+encodeURIComponent('https://nailmargin.ro/reset-password.html?lang='+lang),{email});sessionStorage.setItem('nm.reset.last',String(Date.now()));show('sent');}catch(e){if(e.status===429)sessionStorage.setItem('nm.reset.last',String(Date.now()));show(failure(e));}finally{busy=false;render();}});
  render();
 })();
