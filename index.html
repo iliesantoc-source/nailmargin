@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
+<script>
+// Keep password-recovery sessions on the dedicated first-party page.
+(function(){var q=new URLSearchParams(location.hash.slice(1));if(q.get('type')==='recovery'&&q.has('access_token')){location.replace('/reset-password.html'+location.search+location.hash);}})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f7f1e9">
